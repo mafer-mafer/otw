@@ -9,7 +9,6 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
 
-  // Creating Users
   const users = await Promise.all([
     User.create({ username: "irene", password: "123" }),
     User.create({ username: "wendy", password: "123" }),
@@ -216,7 +215,6 @@ async function seed() {
   await item3.setGroup(girlGroups[2]);
   await item4.setGroup(girlGroups[1]);
 
-  console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {
     users: {
