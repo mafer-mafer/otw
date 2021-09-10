@@ -5,17 +5,17 @@ const Order = require("./models/Order");
 const Item = require("./models/Item");
 
 //double check these later
-// User.hasMany(Group);
-// Group.belongsToMany(User);
+User.belongsToMany(Group, { through: "FavoriteGroups" });
+Group.belongsToMany(User, { through: "FavoriteGroups" });
 
-// User.hasMany(Order);
-// Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsTo(User);
 
-// Order.hasMany(Item);
-// Item.belongsTo(Order);
+Order.hasMany(Item);
+Item.belongsTo(Order);
 
-// Item.belongsTo(Group);
-// Group.hasMany(Item);
+Item.belongsTo(Group);
+Group.hasMany(Item);
 
 module.exports = {
   db,
