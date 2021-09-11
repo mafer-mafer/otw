@@ -206,9 +206,9 @@ async function seed() {
   await users[0].addOrder(order2);
   await users[1].addOrder(order3);
 
-  await users[0].addGroups(girlGroups[0], girlGroups[3], boyGroups[4]);
-  await users[1].addGroups(girlGroups[5], girlGroups[6], boyGroups[3]);
-  await users[2].addGroups(girlGroups[1], girlGroups[4], boyGroups[2]);
+  await users[0].addGroups([girlGroups[0], girlGroups[3], boyGroups[4]]);
+  await users[1].addGroups([girlGroups[5], girlGroups[6], boyGroups[3]]);
+  await users[2].addGroups([girlGroups[1], girlGroups[4], boyGroups[2]]);
 
   await item1.setGroup(boyGroups[1]);
   await item2.setGroup(girlGroups[8]);

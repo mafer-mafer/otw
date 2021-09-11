@@ -5,12 +5,13 @@ import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="scallop">
-    <h1>OnTheWay! </h1>
+    <h1>On The Way! </h1>
     <nav>
       {isLoggedIn ? (
         <div>
           <h3>
             <Link to="/home">Home</Link>
+            <Link to="/groups">Groups</Link>
             <Link to="/orders">Orders</Link>{" "}
             <a href="#" onClick={handleClick}>
               Logout
