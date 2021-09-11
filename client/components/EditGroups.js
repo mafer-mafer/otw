@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { setFaveGroups } from "../store/faveGroups";
 
-export class Groups extends React.Component {
+export class EditGroups extends React.Component {
   constructor() {
     super();
 
@@ -24,27 +24,23 @@ export class Groups extends React.Component {
     console.log(this.props.faveGroups);
     return (
       <div className="after-scallop">
-        <h3>
-          <span className="title-groups">Groups I Collect</span>
-          <Link to="/editgroups">
-            <span className="edit-groups">+Edit</span>
-          </Link>
-        </h3>
-        {this.props.isLoggedIn && this.props.faveGroups.length ? (
-          <div>
-            {this.props.faveGroups.map((group) => {
-              return (
-                <h4 key={group.id} className="group-names">
-                  {group.name}
-                </h4>
-              );
-            })}
+        <div className="edit-groups-container">
+          <div className="all-groups">All Groups:</div>
+          <div className="all-groups">
+            You Collect:
+            <div>
+              {this.props.faveGroups.length ? (
+                <div>
+                  {this.props.faveGroups.map((group) => {
+                    return <h4 key={group.id}>{group.name}</h4>;
+                  })}
+                </div>
+              ) : (
+                <h4>Try Adding a group!</h4>
+              )}
+            </div>
           </div>
-        ) : this.props.isLoggedIn ? (
-          <h3>Please Log In To Access Your Favorite Groups</h3>
-        ) : (
-          <h3>Add some fave groups!</h3>
-        )}
+        </div>
       </div>
     );
   }
@@ -64,4 +60,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Groups);
+export default connect(mapStateToProps, mapDispatchToProps)(EditGroups);

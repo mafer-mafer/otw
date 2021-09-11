@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import { me } from "./store";
 import Orders from "./components/Orders";
 import Groups from "./components/Groups";
+import EditGroups from "./components/EditGroups";
 
 /**
  * COMPONENT
@@ -24,6 +25,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/orders" component={Orders} />
             <Route path="/groups" component={Groups} />
+            <Route path="/editgroups" component={EditGroups} />
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
           </Switch>

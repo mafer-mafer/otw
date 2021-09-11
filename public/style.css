@@ -84,9 +84,38 @@ form div {
   font-weight: bold;
 }
 
-a {
-  text-decoration: none;
+.title-groups {
+  text-align: center;
+  float: center;
+  padding-left: 40px;
+  font-size: 27px;
 }
-img {
-  margin-right: 20px;
+
+.edit-groups {
+  font-size: 25px;
+  margin: 5px;
+  position: relative;
+  text-align: right;
+  float: right;
+}
+
+.edit-groups:hover {
+  color: white;
+}
+
+.group-names:hover {
+  color: white;
+}
+
+.edit-groups-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+}
+
+.all-groups {
+  flex-grow: 1;
+  order: 1;
+  font-size: 20px;
+  font-weight: bold;
 }
