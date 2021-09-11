@@ -1,23 +1,34 @@
-const SET_GROUPS;
+import axios from "axios";
 
-export const _setGroups = (groups) => {
+const SET_GROUPS = "SET_GROUPS";
+
+export const _setGroups = (allGroups) => {
   return {
     type: SET_GROUPS,
-    groups,
+    allGroups,
   };
 };
 
-export const setGroups = () => {
+export const setGroups = (type) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get("/api/groups", {
-        headers: {
-          authorization: window.localStorage.getItem("token"),
-        },
-      });
+      const { data } = await axios.get(`/api/groups/${type}`);
       dispatch(_setGroups(data));
     } catch (err) {
-      console.log("Error fetching all grous via thunk");
+      console.log("Error fetching all groups via thunk");
     }
   };
+};
+
+export default (state = [], action) => {
+  switch (action.type) {
+    case SET_GROUPS:
+      return action.allGroups;
+    // case DELETE_PRODUCT:
+    //   return state.filter((product) => product.id !== action.product.id);
+    // case CREATE_PRODUCT:
+    //   return [...state, action.product];
+    default:
+      return state;
+  }
 };

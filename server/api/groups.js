@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   models: { Group },
 } = require("../db");
+const Item = require("../db/models/Item");
 module.exports = router;
 
 router.get("/", async (req, res, next) => {
@@ -13,12 +14,14 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/boygroup", async (req, res, next) => {
+router.get("/boy", async (req, res, next) => {
+  console.log("in api");
   try {
     const groups = await Group.findAll({
       where: {
-        type: "Boy Group",
+        groupType: "Boy Group",
       },
+      attributes: ["name", "id"],
     });
     res.json(groups);
   } catch (err) {
@@ -26,12 +29,14 @@ router.get("/boygroup", async (req, res, next) => {
   }
 });
 
-router.get("/girlgroup", async (req, res, next) => {
+router.get("/girl", async (req, res, next) => {
+  console.log("hii");
   try {
     const groups = await Group.findAll({
       where: {
-        type: "Girl Group",
+        groupType: "Girl Group",
       },
+      attributes: ["name", "id"],
     });
     res.json(groups);
   } catch (err) {
@@ -39,7 +44,7 @@ router.get("/girlgroup", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/one/:id", async (req, res, next) => {
   try {
     const groups = await Group.findOne({
       where: {
@@ -52,16 +57,3 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
-
-// router.get("/:userId", async (req, res, next) => {
-//   try {
-//     const groups = await Group.findAll({
-//         where: {
-
-//         }
-//     });
-//     res.json(groups);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
