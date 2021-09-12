@@ -21,7 +21,6 @@ export class Groups extends React.Component {
   }
 
   render() {
-    console.log(this.props.faveGroups);
     return (
       <div className="after-scallop">
         <h3>
@@ -31,12 +30,14 @@ export class Groups extends React.Component {
           </Link>
         </h3>
         {this.props.isLoggedIn && this.props.faveGroups.length ? (
-          <div>
+          <div className="your-groups-container">
             {this.props.faveGroups.map((group) => {
               return (
-                <h4 key={group.id} className="group-names">
-                  {group.name}
-                </h4>
+                <p key={group.id} className="your-groups-single">
+                  <Link to={`/group/${group.id}`}>
+                    <button className="group-names">{group.name}</button>
+                  </Link>
+                </p>
               );
             })}
           </div>

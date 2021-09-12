@@ -2,6 +2,10 @@ const router = require("express").Router();
 const {
   models: { Group },
 } = require("../db");
+const {
+  models: { User },
+} = require("../db");
+
 const Item = require("../db/models/Item");
 module.exports = router;
 
@@ -21,7 +25,6 @@ router.get("/boy", async (req, res, next) => {
       where: {
         groupType: "Boy Group",
       },
-      attributes: ["name", "id"],
     });
     res.json(groups);
   } catch (err) {
@@ -36,7 +39,6 @@ router.get("/girl", async (req, res, next) => {
       where: {
         groupType: "Girl Group",
       },
-      attributes: ["name", "id"],
     });
     res.json(groups);
   } catch (err) {
@@ -44,7 +46,7 @@ router.get("/girl", async (req, res, next) => {
   }
 });
 
-router.get("/one/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const groups = await Group.findOne({
       where: {
@@ -53,6 +55,28 @@ router.get("/one/:id", async (req, res, next) => {
       include: [{ model: Item }],
     });
     res.json(groups);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/:groupId/:userId", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId);
+    const group = await Group.findByPk(req.params.groupId);
+    await user.addGroup(group);
+    res.send(group);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/rmv/:groupId/:userId", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId);
+    const group = await Group.findByPk(req.params.groupId);
+    await user.removeGroup(group);
+    res.send(group);
   } catch (err) {
     next(err);
   }

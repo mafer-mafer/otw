@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { setFaveGroups } from "../store/faveGroups";
+import {
+  addFaveGroup,
+  removeFaveGroup,
+  setFaveGroups,
+} from "../store/faveGroups";
 import { setGroups } from "../store/allGroups";
 import classNames from "classnames";
 
@@ -9,9 +13,14 @@ export class EditGroups extends React.Component {
   constructor() {
     super();
     this.state = {
-      selected: "",
+      selected: {},
+      selectedType: "",
     };
     this.chooseType = this.chooseType.bind(this);
+    this.getFaveNames = this.getFaveNames.bind(this);
+    this.filterRepeats = this.filterRepeats.bind(this);
+    this.addFavorite = this.addFavorite.bind(this);
+    this.removeFavorite = this.removeFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -19,22 +28,50 @@ export class EditGroups extends React.Component {
       if (this.props.auth.id) {
         this.props.getFaveGroups(this.props.auth.id);
       }
-      this.props.loadGroups("girl");
+      this.props.loadGroups("girl", this.getFaveNames());
     } catch (error) {
       console.log(error);
     }
   }
 
   chooseType(e) {
-    this.props.loadGroups(e);
+    this.props.loadGroups(e, this.getFaveNames());
   }
 
-  selectGroup(name) {
-    if (this.state.selected === name) {
-      this.setState({ selected: "" });
-    } else {
-      this.setState({ selected: name });
+  getFaveNames() {
+    let faves = [];
+    for (let key in this.props.faveGroups) {
+      faves.push(this.props.faveGroups[key].name);
     }
+    return faves;
+  }
+
+  filterRepeats() {
+    let faves = this.getFaveNames();
+    let groups = this.props.allGroups.filter((x) => !faves.includes(x.name));
+    return groups;
+  }
+
+  selectGroup(group, type) {
+    if (this.state.selected.name === group.name) {
+      this.setState({ selected: {}, selectedType: type });
+    } else {
+      this.setState({ selected: group, selectedType: type });
+    }
+  }
+
+  addFavorite() {
+    if (this.state.selected !== {} && this.state.selectedType === "all") {
+      this.props.addFavorite(this.state.selected.id, this.props.auth.id);
+    }
+    this.setState({ selected: {}, selectedType: "" });
+  }
+
+  removeFavorite() {
+    if (this.state.selected !== {} && this.state.selectedType === "fave") {
+      this.props.removeFavorite(this.state.selected.id, this.props.auth.id);
+    }
+    this.setState({ selected: {}, selectedType: "" });
   }
 
   render() {
@@ -49,48 +86,74 @@ export class EditGroups extends React.Component {
               </button>
               <button onClick={() => this.chooseType("boy")}>Boy Groups</button>
             </div>
-            <div>
+            <p></p>
+            <div className="all-groups-container">
               {this.props.allGroups.length ? (
-                this.props.allGroups.map((group) => {
-                  return (
-                    <h5
-                      key={group.id}
-                      onClick={() => this.selectGroup(group.name)}
-                      className={classNames({
-                        "selected-group": this.state.selected === group.name,
-                      })}
-                    >
-                      {group.name}
-                    </h5>
-                  );
-                })
+                this.filterRepeats()
+                  .sort(function (a, b) {
+                    if (a.name > b.name) return 1;
+                    if (a.name < b.name) return -1;
+                    return 0;
+                  })
+                  .map((group) => {
+                    return (
+                      <p className="edit-group-lists" key={group.id}>
+                        <span
+                          onClick={() => this.selectGroup(group, "all")}
+                          className={classNames("all-groups-hover", {
+                            "selected-group":
+                              this.state.selected.name === group.name &&
+                              this.state.selectedType === "all",
+                          })}
+                        >
+                          ○{group.name}
+                        </span>
+                      </p>
+                    );
+                  })
               ) : (
                 <h4>Error happened loading sorry :(</h4>
               )}
             </div>
           </div>
           <div className="swap-groups">
-            <h4>Add→</h4>
-            <h4>←Remove</h4>
+            <p>
+              <button onClick={this.addFavorite}>Add→</button>
+            </p>
+            <p>
+              <button onClick={this.removeFavorite}>←Remove</button>
+            </p>
+            <Link to="/groups">
+              <h3 className="all-groups-hover">Done?</h3>
+            </Link>
           </div>
           <div className="all-groups">
             <h3>You Collect:</h3>
             <div>
               {this.props.faveGroups.length ? (
                 <div>
-                  {this.props.faveGroups.map((group) => {
-                    return (
-                      <h4
-                        key={group.id}
-                        onClick={() => this.selectGroup(group.name)}
-                        className={classNames({
-                          "selected-group": this.state.selected === group.name,
-                        })}
-                      >
-                        {group.name}
-                      </h4>
-                    );
-                  })}
+                  {this.props.faveGroups
+                    .sort(function (a, b) {
+                      if (a.name > b.name) return 1;
+                      if (a.name < b.name) return -1;
+                      return 0;
+                    })
+                    .map((group) => {
+                      return (
+                        <p className="edit-group-lists" key={group.id}>
+                          <span
+                            onClick={() => this.selectGroup(group, "fave")}
+                            className={classNames("all-groups-hover", {
+                              "selected-group":
+                                this.state.selected.name === group.name &&
+                                this.state.selectedType === "fave",
+                            })}
+                          >
+                            ○{group.name}
+                          </span>
+                        </p>
+                      );
+                    })}
                 </div>
               ) : (
                 <h4>Try Adding a group!</h4>
@@ -116,6 +179,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getFaveGroups: (id) => dispatch(setFaveGroups(id)),
     loadGroups: (type) => dispatch(setGroups(type)),
+    addFavorite: (group, user) => dispatch(addFaveGroup(group, user)),
+    removeFavorite: (group, user) => dispatch(removeFaveGroup(group, user)),
   };
 };
 

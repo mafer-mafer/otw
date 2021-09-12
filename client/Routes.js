@@ -7,6 +7,10 @@ import { me } from "./store";
 import Orders from "./components/Orders";
 import Groups from "./components/Groups";
 import EditGroups from "./components/EditGroups";
+import GroupView from "./components/GroupView";
+import SingleOrder from "./components/SingleOrder";
+import EditOrder from "./components/EditOrder";
+import NewOrder from "./components/NewOrder";
 
 /**
  * COMPONENT
@@ -23,9 +27,13 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
+            <Route path="/orders/new" component={NewOrder} />
+            <Route path="/orders/:orderId/edit" component={EditOrder} />
+            <Route path="/orders/:orderId" component={SingleOrder} />
             <Route path="/orders" component={Orders} />
             <Route path="/groups" component={Groups} />
             <Route path="/editgroups" component={EditGroups} />
+            <Route path="/group/:groupId" component={GroupView} />
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
           </Switch>

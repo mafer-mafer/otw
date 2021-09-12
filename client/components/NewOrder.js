@@ -4,7 +4,7 @@ import { setOrders } from "../store/orders";
 import { Link } from "react-router-dom";
 import history from "../history";
 
-export class Orders extends React.Component {
+export class NewOrder extends React.Component {
   constructor() {
     super();
     this.state = {};
@@ -12,7 +12,7 @@ export class Orders extends React.Component {
 
   componentDidMount() {
     if (this.props.auth.id) {
-      this.props.getOrders(this.props.auth.id);
+      //   this.props.getOrders(this.props.auth.id);
     }
   }
 
@@ -20,12 +20,12 @@ export class Orders extends React.Component {
     return (
       <div className="after-scallop">
         <h3>
-          <span className="title-groups">Your Incoming Orders</span>
-          <Link to="/orders/new">
-            <span className="edit-groups">+New Order</span>
+          <span className="title-groups">New Order:</span>
+          <Link to="/orders">
+            <span className="edit-groups">+Done</span>
           </Link>
         </h3>
-        {this.props.orders.length ? (
+        {/* {this.props.orders.length ? (
           <div>
             {this.props.orders.map((order) => {
               return (
@@ -90,7 +90,7 @@ export class Orders extends React.Component {
           </div>
         ) : (
           <h3>Seems like you have nothing on the way currently :0!</h3>
-        )}
+        )} */}
       </div>
     );
   }
@@ -99,14 +99,14 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     isLoggedIn: !!state.auth.id,
-    orders: state.orders,
+    // orders: state.orders,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getOrders: (id) => dispatch(setOrders(id)),
+    // getOrders: (id) => dispatch(setOrders(id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Orders);
+export default connect(mapStateToProps, mapDispatchToProps)(NewOrder);

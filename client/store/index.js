@@ -5,8 +5,16 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
 import faveGroups from "./faveGroups";
 import allGroups from "./allGroups";
+import orders from "./orders";
+import singleOrder from "./singleOrder";
 
-const reducer = combineReducers({ auth, faveGroups, allGroups });
+const reducer = combineReducers({
+  auth,
+  faveGroups,
+  allGroups,
+  orders,
+  singleOrder,
+});
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
