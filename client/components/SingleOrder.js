@@ -25,7 +25,7 @@ export class SingleOrder extends React.Component {
       <div className="after-scallop">
         <h3>
           <span className="title-groups">Order Details</span>
-          <Link to="/orders/:orderId/edit">
+          <Link to={`/orders/${order.id}/edit`}>
             <span className="edit-groups">+Edit</span>
           </Link>
         </h3>
@@ -51,8 +51,9 @@ export class SingleOrder extends React.Component {
             <h3>Shipped?: {order.shipped ? "Yes" : "No"}</h3>
             {order.shipped && order.dateShipped ? (
               <h3>
-                <h3>Date Shipped: {order.dateShipped}</h3>{" "}
-                <h3>Arrived?: {order.arrived ? "Yes" : "No"}</h3>
+                Date Shipped: {order.dateShipped}
+                <br></br>
+                Arrived?: {order.arrived ? "Yes" : "No"}
               </h3>
             ) : (
               <span />

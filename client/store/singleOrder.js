@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const SET_SINGLE_ORDER = "SET_SINGLE_ORDER";
-// const ADD_FAVE_GROUP = "ADD_FAVE_GROUP";
+const ADD_NEW_ORDER = "ADD_NEW_ORDER";
+const EDIT_ORDER = "EDIT_ORDER";
 // const REMOVE_FAVE_GROUP = "REMOVE_FAVE_GROUP";
 
 export const _setSingleOrder = (order) => {
@@ -11,12 +12,19 @@ export const _setSingleOrder = (order) => {
   };
 };
 
-// export const _addFaveGroup = (addedFave) => {
-//   return {
-//     type: ADD_FAVE_GROUP,
-//     addedFave,
-//   };
-// };
+export const _newOrder = (order) => {
+  return {
+    type: ADD_NEW_ORDER,
+    order,
+  };
+};
+
+export const _editOrder = (order) => {
+  return {
+    type: EDIT_ORDER,
+    order,
+  };
+};
 
 // export const _removeFaveGroup = (removedFave) => {
 //   return {
@@ -40,20 +48,41 @@ export const setSingleOrder = (id) => {
   };
 };
 
-// export const addFaveGroup = (group, user) => {
-//   return async (dispatch) => {
-//     try {
-//       const { data } = await axios.put(`/api/groups/${group}/${user}`, {
-//         headers: {
-//           authorization: window.localStorage.getItem("token"),
-//         },
-//       });
-//       dispatch(_addFaveGroup(data));
-//     } catch (error) {
-//       console.log("Error adding favorite groups via thunk");
-//     }
-//   };
-// };
+export const addNewOrder = (order, user) => {
+  return async (dispatch) => {
+    try {
+      const { data: created } = await axios.post(
+        `/api/orders/new/${user}`,
+        order,
+        {
+          headers: {
+            authorization: window.localStorage.getItem("token"),
+          },
+        }
+      );
+      dispatch(_newOrder(created));
+      history.push(`/orders/${created.id}`);
+    } catch (error) {
+      console.log("Error creating new order via thunk");
+    }
+  };
+};
+
+export const editOrder = (orderId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/orders/${orderId}`, order, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      });
+      dispatch(_editOrder(data));
+      history.push(`/orders/${data.id}`);
+    } catch (error) {
+      console.log("Error editing order via thunk");
+    }
+  };
+};
 
 // export const removeFaveGroup = (group, user) => {
 //   return async (dispatch) => {
@@ -74,8 +103,10 @@ export default (state = {}, action) => {
   switch (action.type) {
     case SET_SINGLE_ORDER:
       return action.order;
-    // case ADD_FAVE_GROUP:
-    //   return [...state, action.addedFave];
+    case ADD_NEW_ORDER:
+      return [...state, action.order];
+    case EDIT_ORDER:
+      return action.order;
     // case REMOVE_FAVE_GROUP:
     //   return state.filter((group) => group.id !== action.removedFave.id);
     default:

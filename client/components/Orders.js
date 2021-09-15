@@ -29,62 +29,64 @@ export class Orders extends React.Component {
           <div>
             {this.props.orders.map((order) => {
               return (
-                <Link to={`/orders/${order.id}`}>
-                  <button key={order.id} className="all-orders-buttons">
-                    <h3>Seller: {order.seller}</h3>
-                    <h3>Platform: {order.platform}</h3>
-                    <h3>Type: {order.type}</h3>
-                    <h3>
-                      Date Ordered:{" "}
-                      {order.dateOrdered.toLocaleString("en-US", {
-                        day: "numeric",
-                        year: "numeric",
-                        month: "long",
-                      })}
-                    </h3>
-                    <h3>On Hand: {order.onHand ? "Yes" : "No"}</h3>
-                    {!order.onHand && order.onHandDate ? (
+                <p key={order.id}>
+                  <Link to={`/orders/${order.id}`}>
+                    <button className="all-orders-buttons">
+                      <h3>Seller: {order.seller}</h3>
+                      <h3>Platform: {order.platform}</h3>
+                      <h3>Type: {order.type}</h3>
                       <h3>
-                        On Hand Date:{" "}
-                        {order.onHandDate.toLocaleString("en-US", {
+                        Date Ordered:{" "}
+                        {order.dateOrdered.toLocaleString("en-US", {
                           day: "numeric",
                           year: "numeric",
                           month: "long",
                         })}
                       </h3>
-                    ) : (
-                      <span />
-                    )}
-                    <h3>Seller Location: {order.sellerLocation}</h3>
-                    <h3>Shipping Type: {order.shippingType}</h3>
-                    {order.trackingNumber ? (
-                      <span />
-                    ) : (
-                      <h3>Tracking: {order.trackingNumber}</h3>
-                    )}
-                    <h3>Shipped?: {order.shipped ? "Yes" : "No"}</h3>
-                    {order.shipped && order.dateShipped ? (
-                      <>
+                      <h3>On Hand: {order.onHand ? "Yes" : "No"}</h3>
+                      {!order.onHand && order.onHandDate ? (
                         <h3>
-                          Date Shipped:{" "}
-                          {order.dateShipped.toLocaleString("en-US", {
+                          On Hand Date:{" "}
+                          {order.onHandDate.toLocaleString("en-US", {
                             day: "numeric",
                             year: "numeric",
                             month: "long",
                           })}
-                        </h3>{" "}
-                        <h3>Arrived?: {order.arrived ? "Yes" : "No"}</h3>
-                      </>
-                    ) : (
-                      <span />
-                    )}
-                    {order.arrived ? (
-                      <h3>Proof Given?: {order.proofGiven ? "Yes" : "No"}</h3>
-                    ) : (
-                      <span />
-                    )}
-                  </button>
-                </Link>
+                        </h3>
+                      ) : (
+                        <span />
+                      )}
+                      <h3>Seller Location: {order.sellerLocation}</h3>
+                      <h3>Shipping Type: {order.shippingType}</h3>
+                      {order.trackingNumber ? (
+                        <span />
+                      ) : (
+                        <h3>Tracking: {order.trackingNumber}</h3>
+                      )}
+                      <h3>Shipped?: {order.shipped ? "Yes" : "No"}</h3>
+                      {order.shipped && order.dateShipped ? (
+                        <>
+                          <h3>
+                            Date Shipped:{" "}
+                            {order.dateShipped.toLocaleString("en-US", {
+                              day: "numeric",
+                              year: "numeric",
+                              month: "long",
+                            })}
+                          </h3>{" "}
+                          <h3>Arrived?: {order.arrived ? "Yes" : "No"}</h3>
+                        </>
+                      ) : (
+                        <span />
+                      )}
+                      {order.arrived ? (
+                        <h3>Proof Given?: {order.proofGiven ? "Yes" : "No"}</h3>
+                      ) : (
+                        <span />
+                      )}
+                    </button>
+                  </Link>
+                </p>
               );
             })}
           </div>

@@ -3,11 +3,29 @@ import { connect } from "react-redux";
 import { setOrders } from "../store/orders";
 import { Link } from "react-router-dom";
 import history from "../history";
+import { countries } from "../../script/countries";
+import { addNewOrder } from "../store/singleOrder";
 
 export class NewOrder extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      seller: "",
+      platform: "Twitter",
+      type: "Purchase",
+      dateOrdered: "",
+      onHand: false,
+      onHandDate: "",
+      sellerLocation: "Unknown",
+      shippingType: "Stamped",
+      tracking: "",
+      shipped: false,
+      dateShipped: "",
+      arrived: false,
+      proofGiven: false,
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -15,82 +33,199 @@ export class NewOrder extends React.Component {
       //   this.props.getOrders(this.props.auth.id);
     }
   }
+  handleChange(e) {
+    if (e.target.value === "false") {
+      this.setState({
+        [e.target.name]: true,
+      });
+    } else if (e.target.value === "true") {
+      this.setState({
+        [e.target.name]: false,
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
+    }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.createOrder({ ...this.state });
+  }
 
   render() {
+    console.log(this.state);
+    const {
+      seller,
+      sellerLocation,
+      type,
+      dateOrdered,
+      onHand,
+      onHandDate,
+      shipped,
+      shippedDate,
+      shippingType,
+      tracking,
+      arrived,
+      proofGiven,
+    } = this.state;
+    const { handleSubmit, handleChange } = this;
     return (
       <div className="after-scallop">
         <h3>
           <span className="title-groups">New Order:</span>
           <Link to="/orders">
-            <span className="edit-groups">+Done</span>
+            <span className="edit-groups">Cancel</span>
           </Link>
         </h3>
-        {/* {this.props.orders.length ? (
+        <form id="new-order" onSubmit={handleSubmit}>
           <div>
-            {this.props.orders.map((order) => {
-              return (
-                <Link to={`/orders/${order.id}`}>
-                  <button key={order.id} className="all-orders-buttons">
-                    <h3>Seller: {order.seller}</h3>
-                    <h3>Platform: {order.platform}</h3>
-                    <h3>Type: {order.type}</h3>
-                    <h3>
-                      Date Ordered:{" "}
-                      {order.dateOrdered.toLocaleString("en-US", {
-                        day: "numeric",
-                        year: "numeric",
-                        month: "long",
-                      })}
-                    </h3>
-                    <h3>On Hand: {order.onHand ? "Yes" : "No"}</h3>
-                    {!order.onHand && order.onHandDate ? (
-                      <h3>
-                        On Hand Date:{" "}
-                        {order.onHandDate.toLocaleString("en-US", {
-                          day: "numeric",
-                          year: "numeric",
-                          month: "long",
-                        })}
-                      </h3>
-                    ) : (
-                      <span />
-                    )}
-                    <h3>Seller Location: {order.sellerLocation}</h3>
-                    <h3>Shipping Type: {order.shippingType}</h3>
-                    {order.trackingNumber ? (
-                      <span />
-                    ) : (
-                      <h3>Tracking: {order.trackingNumber}</h3>
-                    )}
-                    <h3>Shipped?: {order.shipped ? "Yes" : "No"}</h3>
-                    {order.shipped && order.dateShipped ? (
-                      <>
-                        <h3>
-                          Date Shipped:{" "}
-                          {order.dateShipped.toLocaleString("en-US", {
-                            day: "numeric",
-                            year: "numeric",
-                            month: "long",
-                          })}
-                        </h3>{" "}
-                        <h3>Arrived?: {order.arrived ? "Yes" : "No"}</h3>
-                      </>
-                    ) : (
-                      <span />
-                    )}
-                    {order.arrived ? (
-                      <h3>Proof Given?: {order.proofGiven ? "Yes" : "No"}</h3>
-                    ) : (
-                      <span />
-                    )}
-                  </button>
-                </Link>
-              );
-            })}
+            <label htmlFor="seller">Seller:</label>
+            <input name="seller" onChange={handleChange} value={seller} />
           </div>
-        ) : (
-          <h3>Seems like you have nothing on the way currently :0!</h3>
-        )} */}
+          <br></br>
+          <div>
+            <label htmlFor="platform">Platform:</label>
+            <select name="platform" onChange={handleChange}>
+              <option value="Twitter">Twitter</option>
+              <option value="Instagram">Instagram</option>
+              <option value="eBay">eBay</option>
+              <option value="Mercari">Mercari</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <br></br>
+          <div>
+            <label htmlFor="type">Seller's Location:</label>
+            <select name="sellerLocation" onChange={handleChange}>
+              <option value="Unkown">Unknown</option>
+              {countries.map((country, idx) => {
+                return (
+                  <option value={`${country}`} key={idx}>{`${country}`}</option>
+                );
+              })}
+            </select>
+          </div>
+          <br></br>
+          <div>
+            <label htmlFor="type">Type:</label>
+            <select name="type" onChange={handleChange}>
+              <option value="Purchase">Purchase</option>
+              <option value="Trade">Trade</option>
+              <option value="Group Order">Group Order</option>
+            </select>
+          </div>
+          <br></br>
+          <div>
+            <label htmlFor="dateOrdered">Date Ordered:</label>
+            <input
+              type="date"
+              id="dateOrdered"
+              name="dateOrdered"
+              value={dateOrdered}
+              onChange={handleChange}
+            />
+          </div>
+          <br></br>
+          <div className="type-radio">
+            <span>On Hand:</span>
+            <br></br>
+            <input
+              id="on-hand-checkbox"
+              type="checkbox"
+              name="onHand"
+              onChange={handleChange}
+              value={onHand}
+            />
+          </div>
+          {onHand ? (
+            <div>
+              <label htmlFor="dateOrdered">On Hand Date:</label>
+              <input
+                type="date"
+                id="onHandDate"
+                name="onHandDate"
+                value={onHandDate}
+                onChange={handleChange}
+              />
+            </div>
+          ) : (
+            <span />
+          )}
+          <br></br>
+          <div>
+            <label htmlFor="shippingType">Shipping Type:</label>
+            <select name="shippingType" onChange={handleChange}>
+              <option value="Stamped">Stamped</option>
+              <option value="Tracked">Tracked</option>
+              <option value="EMS">EMS</option>
+              <option value="DHL">DHL</option>
+              <option value="Boat">Boat</option>
+            </select>
+          </div>
+          <br></br>
+          <div>
+            <span>Order Shipped?</span>
+            <br></br>
+            <input
+              type="checkbox"
+              name="shipped"
+              onChange={handleChange}
+              value={shipped}
+            />
+          </div>
+          <br></br>
+          {shipped ? (
+            <div>
+              <label htmlFor="dateShipped">Shipping Date:</label>
+              <input
+                type="shippingDate"
+                name="shippedDate"
+                value={shippedDate}
+                onChange={handleChange}
+              />
+            </div>
+          ) : (
+            <span></span>
+          )}
+          {shippingType !== "Stamped" ? (
+            <div>
+              <label htmlFor="tracking">Tracking:</label>
+              <input name="tracking" onChange={handleChange} value={tracking} />
+            </div>
+          ) : (
+            <span></span>
+          )}
+          <div>
+            <span>Order Arrived?</span>
+            <br></br>
+            <input
+              type="checkbox"
+              name="arrived"
+              onChange={handleChange}
+              value={arrived}
+            />
+          </div>
+          <br></br>
+          <div>
+            <span>Proof Sent to Seller?</span>
+            <br></br>
+            <input
+              type="checkbox"
+              name="proofGiven"
+              onChange={handleChange}
+              value={proofGiven}
+            />
+          </div>
+          <br></br>
+          <div>
+            <p>
+              <button type="submit">Submit</button>
+            </p>
+          </div>
+        </form>
       </div>
     );
   }
@@ -103,9 +238,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    // getOrders: (id) => dispatch(setOrders(id)),
+    createOrder: (newOrderData) => dispatch(addNewOrder(newOrderData, history)),
   };
 };
 

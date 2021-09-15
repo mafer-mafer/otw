@@ -7,6 +7,7 @@ const {
 } = require("../db");
 
 const Item = require("../db/models/Item");
+//const User = require("../db/models/User");
 module.exports = router;
 
 router.get("/:userId", async (req, res, next) => {
@@ -32,6 +33,30 @@ router.get("/single/:orderId", async (req, res, next) => {
       include: [{ model: Item }],
     });
     res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/:orderId", async (req, res, next) => {
+  try {
+    const editedOrder = await Order.findByPk(req.params.orderId);
+    res.send(await editedOrder.update(req.body));
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/new/:userId", async (req, res, next) => {
+  try {
+    const newOrder = await Order.create(req.body);
+    const orderUser = await User.findOne({
+      where: {
+        id: req.params.userId,
+      },
+    });
+    await newOrder.belongsTo(orderUser);
+    res.json(newOrder);
   } catch (err) {
     next(err);
   }
