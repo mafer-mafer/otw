@@ -15,7 +15,7 @@ const Order = db.define("order", {
     allowNull: false,
   },
   dateOrdered: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATEONLY,
     defaultValue: Sequelize.NOW,
     allowNull: false,
   },
@@ -44,7 +44,7 @@ const Order = db.define("order", {
     allowNull: false,
   },
   dateShipped: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATEONLY,
   },
   arrived: {
     type: Sequelize.BOOLEAN,

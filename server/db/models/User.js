@@ -14,9 +14,6 @@ const User = db.define("user", {
   password: {
     type: Sequelize.STRING,
   },
-  // dateJoined: {
-  //   type: Sequelize.DATE,
-  // },
 });
 
 module.exports = User;

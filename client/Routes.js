@@ -27,7 +27,7 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/orders/new" component={NewOrder} />
+            <Route exact path="/orders/new" component={NewOrder} />
             <Route path="/orders/:orderId/edit" component={EditOrder} />
             <Route path="/orders/:orderId" component={SingleOrder} />
             <Route path="/orders" component={Orders} />

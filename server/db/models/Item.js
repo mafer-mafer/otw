@@ -24,7 +24,7 @@ const Item = db.define("item", {
     defaultValue: false,
   },
   releaseDate: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATEONLY,
   },
 });
 

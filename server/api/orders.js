@@ -50,12 +50,8 @@ router.put("/:orderId", async (req, res, next) => {
 router.post("/new/:userId", async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body);
-    const orderUser = await User.findOne({
-      where: {
-        id: req.params.userId,
-      },
-    });
-    await newOrder.belongsTo(orderUser);
+    const orderUser = await User.findByPk(req.params.userId);
+    await orderUser.addOrder(newOrder);
     res.json(newOrder);
   } catch (err) {
     next(err);

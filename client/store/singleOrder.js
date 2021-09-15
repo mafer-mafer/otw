@@ -48,7 +48,7 @@ export const setSingleOrder = (id) => {
   };
 };
 
-export const addNewOrder = (order, user) => {
+export const addNewOrder = (order, user, history) => {
   return async (dispatch) => {
     try {
       const { data: created } = await axios.post(
@@ -104,7 +104,7 @@ export default (state = {}, action) => {
     case SET_SINGLE_ORDER:
       return action.order;
     case ADD_NEW_ORDER:
-      return [...state, action.order];
+      return action.order;
     case EDIT_ORDER:
       return action.order;
     // case REMOVE_FAVE_GROUP:

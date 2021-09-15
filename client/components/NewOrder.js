@@ -13,16 +13,16 @@ export class NewOrder extends React.Component {
       seller: "",
       platform: "Twitter",
       type: "Purchase",
-      dateOrdered: "",
+      // dateOrdered: "",
       onHand: false,
-      onHandDate: "",
+      //onHandDate: "",
       sellerLocation: "Unknown",
-      shippingType: "Stamped",
-      tracking: "",
-      shipped: false,
-      dateShipped: "",
-      arrived: false,
-      proofGiven: false,
+      // shippingType: "Stamped",
+      // tracking: "",
+      // shipped: false,
+      // //dateShipped: "",
+      // arrived: false,
+      // proofGiven: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,7 +51,7 @@ export class NewOrder extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createOrder({ ...this.state });
+    this.props.createOrder({ ...this.state }, this.props.auth.id);
   }
 
   render() {
@@ -240,7 +240,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    createOrder: (newOrderData) => dispatch(addNewOrder(newOrderData, history)),
+    createOrder: (newOrderData, user) =>
+      dispatch(addNewOrder(newOrderData, user, history)),
   };
 };
 
