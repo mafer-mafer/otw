@@ -13,26 +13,27 @@ export class NewOrder extends React.Component {
       seller: "",
       platform: "Twitter",
       type: "Purchase",
-      // dateOrdered: "",
+      dateOrdered: "",
       onHand: false,
-      //onHandDate: "",
+      onHandDate: null,
       sellerLocation: "Unknown",
-      // shippingType: "Stamped",
-      // tracking: "",
-      // shipped: false,
-      // //dateShipped: "",
-      // arrived: false,
-      // proofGiven: false,
+      shippingType: "Stamped",
+      tracking: "",
+      shipped: false,
+      dateShipped: null,
+      arrived: false,
+      proofGiven: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.auth.id) {
-      //   this.props.getOrders(this.props.auth.id);
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.auth.id) {
+  //     //   this.props.getOrders(this.props.auth.id);
+  //   }
+  // }
+
   handleChange(e) {
     if (e.target.value === "false") {
       this.setState({
@@ -55,11 +56,11 @@ export class NewOrder extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const {
       seller,
       sellerLocation,
       type,
+      platform,
       dateOrdered,
       onHand,
       onHandDate,
@@ -181,7 +182,8 @@ export class NewOrder extends React.Component {
             <div>
               <label htmlFor="dateShipped">Shipping Date:</label>
               <input
-                type="shippingDate"
+                type="date"
+                id="shippedDate"
                 name="shippedDate"
                 value={shippedDate}
                 onChange={handleChange}

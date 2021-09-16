@@ -41,7 +41,8 @@ router.get("/single/:orderId", async (req, res, next) => {
 router.put("/:orderId", async (req, res, next) => {
   try {
     const editedOrder = await Order.findByPk(req.params.orderId);
-    res.send(await editedOrder.update(req.body));
+    await editedOrder.update(req.body);
+    res.send(editedOrder);
   } catch (err) {
     next(err);
   }

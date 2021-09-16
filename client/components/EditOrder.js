@@ -35,16 +35,16 @@ export class EditOrder extends React.Component {
         const order = this.props.order;
         this.setState({
           seller: order.seller || "",
-          platform: order.platform || "",
-          type: order.type || "",
+          platform: order.platform || "Twitter",
+          type: order.type || "Purchase",
           dateOrdered: order.dateOrdered || "",
           onHand: order.onHand || false,
-          onHandDate: order.onHandDate || "",
-          sellerLocation: order.sellerLocation || "",
-          shippingType: order.shippingType || "",
+          onHandDate: order.onHandDate || null,
+          sellerLocation: order.sellerLocation || "Unknown",
+          shippingType: order.shippingType || "Stamped",
           tracking: order.tracking || "",
           shipped: order.shipped || false,
-          dateShipped: order.dateShipped || "",
+          dateShipped: order.dateShipped || null,
           arrived: order.arrived || false,
           proofGiven: order.proofGiven || false,
           items: order.items || [],
@@ -56,24 +56,36 @@ export class EditOrder extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-      onHand: document.getElementById("on-hand-checkbox").checked,
-    });
+    if (e.target.value === "false") {
+      this.setState({
+        [e.target.name]: true,
+      });
+    } else if (e.target.value === "true") {
+      this.setState({
+        [e.target.name]: false,
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.editOrder({ ...this.state });
+    //this.setState({ dateOrdered: new Date(this.state.dateOrdered) });
+    console.log(this.state);
+    this.props.editOrder(this.props.order.id, { ...this.state });
   }
 
   render() {
-    console.log(this.props.order);
+    console.log(this.state);
     const { handleSubmit, handleChange } = this;
     const {
       seller,
       sellerLocation,
       type,
+      platform,
       dateOrdered,
       onHand,
       onHandDate,
@@ -100,7 +112,7 @@ export class EditOrder extends React.Component {
           <br></br>
           <div>
             <label htmlFor="platform">Platform:</label>
-            <select name="platform">
+            <select name="platform" onChange={handleChange} value={platform}>
               <option value="Twitter">Twitter</option>
               <option value="Instagram">Instagram</option>
               <option value="eBay">eBay</option>
@@ -112,7 +124,11 @@ export class EditOrder extends React.Component {
           <br></br>
           <div>
             <label htmlFor="type">Seller's Location:</label>
-            <select name="sellerLocation">
+            <select
+              name="sellerLocation"
+              onChange={handleChange}
+              value={sellerLocation}
+            >
               <option value="Unkown">Unknown</option>
               {countries.map((country, idx) => {
                 return (
@@ -123,8 +139,10 @@ export class EditOrder extends React.Component {
           </div>
           <br></br>
           <div>
-            <label htmlFor="type">Type:</label>
-            <select name="type">
+            <label htmlFor="type" value={type}>
+              Type:
+            </label>
+            <select name="type" onChange={handleChange}>
               <option value="Purchase">Purchase</option>
               <option value="Trade">Trade</option>
               <option value="Group Order">Group Order</option>
@@ -170,7 +188,7 @@ export class EditOrder extends React.Component {
           <br></br>
           <div>
             <label htmlFor="shippingType">Type:</label>
-            <select name="shippingType">
+            <select name="shippingType" onChange={handleChange}>
               <option value="Stamped">Stamped</option>
               <option value="Tracked">Tracked</option>
               <option value="EMS">EMS</option>
@@ -194,7 +212,8 @@ export class EditOrder extends React.Component {
             <div>
               <label htmlFor="dateShipped">Shipping Date:</label>
               <input
-                type="shippingDate"
+                type="date"
+                id="shippedDate"
                 name="shippedDate"
                 value={shippedDate}
                 onChange={handleChange}
@@ -252,10 +271,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
     getOrder: (id) => dispatch(setSingleOrder(id)),
-    editOrder: (orderId) => dispatch(editOrder(orderId)),
+    editOrder: (orderId, order) => dispatch(editOrder(orderId, order, history)),
   };
 };
 

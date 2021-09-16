@@ -68,7 +68,7 @@ export const addNewOrder = (order, user, history) => {
   };
 };
 
-export const editOrder = (orderId) => {
+export const editOrder = (orderId, order, history) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/orders/${orderId}`, order, {
