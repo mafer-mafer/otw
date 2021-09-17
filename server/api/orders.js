@@ -38,6 +38,21 @@ router.get("/single/:orderId", async (req, res, next) => {
   }
 });
 
+// router.get("/:groupId/:userId", async (req, res, next) => {
+//   try {
+//     const orders = await Order.findAll({
+//       where: {
+//         ite,
+//       },
+
+//       include: [{ model: Item }],
+//     });
+//     res.json(orders);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
 router.put("/:orderId", async (req, res, next) => {
   try {
     const editedOrder = await Order.findByPk(req.params.orderId);
@@ -54,6 +69,16 @@ router.post("/new/:userId", async (req, res, next) => {
     const orderUser = await User.findByPk(req.params.userId);
     await orderUser.addOrder(newOrder);
     res.json(newOrder);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete("/:orderId", async (req, res, next) => {
+  try {
+    const deleteOrder = await Order.findByPk(req.params.orderId);
+    await deleteOrder.destroy();
+    res.send(deleteOrder);
   } catch (err) {
     next(err);
   }

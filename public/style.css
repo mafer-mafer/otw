@@ -38,7 +38,7 @@ nav a {
   position: relative;
   background: #f16e6e;
   padding: 30px;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
   position: relative;
   text-align: center;
 }
@@ -85,21 +85,24 @@ nav a {
   height: 66vh;
 }
 
+#nav-links {
+  margin: 10px;
+}
+
 /* Your Groups */
 
 .title-groups {
-  text-align: center;
-  float: center;
-  padding-left: 40px;
+  text-align: left;
+  float: left;
   font-size: 27px;
+  margin-bottom: 10px;
 }
 
 /* Edit Groups */
 
 .edit-groups {
   font-size: 25px;
-  margin: 5px;
-  position: relative;
+  /* position: relative; */
   text-align: right;
   float: right;
 }
@@ -183,12 +186,64 @@ nav a {
 
 /* Your Orders */
 
-.all-orders-buttons {
-  display: inline-block;
-  padding: 15px 25px;
-  font-size: 15px;
-  cursor: pointer;
+.orders-inner-nav {
+  display: flex;
+  margin-bottom: 20px;
+  overflow: auto;
+  /* position: fixed; */
+}
+
+.orders-title {
+  flex-grow: 1;
   text-align: left;
+  font-size: 27px;
+}
+
+.orders-table {
+  border: 1px solid DarkOrange;
+  border-radius: 13px;
+  border-spacing: 0;
+  margin: auto;
+  margin-bottom: 13px;
+  width: 40%;
+  background-color: rgb(0, 0, 0);
+  overflow: hidden;
+  box-shadow: 0 9px rgb(195, 145, 212);
+}
+
+.orders-table tbody:hover td,
+.orders-table tbody:hover th {
+  background-color: rgb(199, 104, 88);
+}
+
+.orders-table th {
+  border-bottom: 1px solid DarkOrange;
+  padding: 10px;
+  width: 18%;
+  background-color: rgb(238, 153, 50);
+}
+
+.orders-table td {
+  border-bottom: 1px solid DarkOrange;
+  padding: 10px;
+  width: 18%;
+  background-color: rgb(243, 178, 99);
+}
+
+/* #orders-table-date {
+  width: 28%;
+}
+
+#orders-table-status {
+  width: 41%;
+} */
+
+.orders-button-new {
+  flex-grow: 1;
+  padding: 15px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
   text-decoration: none;
   outline: none;
   color: #fff;
@@ -196,11 +251,18 @@ nav a {
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px #999;
-  margin: 8px;
+  margin: 10px;
+  margin-top: 17px;
+  text-align: right;
 }
 
-.all-orders-buttons:hover {
+.orders-button-new:hover {
   background-color: #3e8e41;
+}
+
+.orders-list {
+  width: 50%;
+  display: inline-block;
 }
 
 /* New Order */
@@ -208,4 +270,88 @@ nav a {
 .type-radio {
   align-content: center;
   text-align: center;
+}
+
+.new-order-title {
+  font-size: 24px;
+  margin-top: 0px;
+  margin-bottom: 8px;
+}
+
+.modal-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transform: translateZ(0);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 2.5em 1.5em 1.5em 1.5em;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 15px;
+}
+
+@media screen and (min-width: 500px) {
+  /* Center the Modal! */
+  .modal-area {
+    left: 50%;
+    top: 50%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    max-width: 30em;
+    max-height: calc(100% - 1em);
+    background-color: rgb(228, 197, 240);
+  }
+}
+
+._modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5em;
+  line-height: 1;
+  border: 0;
+  box-shadow: 0;
+  cursor: pointer;
+}
+
+._modal-close-icon {
+  width: 25px;
+  height: 25px;
+  fill: transparent;
+  stroke: black;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+.modal-body {
+  padding-top: 0.25em;
+}
+._hide-visual {
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+}
+
+.scroll-lock {
+  overflow: hidden;
+  margin-right: 17px;
 }

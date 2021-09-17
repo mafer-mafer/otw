@@ -3,11 +3,14 @@ import { connect } from "react-redux";
 import { setOrders } from "../store/orders";
 import { Link } from "react-router-dom";
 import history from "../history";
+import FormContainer from "./FormContainer";
 
 export class Orders extends React.Component {
   constructor() {
     super();
     this.state = {};
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.newFormButton = this.newFormButton.bind(this);
   }
 
   componentDidMount() {
@@ -16,83 +19,97 @@ export class Orders extends React.Component {
     }
   }
 
+  newFormButton(e) {
+    e.preventDefault(e);
+    console.log("event is", e);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.createOrder({ ...this.state }, this.props.auth.id);
+  }
+
   render() {
     return (
       <div className="after-scallop">
-        <h3>
-          <span className="title-groups">Your Incoming Orders</span>
-          <Link to="/orders/new">
-            <span className="edit-groups">+New Order</span>
-          </Link>
-        </h3>
-        {this.props.orders.length ? (
-          <div>
-            {this.props.orders.map((order) => {
-              return (
-                <p key={order.id}>
+        <div className="orders-inner-nav">
+          <h3 className="orders-title">❥Your Incoming Orders:</h3>
+          {/* <Link to="/orders/new"> */}
+          <FormContainer onSubmit={this.newFormButton} />
+          {/* </Link> */}
+        </div>
+        <div>
+          {this.props.orders.length ? (
+            <div>
+              {this.props.orders.map((order) => {
+                return (
                   <Link to={`/orders/${order.id}`}>
-                    <button className="all-orders-buttons">
-                      <h3>Seller: {order.seller}</h3>
-                      <h3>Platform: {order.platform}</h3>
-                      <h3>Type: {order.type}</h3>
-                      <h3>
-                        Date Ordered:{" "}
-                        {order.dateOrdered.toLocaleString("en-US", {
-                          day: "numeric",
-                          year: "numeric",
-                          month: "long",
-                        })}
-                      </h3>
-                      <h3>On Hand: {order.onHand ? "Yes" : "No"}</h3>
-                      {!order.onHand && order.onHandDate ? (
-                        <h3>
-                          On Hand Date:{" "}
-                          {order.onHandDate.toLocaleString("en-US", {
-                            day: "numeric",
-                            year: "numeric",
-                            month: "long",
-                          })}
-                        </h3>
-                      ) : (
-                        <span />
-                      )}
-                      <h3>Seller Location: {order.sellerLocation}</h3>
-                      <h3>Shipping Type: {order.shippingType}</h3>
-                      {order.trackingNumber ? (
-                        <span />
-                      ) : (
-                        <h3>Tracking: {order.trackingNumber}</h3>
-                      )}
-                      <h3>Shipped?: {order.shipped ? "Yes" : "No"}</h3>
-                      {order.shipped && order.dateShipped ? (
-                        <>
-                          <h3>
-                            Date Shipped:{" "}
-                            {order.dateShipped.toLocaleString("en-US", {
-                              day: "numeric",
-                              year: "numeric",
-                              month: "long",
-                            })}
-                          </h3>{" "}
-                          <h3>Arrived?: {order.arrived ? "Yes" : "No"}</h3>
-                        </>
-                      ) : (
-                        <span />
-                      )}
-                      {order.arrived ? (
-                        <h3>Proof Given?: {order.proofGiven ? "Yes" : "No"}</h3>
-                      ) : (
-                        <span />
-                      )}
-                    </button>
+                    <table className="orders-table" key={order.id}>
+                      <tbody>
+                        <tr>
+                          <th id="orders-table-date">Date Ordered</th>
+                          <th>Seller</th>
+                          <th>Type</th>
+                          <th id="orders-table-status">Status</th>
+                        </tr>
+                        <tr>
+                          <td id="orders-table-date">{order.dateOrdered}</td>
+                          <td>{order.seller}</td>
+                          <td>{order.type}</td>
+                          <td id="orders-table-status">{order.status}</td>
+                        </tr>
+                        <tr></tr>
+                      </tbody>
+                    </table>
+                    <br></br>
                   </Link>
-                </p>
-              );
-            })}
-          </div>
-        ) : (
-          <h3>Seems like you have nothing on the way currently :0!</h3>
-        )}
+                  // <div key={order.id}>
+                  //   <Link to={`/orders/${order.id}`}>
+                  //     <div className="orders-list">
+                  //       <h3>Seller: {order.seller}</h3>
+                  //       <h3>Platform: {order.platform}</h3>
+                  //       <h3>Type: {order.type}</h3>
+                  //       <h3>Date Ordered: {order.dateOrdered}</h3>
+                  //       <h3>On Hand: {order.onHand ? "Yes" : "No"}</h3>
+                  //       {!order.onHand && order.onHandDate ? (
+                  //         <h3>On Hand Date: {order.onHandDate}</h3>
+                  //       ) : (
+                  //         <span />
+                  //       )}
+                  //       <h3>Seller Location: {order.sellerLocation}</h3>
+                  //       <h3>Shipping Type: {order.shippingType}</h3>
+                  //       {order.trackingNumber ? (
+                  //         <span />
+                  //       ) : (
+                  //         <h3>Tracking: {order.trackingNumber}</h3>
+                  //       )}
+                  //       <h3>Shipped?: {order.shipped ? "Yes" : "No"}</h3>
+                  //       {order.shipped && order.dateShipped ? (
+                  //         <>
+                  //           <h3>Date Shipped: {order.dateShipped}</h3>{" "}
+                  //           <h3>Arrived?: {order.arrived ? "Yes" : "No"}</h3>
+                  //         </>
+                  //       ) : (
+                  //         <span />
+                  //       )}
+                  //       {order.arrived ? (
+                  //         <h3>
+                  //           Proof Given?: {order.proofGiven ? "Yes" : "No"}
+                  //         </h3>
+                  //       ) : (
+                  //         <span />
+                  //       )}
+                  //     </div>
+                  //   </Link>
+                  //   <br></br>
+                  // </div>
+                );
+              })}
+            </div>
+          ) : (
+            <h3>Seems like you have nothing on the way currently :0!</h3>
+          )}
+        </div>
       </div>
     );
   }

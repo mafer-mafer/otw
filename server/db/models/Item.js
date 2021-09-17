@@ -26,6 +26,9 @@ const Item = db.define("item", {
   releaseDate: {
     type: Sequelize.DATEONLY,
   },
+  notes: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = Item;

@@ -19,6 +19,26 @@ const Order = db.define("order", {
     defaultValue: Sequelize.NOW,
     allowNull: false,
   },
+  status: {
+    type: Sequelize.ENUM([
+      "Order Placed",
+      "Waiting for Shipment",
+      "Shipped",
+      "Arrived",
+      "Proof Sent",
+      "Waiting for Pre-Order Release",
+      "Waiting for Seller to Receive",
+      "Waiting for Proxy to Ship",
+      "Seller On Hitaus",
+      "Shipped to Seller",
+      "Shipped to K Address",
+      "Shipped to J Address",
+      "Shipped to C Address",
+      "Shipped to USA Address",
+    ]),
+    allowNull: false,
+    defaultValue: "Order Placed",
+  },
   onHand: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
@@ -54,6 +74,9 @@ const Order = db.define("order", {
   proofGiven: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
+  },
+  notes: {
+    type: Sequelize.STRING,
   },
 });
 

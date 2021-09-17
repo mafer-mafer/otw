@@ -47,6 +47,7 @@ async function seed() {
     seller: "@chaebom",
     platform: "Twitter",
     type: "Trade",
+    status: "Shipped",
     dateOrdered: new Date(98, 1, 10),
     onHand: true,
     sellerLocation: "Albania",
@@ -59,6 +60,7 @@ async function seed() {
   const order2 = await Order.create({
     seller: "@producebyskg",
     platform: "Instagram",
+    status: "Waiting for Seller to Receive",
     type: "Group Order",
     dateOrdered: new Date(10, 1, 10),
     onHand: false,
@@ -72,6 +74,7 @@ async function seed() {
     seller: "@shonpremacy",
     platform: "eBay",
     type: "Purchase",
+    status: "Waiting for Shipment",
     dateOrdered: new Date(20, 1, 20),
     onHand: true,
     sellerLocation: "Algeria",

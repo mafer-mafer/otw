@@ -60,6 +60,15 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.get("/name/:id", async (req, res, next) => {
+  try {
+    const group = await Group.findByPk(req.params.id);
+    res.json(group);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/:groupId/:userId", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);
