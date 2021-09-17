@@ -363,3 +363,115 @@ nav a {
   overflow: hidden;
   margin-right: 17px;
 }
+
+/* Single Order */
+
+#single-order-title {
+  font-size: 27px;
+  margin-top: 7px;
+  margin-bottom: 4px;
+  flex-grow: 1;
+}
+
+.single-order-inner-nav {
+  display: flex;
+  margin-bottom: 30px;
+  margin-top: 15px;
+  justify-content: space-between;
+}
+
+.single-order-button-edit {
+  flex-grow: 1;
+  padding: 15px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #2185e2;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(195, 145, 212);
+  margin: 10px;
+  margin-top: 17px;
+  /* text-align: right; */
+  align-self: flex-end;
+}
+
+.single-order-button-edit:hover {
+  background-color: #1f77c9;
+}
+
+.single-order-button-del {
+  flex-grow: 1;
+  padding: 15px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #c0573c;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(195, 145, 212);
+  margin: 10px;
+  margin-top: 17px;
+  align-self: flex-start;
+}
+
+.single-order-button-del:hover {
+  background-color: #a54b34;
+}
+
+.single-order-table {
+  border: 1px solid DarkOrange;
+  border-radius: 13px;
+  border-spacing: 0;
+  margin: auto;
+  margin-bottom: 25px;
+  background-color: rgb(182, 169, 169);
+  overflow: hidden;
+  box-shadow: 0 9px rgb(195, 145, 212);
+  width: 60%;
+}
+
+.single-order-table th {
+  border-bottom: 1px solid DarkOrange;
+  padding: 10px;
+  width: 18%;
+  background-color: rgb(238, 153, 50);
+}
+
+.single-order-table td {
+  border-bottom: 1px solid DarkOrange;
+  padding: 10px;
+  width: 18%;
+  background-color: rgb(243, 178, 99);
+}
+
+.single-order-item {
+  border: 1px solid rgb(31, 158, 80);
+  border-radius: 13px;
+  border-spacing: 0;
+  margin: auto;
+  margin-bottom: 13px;
+  background-color: rgb(157, 221, 152);
+  overflow: hidden;
+  box-shadow: 0 9px rgb(195, 145, 212);
+}
+
+.single-order-item th {
+  border-bottom: 1px solid rgb(31, 158, 80);
+  padding: 10px;
+  /* width: 18%; */
+  background-color: rgb(129, 187, 125);
+}
+
+.single-order-item td {
+  border-bottom: 1px solid rgb(31, 158, 80);
+  padding: 10px;
+  /* width: 18%; */
+  background-color: rgb(157, 221, 152);
+}

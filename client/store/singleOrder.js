@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setGroupNames } from "./groupNames";
 
 const SET_SINGLE_ORDER = "SET_SINGLE_ORDER";
 const ADD_NEW_ORDER = "ADD_NEW_ORDER";
@@ -42,6 +43,7 @@ export const setSingleOrder = (id) => {
         },
       });
       dispatch(_setSingleOrder(data));
+      setGroupNames(data.items);
     } catch (error) {
       console.log("Error fetching single order via thunk");
     }

@@ -26,8 +26,6 @@ export class Orders extends React.Component {
   }
 
   handleSubmit(state, userId) {
-    //e.preventDefault();
-    //this.props.createOrder({ ...this.state }, this.props.auth.id);
     this.props.createOrder(state, userId);
   }
 
@@ -36,78 +34,38 @@ export class Orders extends React.Component {
       <div className="after-scallop">
         <div className="orders-inner-nav">
           <h3 className="orders-title">❥Your Incoming Orders:</h3>
-          {/* <Link to="/orders/new"> */}
           <FormContainer
             userId={this.props.auth.id}
             handleSubmit={this.handleSubmit}
           />
-          {/* </Link> */}
         </div>
         <div>
           {this.props.orders.length ? (
             <div>
               {this.props.orders.map((order) => {
                 return (
-                  <Link to={`/orders/${order.id}`}>
-                    <table className="orders-table" key={order.id}>
-                      <tbody>
-                        <tr>
-                          <th id="orders-table-date">Date Ordered</th>
-                          <th>Seller</th>
-                          <th>Type</th>
-                          <th id="orders-table-status">Status</th>
-                        </tr>
-                        <tr>
-                          <td id="orders-table-date">{order.dateOrdered}</td>
-                          <td>{order.seller}</td>
-                          <td>{order.type}</td>
-                          <td id="orders-table-status">{order.status}</td>
-                        </tr>
-                        <tr></tr>
-                      </tbody>
-                    </table>
-                    <br></br>
-                  </Link>
-                  // <div key={order.id}>
-                  //   <Link to={`/orders/${order.id}`}>
-                  //     <div className="orders-list">
-                  //       <h3>Seller: {order.seller}</h3>
-                  //       <h3>Platform: {order.platform}</h3>
-                  //       <h3>Type: {order.type}</h3>
-                  //       <h3>Date Ordered: {order.dateOrdered}</h3>
-                  //       <h3>On Hand: {order.onHand ? "Yes" : "No"}</h3>
-                  //       {!order.onHand && order.onHandDate ? (
-                  //         <h3>On Hand Date: {order.onHandDate}</h3>
-                  //       ) : (
-                  //         <span />
-                  //       )}
-                  //       <h3>Seller Location: {order.sellerLocation}</h3>
-                  //       <h3>Shipping Type: {order.shippingType}</h3>
-                  //       {order.trackingNumber ? (
-                  //         <span />
-                  //       ) : (
-                  //         <h3>Tracking: {order.trackingNumber}</h3>
-                  //       )}
-                  //       <h3>Shipped?: {order.shipped ? "Yes" : "No"}</h3>
-                  //       {order.shipped && order.dateShipped ? (
-                  //         <>
-                  //           <h3>Date Shipped: {order.dateShipped}</h3>{" "}
-                  //           <h3>Arrived?: {order.arrived ? "Yes" : "No"}</h3>
-                  //         </>
-                  //       ) : (
-                  //         <span />
-                  //       )}
-                  //       {order.arrived ? (
-                  //         <h3>
-                  //           Proof Given?: {order.proofGiven ? "Yes" : "No"}
-                  //         </h3>
-                  //       ) : (
-                  //         <span />
-                  //       )}
-                  //     </div>
-                  //   </Link>
-                  //   <br></br>
-                  // </div>
+                  <div key={order.id}>
+                    <Link to={`/orders/${order.id}`}>
+                      <table className="orders-table">
+                        <tbody>
+                          <tr>
+                            <th id="orders-table-date">Date Ordered</th>
+                            <th>Seller</th>
+                            <th>Type</th>
+                            <th id="orders-table-status">Status</th>
+                          </tr>
+                          <tr>
+                            <td id="orders-table-date">{order.dateOrdered}</td>
+                            <td>{order.seller}</td>
+                            <td>{order.type}</td>
+                            <td id="orders-table-status">{order.status}</td>
+                          </tr>
+                          <tr></tr>
+                        </tbody>
+                      </table>
+                      <br></br>
+                    </Link>
+                  </div>
                 );
               })}
             </div>
