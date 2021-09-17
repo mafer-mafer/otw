@@ -4,6 +4,7 @@ import { setOrders } from "../store/orders";
 import { Link } from "react-router-dom";
 import history from "../history";
 import FormContainer from "./FormContainer";
+import { addNewOrder } from "../store/singleOrder";
 
 export class Orders extends React.Component {
   constructor() {
@@ -26,6 +27,7 @@ export class Orders extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    //this.props.createOrder({ ...this.state }, this.props.auth.id);
     this.props.createOrder({ ...this.state }, this.props.auth.id);
   }
 
@@ -35,7 +37,10 @@ export class Orders extends React.Component {
         <div className="orders-inner-nav">
           <h3 className="orders-title">❥Your Incoming Orders:</h3>
           {/* <Link to="/orders/new"> */}
-          <FormContainer onSubmit={this.newFormButton} />
+          <FormContainer
+            userId={this.props.auth.id}
+            handleSubmit={this.handleSubmit}
+          />
           {/* </Link> */}
         </div>
         <div>
@@ -122,9 +127,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
     getOrders: (id) => dispatch(setOrders(id)),
+    createOrder: (newOrderData, user) =>
+      dispatch(addNewOrder(newOrderData, user, history)),
   };
 };
 
