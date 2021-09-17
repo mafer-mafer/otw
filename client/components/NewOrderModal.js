@@ -9,7 +9,8 @@ export const NewOrderModal = ({
   modalRef,
   buttonRef,
   closeModal,
-  onSubmit,
+  handleSubmit,
+  userId,
 }) => {
   return ReactDOM.createPortal(
     <FocusTrap>
@@ -38,7 +39,7 @@ export const NewOrderModal = ({
             </svg>
           </button>
           <div className="modal-body">
-            <NewOrderForm onSubmit={onSubmit} />
+            <NewOrderForm handleSubmit={handleSubmit} userId={userId} />
           </div>
         </div>
       </aside>

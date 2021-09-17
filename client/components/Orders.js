@@ -25,10 +25,10 @@ export class Orders extends React.Component {
     console.log("event is", e);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(state, userId) {
+    //e.preventDefault();
     //this.props.createOrder({ ...this.state }, this.props.auth.id);
-    this.props.createOrder({ ...this.state }, this.props.auth.id);
+    this.props.createOrder(state, userId);
   }
 
   render() {

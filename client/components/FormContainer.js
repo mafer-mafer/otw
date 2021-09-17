@@ -3,8 +3,8 @@ import NewOrderModal from "./NewOrderModal";
 import NewOrderButton from "./NewOrderButton";
 
 export class FormContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isShown: false,
     };
@@ -55,12 +55,13 @@ export class FormContainer extends Component {
           />
           {this.state.isShown ? (
             <NewOrderModal
-              onSubmit={this.props.onSubmit}
+              handleSubmit={this.props.handleSubmit}
               modalRef={(n) => (this.modal = n)}
               buttonRef={(n) => (this.closeButton = n)}
               closeModal={this.closeModal}
               onKeyDown={this.onKeyDown}
               onClickOutside={this.onClickOutside}
+              userId={this.props.userId}
             />
           ) : null}
         </div>

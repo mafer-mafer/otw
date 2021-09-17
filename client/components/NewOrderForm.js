@@ -16,7 +16,7 @@ export class NewOrderForm extends React.Component {
       tracking: "",
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.onSubmit = this.onSubmit.bind(this);
+    this.passSubmit = this.passSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -25,20 +25,20 @@ export class NewOrderForm extends React.Component {
     });
   }
 
-  //   handleSubmit(e) {
-  //     e.preventDefault();
-  //     this.props.createOrder({ ...this.state }, this.props.auth.id);
-  //   }
+  passSubmit(e) {
+    e.preventDefault();
+    this.props.handleSubmit({ ...this.state }, this.props.userId);
+  }
 
   render() {
-    console.log(this.state);
+    console.log(this.props);
     const { handleChange } = this;
     const { seller, dateOrdered, shippingType, tracking } = this.state;
 
     return (
       <div>
         <h4 className="new-order-title">Add New Order</h4>
-        <form onSubmit={this.props.handleChangeSubmit}>
+        <form onSubmit={this.passSubmit}>
           <div className="new-order-field">
             <label htmlFor="type">Type:</label>&nbsp;&nbsp;
             <select name="type" onChange={handleChange}>
