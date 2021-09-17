@@ -37,6 +37,10 @@ export class Orders extends React.Component {
           <FormContainer
             userId={this.props.auth.id}
             handleSubmit={this.handleSubmit}
+            fromNewOrder={true}
+            fromEditOrder={false}
+            buttonText="+New Order"
+            order={false}
           />
         </div>
         <div>

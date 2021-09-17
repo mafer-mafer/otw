@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import NewOrderModal from "./NewOrderModal";
-import NewOrderButton from "./NewOrderButton";
+import OrderModal from "./OrderModal";
+import OrderButton from "./OrderButton";
 
 export class FormContainer extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ export class FormContainer extends Component {
 
   closeModal() {
     this.setState({ isShown: false });
-    this.NewOrderButton.focus();
+    this.OrderButton.focus();
     this.toggleScrollLock();
   }
 
@@ -49,12 +49,13 @@ export class FormContainer extends Component {
     return (
       <React.Fragment>
         <div>
-          <NewOrderButton
+          <OrderButton
             showModal={this.showModal}
-            buttonRef={(n) => (this.NewOrderButton = n)}
+            buttonRef={(n) => (this.OrderButton = n)}
+            buttonText={this.props.buttonText}
           />
           {this.state.isShown ? (
-            <NewOrderModal
+            <OrderModal
               handleSubmit={this.props.handleSubmit}
               modalRef={(n) => (this.modal = n)}
               buttonRef={(n) => (this.closeButton = n)}
@@ -62,6 +63,9 @@ export class FormContainer extends Component {
               onKeyDown={this.onKeyDown}
               onClickOutside={this.onClickOutside}
               userId={this.props.userId}
+              fromEditOrder={this.props.fromEditOrder}
+              fromNewOrder={this.props.fromNewOrder}
+              order={this.props.order}
             />
           ) : null}
         </div>

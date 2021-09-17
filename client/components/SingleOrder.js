@@ -6,6 +6,7 @@ import axios from "axios";
 import orders, { removeOrder } from "../store/orders";
 import { setGroupNames } from "../store/groupNames";
 import getTheName from "../api";
+import FormContainer from "./FormContainer";
 
 export class SingleOrder extends React.Component {
   constructor() {
@@ -56,9 +57,17 @@ export class SingleOrder extends React.Component {
             </span>
           </Link>
           <h3 id="single-order-title">Order Details</h3>
-          <Link to={`/orders/${order.id}/edit`}>
+          <FormContainer
+            userId={this.props.auth.id}
+            handleSubmit={this.handleSubmit}
+            fromEditOrder={true}
+            fromNewOrder={false}
+            buttonText={"+Edit"}
+            order={this.props.order}
+          />
+          {/* ]          <Link to={`/orders/${order.id}/edit`}>
             <span className="single-order-button-edit">+Edit</span>
-          </Link>
+          </Link> */}
         </div>
         {this.props.order ? (
           <div className="single-order-container">

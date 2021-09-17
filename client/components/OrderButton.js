@@ -1,6 +1,6 @@
 import React from "react";
 
-export class NewOrderButton extends React.Component {
+export class OrderButton extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -11,9 +11,9 @@ export class NewOrderButton extends React.Component {
         onClick={this.props.showModal}
         ref={this.props.buttonRef}
       >
-        +New Order
+        {this.props.buttonText}
       </button>
     );
   }
 }
-export default NewOrderButton;
+export default OrderButton;

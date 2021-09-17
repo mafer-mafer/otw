@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import FocusTrap from "focus-trap-react";
 import NewOrderForm from "./NewOrderForm";
+import EditOrderForm from "./EditOrderForm";
 
 export const NewOrderModal = ({
   onClickOutside,
@@ -11,6 +12,9 @@ export const NewOrderModal = ({
   closeModal,
   handleSubmit,
   userId,
+  fromNewOrder,
+  fromEditOrder,
+  order,
 }) => {
   return ReactDOM.createPortal(
     <FocusTrap>
@@ -39,7 +43,15 @@ export const NewOrderModal = ({
             </svg>
           </button>
           <div className="modal-body">
-            <NewOrderForm handleSubmit={handleSubmit} userId={userId} />
+            {fromNewOrder ? (
+              <NewOrderForm handleSubmit={handleSubmit} userId={userId} />
+            ) : fromEditOrder ? (
+              <EditOrderForm
+                handleSubmit={handleSubmit}
+                userId={userId}
+                order={order}
+              />
+            ) : null}
           </div>
         </div>
       </aside>
