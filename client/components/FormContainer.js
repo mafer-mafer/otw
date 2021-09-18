@@ -53,6 +53,8 @@ export class FormContainer extends Component {
             showModal={this.showModal}
             buttonRef={(n) => (this.OrderButton = n)}
             buttonText={this.props.buttonText}
+            fromNewOrder={this.props.fromNewOrder}
+            fromEditOrder={this.props.fromEditOrder}
           />
           {this.state.isShown ? (
             <OrderModal

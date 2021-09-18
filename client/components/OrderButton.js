@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 
 export class OrderButton extends React.Component {
   constructor(props) {
@@ -7,7 +8,10 @@ export class OrderButton extends React.Component {
   render() {
     return (
       <button
-        className="orders-button-new"
+        className={classNames(
+          { "orders-button-new": this.props.fromNewOrder },
+          { "single-order-button-edit": this.props.fromEditOrder }
+        )}
         onClick={this.props.showModal}
         ref={this.props.buttonRef}
       >

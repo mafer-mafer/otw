@@ -7,6 +7,7 @@ import orders, { removeOrder } from "../store/orders";
 import { setGroupNames } from "../store/groupNames";
 import getTheName from "../api";
 import FormContainer from "./FormContainer";
+import history from "../history";
 
 export class SingleOrder extends React.Component {
   constructor() {
@@ -41,7 +42,13 @@ export class SingleOrder extends React.Component {
   }
 
   handleDeleteClick() {
-    this.props.deleteOrder(this.props.order.id, this.props.auth.id);
+    var result = confirm(
+      "Are you sure you want to delete? This change is permanent :0!"
+    );
+    if (result) {
+      this.props.deleteOrder(this.props.order.id, this.props.auth.id);
+      history.push(`/orders/`);
+    }
   }
 
   handleEditSubmit(state) {
@@ -53,14 +60,12 @@ export class SingleOrder extends React.Component {
     return (
       <div className="after-scallop">
         <div className="single-order-inner-nav">
-          <Link to={`/orders`}>
-            <span
-              className="single-order-button-del"
-              onClick={this.handleDeleteClick}
-            >
-              -Delete
-            </span>
-          </Link>
+          <button
+            className="single-order-button-del"
+            onClick={this.handleDeleteClick}
+          >
+            -Delete
+          </button>
           <h3 id="single-order-title">Order Details</h3>
           <FormContainer
             userId={this.props.auth.id}
