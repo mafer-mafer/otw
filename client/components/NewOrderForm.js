@@ -1,6 +1,5 @@
 import React from "react";
 import { countries } from "../../script/countries";
-import { connect } from "react-redux";
 
 export class NewOrderForm extends React.Component {
   constructor(props) {
@@ -27,11 +26,10 @@ export class NewOrderForm extends React.Component {
 
   passSubmit(e) {
     e.preventDefault();
-    this.props.handleSubmit({ ...this.state }, this.props.userId);
+    this.props.handleSubmit({ ...this.state });
   }
 
   render() {
-    console.log(this.props);
     const { handleChange } = this;
     const { seller, dateOrdered, shippingType, tracking } = this.state;
 

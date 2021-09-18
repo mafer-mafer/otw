@@ -1,6 +1,5 @@
 import React from "react";
 import { countries } from "../../script/countries";
-import { connect } from "react-redux";
 
 export class EditOrderForm extends React.Component {
   constructor(props) {
@@ -28,7 +27,8 @@ export class EditOrderForm extends React.Component {
 
   passSubmit(e) {
     e.preventDefault();
-    //this.props.handleSubmit({ ...this.state }, this.props.userId);
+    this.props.handleSubmit({ ...this.state });
+    this.props.closeModal();
   }
 
   render() {

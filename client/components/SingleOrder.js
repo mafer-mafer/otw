@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { setSingleOrder } from "../store/singleOrder";
+import { setSingleOrder, editOrder } from "../store/singleOrder";
 import axios from "axios";
 import orders, { removeOrder } from "../store/orders";
 import { setGroupNames } from "../store/groupNames";
@@ -17,6 +17,7 @@ export class SingleOrder extends React.Component {
     };
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
     this.getName = this.getName.bind(this);
+    this.handleEditSubmit = this.handleEditSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -43,6 +44,10 @@ export class SingleOrder extends React.Component {
     this.props.deleteOrder(this.props.order.id, this.props.auth.id);
   }
 
+  handleEditSubmit(state) {
+    this.props.editOrder(this.props.order.id, { ...state });
+  }
+
   render() {
     let order = this.props.order;
     return (
@@ -59,15 +64,12 @@ export class SingleOrder extends React.Component {
           <h3 id="single-order-title">Order Details</h3>
           <FormContainer
             userId={this.props.auth.id}
-            handleSubmit={this.handleSubmit}
+            handleSubmit={this.handleEditSubmit}
             fromEditOrder={true}
             fromNewOrder={false}
             buttonText={"+Edit"}
             order={this.props.order}
           />
-          {/* ]          <Link to={`/orders/${order.id}/edit`}>
-            <span className="single-order-button-edit">+Edit</span>
-          </Link> */}
         </div>
         {this.props.order ? (
           <div className="single-order-container">
@@ -159,10 +161,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
     getOrder: (id) => dispatch(setSingleOrder(id)),
     deleteOrder: (order) => dispatch(removeOrder(order)),
+    editOrder: (orderId, order) => dispatch(editOrder(orderId, order, history)),
     // getGroupNames: (items) => dispatch(setGroupNames(items)),
   };
 };

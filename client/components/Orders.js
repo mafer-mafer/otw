@@ -25,8 +25,8 @@ export class Orders extends React.Component {
     console.log("event is", e);
   }
 
-  handleSubmit(state, userId) {
-    this.props.createOrder(state, userId);
+  handleSubmit(state) {
+    this.props.createOrder(state, this.props.auth.id);
   }
 
   render() {

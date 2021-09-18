@@ -50,6 +50,7 @@ export const NewOrderModal = ({
                 handleSubmit={handleSubmit}
                 userId={userId}
                 order={order}
+                closeModal={closeModal}
               />
             ) : null}
           </div>
