@@ -9,8 +9,12 @@ export class OrderButton extends React.Component {
     return (
       <button
         className={classNames(
-          { "orders-button-new": this.props.fromNewOrder },
-          { "single-order-button-edit": this.props.fromEditOrder }
+          { "orders-button-new": this.props.purpose === "NewOrder" },
+          { "single-order-button-edit": this.props.purpose === "EditOrder" },
+          {
+            "single-order-item-button-edit": this.props.purpose === "EditItem",
+          },
+          { "single-order-item-button-new": this.props.purpose === "NewItem" }
         )}
         onClick={this.props.showModal}
         ref={this.props.buttonRef}

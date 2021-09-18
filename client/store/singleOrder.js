@@ -1,10 +1,10 @@
 import axios from "axios";
-import { setGroupNames } from "./groupNames";
+//import { setGroupNames } from "./groupNames";
+import { _setItems } from "./items";
 
 const SET_SINGLE_ORDER = "SET_SINGLE_ORDER";
 const ADD_NEW_ORDER = "ADD_NEW_ORDER";
 const EDIT_ORDER = "EDIT_ORDER";
-// const REMOVE_FAVE_GROUP = "REMOVE_FAVE_GROUP";
 
 export const _setSingleOrder = (order) => {
   return {
@@ -27,13 +27,6 @@ export const _editOrder = (order) => {
   };
 };
 
-// export const _removeFaveGroup = (removedFave) => {
-//   return {
-//     type: REMOVE_FAVE_GROUP,
-//     removedFave,
-//   };
-// };
-
 export const setSingleOrder = (id) => {
   return async (dispatch) => {
     try {
@@ -43,7 +36,7 @@ export const setSingleOrder = (id) => {
         },
       });
       dispatch(_setSingleOrder(data));
-      setGroupNames(data.items);
+      dispatch(_setItems(data.items));
     } catch (error) {
       console.log("Error fetching single order via thunk");
     }
@@ -86,21 +79,6 @@ export const editOrder = (orderId, order, history) => {
   };
 };
 
-// export const removeFaveGroup = (group, user) => {
-//   return async (dispatch) => {
-//     try {
-//       const { data } = await axios.put(`/api/groups/rmv/${group}/${user}`, {
-//         headers: {
-//           authorization: window.localStorage.getItem("token"),
-//         },
-//       });
-//       dispatch(_removeFaveGroup(data));
-//     } catch (error) {
-//       console.log("Error adding favorite groups via thunk");
-//     }
-//   };
-// };
-
 export default (state = {}, action) => {
   switch (action.type) {
     case SET_SINGLE_ORDER:
@@ -109,8 +87,6 @@ export default (state = {}, action) => {
       return action.order;
     case EDIT_ORDER:
       return action.order;
-    // case REMOVE_FAVE_GROUP:
-    //   return state.filter((group) => group.id !== action.removedFave.id);
     default:
       return state;
   }

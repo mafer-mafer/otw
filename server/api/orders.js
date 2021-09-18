@@ -7,7 +7,6 @@ const {
 } = require("../db");
 
 const Item = require("../db/models/Item");
-//const User = require("../db/models/User");
 module.exports = router;
 
 router.get("/:userId", async (req, res, next) => {
@@ -29,7 +28,6 @@ router.get("/single/:orderId", async (req, res, next) => {
       where: {
         id: req.params.orderId,
       },
-
       include: [{ model: Item }],
     });
     res.json(order);
@@ -37,21 +35,6 @@ router.get("/single/:orderId", async (req, res, next) => {
     next(err);
   }
 });
-
-// router.get("/:groupId/:userId", async (req, res, next) => {
-//   try {
-//     const orders = await Order.findAll({
-//       where: {
-//         ite,
-//       },
-
-//       include: [{ model: Item }],
-//     });
-//     res.json(orders);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 router.put("/:orderId", async (req, res, next) => {
   try {

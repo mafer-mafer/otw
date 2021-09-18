@@ -516,3 +516,49 @@ nav a {
   /* width: 18%; */
   background-color: rgb(157, 221, 152);
 }
+
+.single-order-item-button-edit {
+  flex-grow: 1;
+  padding: 15px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #2185e2;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(195, 145, 212);
+  margin: 10px;
+  margin-top: 17px;
+  text-align: right;
+  align-self: flex-end;
+}
+
+.single-order-item-button-edit:hover {
+  background-color: #1f77c9;
+}
+
+.single-order-item-button-new {
+  flex-grow: 1;
+  padding: 15px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(195, 145, 212);
+  margin: 10px;
+  margin-top: 17px;
+  text-align: right;
+  align-self: flex-end;
+}
+
+.single-order-item-button-new:hover {
+  background-color: #3e8e41;
+}

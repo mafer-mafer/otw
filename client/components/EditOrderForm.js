@@ -1,5 +1,11 @@
 import React from "react";
-import { countries } from "../../script/countries";
+import {
+  countries,
+  orderType,
+  orderStatus,
+  sellerPlatform,
+  typeShipping,
+} from "../../script/selections";
 
 export class EditOrderForm extends React.Component {
   constructor(props) {
@@ -14,6 +20,8 @@ export class EditOrderForm extends React.Component {
       shippingType: this.props.order.shippingType || "Stamped",
       trackingNumber: this.props.order.trackingNumber || "",
       items: this.props.order.items || [],
+      dateShipped: this.props.order.dateShipped || "",
+      note: this.props.order.note || "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.passSubmit = this.passSubmit.bind(this);
@@ -27,7 +35,7 @@ export class EditOrderForm extends React.Component {
 
   passSubmit(e) {
     e.preventDefault();
-    this.props.handleSubmit({ ...this.state });
+    this.props.handleSubmit("Order", { ...this.state });
     this.props.closeModal();
   }
 
@@ -42,6 +50,8 @@ export class EditOrderForm extends React.Component {
       platform,
       sellerLocation,
       type,
+      dateShipped,
+      note,
     } = this.state;
 
     return (
@@ -49,68 +59,28 @@ export class EditOrderForm extends React.Component {
         <h4 className="new-order-title">Edit Order</h4>
         <form onSubmit={this.passSubmit}>
           <div className="new-order-field">
-            <label htmlFor="type">Type:</label>&nbsp;&nbsp;
+            <label htmlFor="type">Order Type:</label>&nbsp;&nbsp;
             <select name="type" onChange={handleChange} value={type}>
-              <option value="Purchase">Purchase</option>
-              <option value="Trade">Trade</option>
-              <option value="Group Order">Group Order</option>
+              {orderType.map((type, idx) => {
+                return (
+                  <option value={type} key={idx}>
+                    {type}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <br></br>
           <div className="new-order-field">
-            <label htmlFor="status">Status:</label>&nbsp;&nbsp;
+            <label htmlFor="status">Order Status:</label>&nbsp;&nbsp;
             <select name="status" onChange={handleChange} value={status}>
-              <option value="Order Placed">Order Placed</option>
-              <option value="Waiting for Shipment">Waiting for Shipment</option>
-              <option value="Waiting for Pre-Order Release">
-                Waiting for Pre-Order Release
-              </option>
-              <option value="Waiting for Seller to Receive">
-                Waiting for Seller to Receive
-              </option>
-              <option value="Waiting for GOM to Receive">
-                Waiting for GOM to Receive
-              </option>
-              <option value="Waiting for Proxy to Ship">
-                Waiting for Proxy to Ship
-              </option>
-              <option value="Waiting for GOM to Ship">
-                Waiting for GOM to Ship
-              </option>
-              <option value="Waiting for K Address to Ship">
-                Waiting for K Address to Ship
-              </option>
-              <option value="Waiting for J Address to Ship">
-                Waiting for J Address to Ship
-              </option>
-              <option value="Waiting for C Address to Ship">
-                Waiting for C Address to Ship
-              </option>
-              <option value="Waiting for USA Address to Ship">
-                Waiting for USA Address to Ship
-              </option>
-              <option value="Seller On Hitaus">Seller On Hitaus</option>
-              <option value="Shipped">Shipped</option>
-              <option value="Shipped to Seller">Shipped to Seller</option>
-              <option value="Shipped to GOM">Shipped to GOM</option>
-              <option value="Shipped to Proxy">Shipped to Proxy</option>
-              <option value="Shipped to K Address">Shipped to K Address</option>
-              <option value="Shipped to J Address">Shipped to J Address</option>
-              <option value="Shipped to C Address">Shipped to C Address</option>
-              <option value="Shipped to USA Address">
-                Shipped to USA Address
-              </option>
-              <option value="In Customs">In Customs</option>
-              <option value="Arrived">Arrived</option>
-              <option value="Arrived to Proxy">Arrived to Proxy</option>
-              <option value="Arrived at K Address">Arrived at K Address</option>
-              <option value="Arrived at J Address">Arrived at J Address</option>
-              <option value="Arrived at C Address">Arrived at C Address</option>
-              <option value="Arrived at USA Address">
-                Arrived at USA Address
-              </option>
-              <option value="Proof Sent">Proof Sent</option>
-              <option value="Other">Other</option>
+              {orderStatus.map((status, idx) => {
+                return (
+                  <option value={status} key={idx}>
+                    {status}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <br></br>
@@ -127,11 +97,13 @@ export class EditOrderForm extends React.Component {
           <div className="new-order-field">
             <label htmlFor="platform">Platform:</label>&nbsp;&nbsp;
             <select name="platform" onChange={handleChange} value={platform}>
-              <option value="Twitter">Twitter</option>
-              <option value="Instagram">Instagram</option>
-              <option value="eBay">eBay</option>
-              <option value="Mercari">Mercari</option>
-              <option value="Other">Other</option>
+              {sellerPlatform.map((platform, idx) => {
+                return (
+                  <option value={platform} key={idx}>
+                    {platform}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
@@ -173,27 +145,41 @@ export class EditOrderForm extends React.Component {
               onChange={handleChange}
               value={shippingType}
             >
-              <option value="Stamped">Stamped</option>
-              <option value="Tracked">Tracked</option>
-              <option value="EMS">EMS</option>
-              <option value="DHL">DHL</option>
-              <option value="Boat">Boat</option>
+              {typeShipping.map((type, idx) => {
+                return (
+                  <option value={type} key={idx}>
+                    {type}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <br></br>
-          {shippingType !== "Stamped" ? (
-            <div className="new-order-field">
-              <label htmlFor="trackingNumber">Tracking:</label>&nbsp;&nbsp;
-              <input
-                name="trackingNumber"
-                onChange={handleChange}
-                value={trackingNumber}
-              />
-              <br></br>
-            </div>
-          ) : (
-            <span></span>
-          )}
+          <div className="new-order-field">
+            <label htmlFor="dateShipped">Date Shipped:</label>&nbsp;&nbsp;
+            <input
+              type="date"
+              id="dateShipped"
+              name="dateShipped"
+              value={dateShipped}
+              onChange={handleChange}
+            />
+          </div>
+          <br></br>
+          <div className="new-order-field">
+            <label htmlFor="trackingNumber">Tracking:</label>&nbsp;&nbsp;
+            <input
+              name="trackingNumber"
+              onChange={handleChange}
+              value={trackingNumber}
+            />
+          </div>
+          <br></br>
+          <div className="new-order-field">
+            <label htmlFor="note">Note:</label>&nbsp;&nbsp;
+            <input name="note" onChange={handleChange} value={note} />
+          </div>
+          <br></br>
           <div>
             <p>
               <button type="submit">Submit</button>

@@ -1,67 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { setSingleOrder, editOrder } from "../store/singleOrder";
-import axios from "axios";
-import orders, { removeOrder } from "../store/orders";
-//import { setGroupNames } from "../store/groupNames";
-import getTheName from "../api";
+import { removeOrder } from "../store/orders";
 import FormContainer from "./FormContainer";
 import history from "../history";
+import { removeItem, editItem, addItem } from "../store/items";
 
 export class SingleOrder extends React.Component {
   constructor() {
     super();
-    this.state = {
-      items: [],
-      groupNames: {},
-    };
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    this.getName = this.getName.bind(this);
-    this.handleEditSubmit = this.handleEditSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
     if (this.props.auth.id) {
       this.props.getOrder(this.props.match.params.orderId);
-      this.getName();
     }
   }
 
-  getName(groupId) {
-    //return getTheName(groupId);
-    // if (groupId === undefined) {
-    //   return;
-    // }
-    // console.log("group id is", groupId);
-    // let theName = "";
-    // const getName = async (groupId) => {
-    //   try {
-    //     let { data } = await axios.get(`/api/groups/name/${groupId}`);
-    //     console.log(data.name);
-    //     return data.name;
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-    // return getName(groupId);
-    // console.log("theName is", theName);
-    // //return theName;
+  handleSubmit(state) {
+    this.props.newItem(state, this.props.order.id);
+    window.location.reload();
   }
 
-  handleDeleteClick() {
+  handleDelete(type, itemId) {
     var result = confirm(
-      "Are you sure you want to delete? This change is permanent :0!"
+      `Are you sure you want to delete this ${type}? This change is permanent :0!`
     );
-    if (result) {
+    if (result && type === "Order") {
       this.props.deleteOrder(this.props.order.id, this.props.auth.id);
       history.push(`/orders/`);
+    } else if (result && type == "Item") {
+      this.props.deleteItem(itemId);
+      window.location.reload();
     }
   }
 
-  handleEditSubmit(state) {
-    this.props.editOrder(this.props.order.id, { ...state });
-    window.location.reload();
+  handleEdit(type, state, id) {
+    if (type === "Order") {
+      this.props.editOrder(this.props.order.id, { ...state });
+      window.location.reload();
+    } else if (type === "Item") {
+      this.props.editItem(id, { ...state });
+      window.location.reload();
+    }
   }
 
   render() {
@@ -71,16 +56,15 @@ export class SingleOrder extends React.Component {
         <div className="single-order-inner-nav">
           <button
             className="single-order-button-del"
-            onClick={this.handleDeleteClick}
+            onClick={() => this.handleDelete("Order")}
           >
             -Delete
           </button>
           <h3 id="single-order-title">Order Details</h3>
           <FormContainer
             userId={this.props.auth.id}
-            handleSubmit={this.handleEditSubmit}
-            fromEditOrder={true}
-            fromNewOrder={false}
+            handleSubmit={this.handleEdit}
+            purpose={"EditOrder"}
             buttonText={"+Edit"}
             order={this.props.order}
           />
@@ -120,32 +104,53 @@ export class SingleOrder extends React.Component {
               </tbody>
             </table>
             <h2 id="single-order-items-title">Items in this Order:</h2>
+            <FormContainer
+              handleSubmit={this.handleSubmit}
+              purpose={"NewItem"}
+              buttonText={"+New Item"}
+            />
             <div className="single-order-items">
               {this.props.order.items && this.props.order.items.length ? (
                 order.items.map((item) => {
                   return (
-                    <table className="single-order-item" key={item.id}>
-                      <tbody>
-                        <tr>
-                          <th colSpan="4">Description</th>
-                        </tr>
-                        <tr>
-                          <td colSpan="4">{item.name}</td>
-                        </tr>
-                        <tr>
-                          <th>Group</th>
-                          <th>Type</th>
-                          <th>Pre-Order</th>
-                          <th>Damage</th>
-                        </tr>
-                        <tr>
-                          <td>{item.groupName}</td>
-                          <td>{item.type}</td>
-                          <td>{item.preOrder ? "Yes" : "No"}</td>
-                          <td>{item.damage}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <div key={item.id}>
+                      <table className="single-order-item">
+                        <tbody>
+                          <tr>
+                            <th colSpan="4">Description</th>
+                          </tr>
+                          <tr>
+                            <td colSpan="4">{item.name}</td>
+                          </tr>
+                          <tr>
+                            <th>Group</th>
+                            <th>Type</th>
+                            <th>Pre-Order</th>
+                            <th>Damage</th>
+                          </tr>
+                          <tr>
+                            <td>{item.groupName}</td>
+                            <td>{item.type}</td>
+                            <td>{item.preOrder ? "Yes" : "No"}</td>
+                            <td>{item.damage}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <button
+                        className="single-order-button-del"
+                        onClick={() => this.handleDelete("Item", item.id)}
+                      >
+                        -Delete
+                      </button>
+                      <FormContainer
+                        userId={this.props.auth.id}
+                        handleSubmit={this.handleEdit}
+                        purpose={"EditItem"}
+                        buttonText={"+Edit"}
+                        order={this.props.order}
+                        item={item}
+                      />
+                    </div>
                   );
                 })
               ) : (
@@ -165,16 +170,18 @@ const mapStateToProps = (state) => {
     auth: state.auth,
     isLoggedIn: !!state.auth.id,
     order: state.singleOrder,
-    groupNames: state.groupNames,
+    items: state.items,
   };
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     getOrder: (id) => dispatch(setSingleOrder(id)),
-    deleteOrder: (order) => dispatch(removeOrder(order)),
     editOrder: (orderId, order) => dispatch(editOrder(orderId, order, history)),
-    // getGroupNames: (items) => dispatch(setGroupNames(items)),
+    deleteOrder: (order) => dispatch(removeOrder(order)),
+    editItem: (itemId, item) => dispatch(editItem(itemId, item)),
+    deleteItem: (itemId) => dispatch(removeItem(itemId)),
+    newItem: (item, orderId) => dispatch(addItem(item, orderId)),
   };
 };
 

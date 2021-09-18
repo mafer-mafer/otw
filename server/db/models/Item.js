@@ -11,13 +11,7 @@ const Item = db.define("item", {
     allowNull: false,
   },
   type: {
-    type: Sequelize.ENUM([
-      "Photocard",
-      "Album",
-      "Lightstick",
-      "Concert",
-      "Misc.",
-    ]),
+    type: Sequelize.STRING,
     allowNull: false,
   },
   damage: {
@@ -29,9 +23,6 @@ const Item = db.define("item", {
   },
   releaseDate: {
     type: Sequelize.DATEONLY,
-  },
-  notes: {
-    type: Sequelize.STRING,
   },
 });
 

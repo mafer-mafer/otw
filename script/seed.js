@@ -37,6 +37,7 @@ async function seed() {
     damage: "none",
     preOrder: true,
     groupName: "BoA",
+    releaseDate: new Date(21, 7, 14),
   });
 
   const item4 = await Item.create({
@@ -53,12 +54,10 @@ async function seed() {
     type: "Trade",
     status: "Shipped",
     dateOrdered: new Date(98, 1, 10),
-    onHand: true,
     sellerLocation: "Albania",
     shippingType: "Stamped",
-    shipped: "true",
     dateShipped: new Date(98, 1, 20),
-    arrived: false,
+    note: "Nice!",
   });
 
   const order2 = await Order.create({
@@ -67,11 +66,8 @@ async function seed() {
     status: "Waiting for Seller to Receive",
     type: "Group Order",
     dateOrdered: new Date(10, 1, 10),
-    onHand: false,
     sellerLocation: "Angola",
     shippingType: "Tracked",
-    shipped: "false",
-    arrived: false,
   });
 
   const order3 = await Order.create({
@@ -80,11 +76,9 @@ async function seed() {
     type: "Purchase",
     status: "Waiting for Shipment",
     dateOrdered: new Date(20, 1, 20),
-    onHand: true,
     sellerLocation: "Algeria",
     shippingType: "Tracked",
-    shipped: "false",
-    arrived: false,
+    note: "Is coming in lateeee",
   });
 
   const girlGroups = await Promise.all([

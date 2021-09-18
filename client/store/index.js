@@ -8,7 +8,7 @@ import allGroups from "./allGroups";
 import orders from "./orders";
 import singleOrder from "./singleOrder";
 import singleGroup from "./singleGroup";
-import groupNames from "./groupNames";
+import items from "./items";
 
 const reducer = combineReducers({
   auth,
@@ -17,7 +17,7 @@ const reducer = combineReducers({
   orders,
   singleOrder,
   singleGroup,
-  groupNames,
+  items,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

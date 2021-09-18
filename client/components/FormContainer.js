@@ -53,8 +53,7 @@ export class FormContainer extends Component {
             showModal={this.showModal}
             buttonRef={(n) => (this.OrderButton = n)}
             buttonText={this.props.buttonText}
-            fromNewOrder={this.props.fromNewOrder}
-            fromEditOrder={this.props.fromEditOrder}
+            purpose={this.props.purpose}
           />
           {this.state.isShown ? (
             <OrderModal
@@ -65,9 +64,9 @@ export class FormContainer extends Component {
               onKeyDown={this.onKeyDown}
               onClickOutside={this.onClickOutside}
               userId={this.props.userId}
-              fromEditOrder={this.props.fromEditOrder}
-              fromNewOrder={this.props.fromNewOrder}
+              purpose={this.props.purpose}
               order={this.props.order}
+              item={this.props.item}
             />
           ) : null}
         </div>

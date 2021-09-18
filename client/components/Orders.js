@@ -11,18 +11,12 @@ export class Orders extends React.Component {
     super();
     this.state = {};
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.newFormButton = this.newFormButton.bind(this);
   }
 
   componentDidMount() {
     if (this.props.auth.id) {
       this.props.getOrders(this.props.auth.id);
     }
-  }
-
-  newFormButton(e) {
-    e.preventDefault(e);
-    console.log("event is", e);
   }
 
   handleSubmit(state) {
@@ -37,8 +31,7 @@ export class Orders extends React.Component {
           <FormContainer
             userId={this.props.auth.id}
             handleSubmit={this.handleSubmit}
-            fromNewOrder={true}
-            fromEditOrder={false}
+            purpose={"NewOrder"}
             buttonText="+New Order"
             order={false}
           />
