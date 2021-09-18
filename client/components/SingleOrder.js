@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { setSingleOrder, editOrder } from "../store/singleOrder";
 import axios from "axios";
 import orders, { removeOrder } from "../store/orders";
-import { setGroupNames } from "../store/groupNames";
+//import { setGroupNames } from "../store/groupNames";
 import getTheName from "../api";
 import FormContainer from "./FormContainer";
 import history from "../history";
@@ -28,17 +28,25 @@ export class SingleOrder extends React.Component {
     }
   }
 
-  getName() {
-    if (this.props.order.items && this.props.order.items.length) {
-      this.props.order.items.map((item) => {
-        const name = getTheName(item.groupId);
-        this.setState({
-          ...this.state.groupNames,
-          [item.groupId]: name,
-        });
-      });
-    }
-    console.log(this.state.groupNames);
+  getName(groupId) {
+    //return getTheName(groupId);
+    // if (groupId === undefined) {
+    //   return;
+    // }
+    // console.log("group id is", groupId);
+    // let theName = "";
+    // const getName = async (groupId) => {
+    //   try {
+    //     let { data } = await axios.get(`/api/groups/name/${groupId}`);
+    //     console.log(data.name);
+    //     return data.name;
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // return getName(groupId);
+    // console.log("theName is", theName);
+    // //return theName;
   }
 
   handleDeleteClick() {
@@ -53,6 +61,7 @@ export class SingleOrder extends React.Component {
 
   handleEditSubmit(state) {
     this.props.editOrder(this.props.order.id, { ...state });
+    window.location.reload();
   }
 
   render() {
@@ -110,7 +119,7 @@ export class SingleOrder extends React.Component {
                 </tr>
               </tbody>
             </table>
-            <h2>Items in this Order:</h2>
+            <h2 id="single-order-items-title">Items in this Order:</h2>
             <div className="single-order-items">
               {this.props.order.items && this.props.order.items.length ? (
                 order.items.map((item) => {
@@ -118,16 +127,10 @@ export class SingleOrder extends React.Component {
                     <table className="single-order-item" key={item.id}>
                       <tbody>
                         <tr>
-                          <th>Description</th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
+                          <th colSpan="4">Description</th>
                         </tr>
                         <tr>
-                          <td>{item.name}</td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td colSpan="4">{item.name}</td>
                         </tr>
                         <tr>
                           <th>Group</th>
@@ -136,7 +139,7 @@ export class SingleOrder extends React.Component {
                           <th>Damage</th>
                         </tr>
                         <tr>
-                          <td>{this.state.groupNames[item.id]}</td>
+                          <td>{item.groupName}</td>
                           <td>{item.type}</td>
                           <td>{item.preOrder ? "Yes" : "No"}</td>
                           <td>{item.damage}</td>

@@ -20,6 +20,7 @@ async function seed() {
     type: "Album",
     damage: "none",
     preOrder: false,
+    groupName: "Red Velvet",
   });
 
   const item2 = await Item.create({
@@ -27,6 +28,7 @@ async function seed() {
     type: "Photocard",
     damage: "light",
     preOrder: false,
+    groupName: "AOA",
   });
 
   const item3 = await Item.create({
@@ -34,6 +36,7 @@ async function seed() {
     type: "Lightstick",
     damage: "none",
     preOrder: true,
+    groupName: "BoA",
   });
 
   const item4 = await Item.create({
@@ -41,6 +44,7 @@ async function seed() {
     type: "Concert",
     damage: "none",
     preOrder: true,
+    groupName: "Loona",
   });
 
   const order1 = await Order.create({

@@ -12,7 +12,7 @@ export class EditOrderForm extends React.Component {
       dateOrdered: this.props.order.dateOrdered || "",
       sellerLocation: this.props.order.sellerLocation || "Unknown",
       shippingType: this.props.order.shippingType || "Stamped",
-      tracking: this.props.order.tracking || "",
+      trackingNumber: this.props.order.trackingNumber || "",
       items: this.props.order.items || [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -32,13 +32,12 @@ export class EditOrderForm extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     const { handleChange } = this;
     const {
       seller,
       dateOrdered,
       shippingType,
-      tracking,
+      trackingNumber,
       status,
       platform,
       sellerLocation,
@@ -184,8 +183,12 @@ export class EditOrderForm extends React.Component {
           <br></br>
           {shippingType !== "Stamped" ? (
             <div className="new-order-field">
-              <label htmlFor="tracking">Tracking:</label>&nbsp;&nbsp;
-              <input name="tracking" onChange={handleChange} value={tracking} />
+              <label htmlFor="trackingNumber">Tracking:</label>&nbsp;&nbsp;
+              <input
+                name="trackingNumber"
+                onChange={handleChange}
+                value={trackingNumber}
+              />
               <br></br>
             </div>
           ) : (

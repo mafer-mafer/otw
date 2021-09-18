@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export default function getName(id) {
-  const getTheName = async (id) => {
+export default function getTheName(id) {
+  const getName = async (id) => {
     try {
       let { data } = await axios.get(`/api/groups/name/${id}`);
       console.log(data.name);
@@ -10,5 +10,5 @@ export default function getName(id) {
       console.log(error);
     }
   };
-  return getTheName(id);
+  return getName(id);
 }
