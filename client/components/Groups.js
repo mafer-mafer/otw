@@ -23,29 +23,31 @@ export class Groups extends React.Component {
   render() {
     return (
       <div className="after-scallop">
-        <h3>
-          <span className="title-groups">Groups I Collect</span>
-          <Link to="/editgroups">
-            <span className="edit-groups">+Edit</span>
-          </Link>
-        </h3>
-        {this.props.isLoggedIn && this.props.faveGroups.length ? (
-          <div className="your-groups-container">
-            {this.props.faveGroups.map((group) => {
-              return (
-                <p key={group.id} className="your-groups-single">
-                  <Link to={`/group/${group.id}`}>
-                    <button className="group-names">{group.name}</button>
-                  </Link>
-                </p>
-              );
-            })}
-          </div>
-        ) : this.props.isLoggedIn ? (
-          <h3>Please Log In To Access Your Favorite Groups</h3>
-        ) : (
-          <h3>Add some fave groups!</h3>
-        )}
+        <div className="groups-inner-nav">
+          <h3 className="groups-title">❥Groups I Collect</h3>
+          {/* <Link to="/editgroups"> */}
+          <button className="groups-button-edit">+Edit</button>
+          {/* </Link> */}
+        </div>
+        <div>
+          {this.props.isLoggedIn && this.props.faveGroups.length ? (
+            <div className="groups-container">
+              {this.props.faveGroups.map((group) => {
+                return (
+                  <div key={group.id}>
+                    <Link to={`/group/${group.id}`}>
+                      <button className="groups-single">{group.name}</button>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+          ) : this.props.isLoggedIn ? (
+            <h3>Please Log In To Access Your Favorite Groups</h3>
+          ) : (
+            <h3>Add some fave groups!</h3>
+          )}
+        </div>
       </div>
     );
   }

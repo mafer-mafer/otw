@@ -86,25 +86,74 @@ nav a {
 
 /* Your Groups */
 
-.title-groups {
+.groups-inner-nav {
+  display: flex;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+
+.groups-title {
+  flex-grow: 1;
   text-align: left;
-  float: left;
   font-size: 27px;
-  margin-bottom: 10px;
+}
+
+.groups-button-edit {
+  /* flex-grow: 1; */
+  text-align: right;
+  padding: 15px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #2185e2;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(195, 145, 212);
+  margin: 10px;
+  margin-top: 17px;
+  align-self: flex-end;
+  width: auto;
+}
+
+.groups-button-edit:hover {
+  background-color: #1f77c9;
+}
+
+.groups-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  align-content: center;
+  margin: auto;
+}
+
+.groups-single {
+  flex-grow: 1;
+  padding: 15px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #d862c8;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(195, 145, 212);
+  margin: 10px;
+  margin-top: 17px;
+}
+
+.groups-single:hover {
+  background-color: #c257b4;
 }
 
 /* Edit Groups */
-
-.edit-groups {
-  font-size: 25px;
-  /* position: relative; */
-  text-align: right;
-  float: right;
-}
-
-.edit-groups:hover {
-  color: white;
-}
 
 .group-names {
   background-color: #b44a64;
@@ -164,21 +213,6 @@ nav a {
   align-content: space-around;
 }
 
-.your-groups-container {
-  display: flex;
-  flex-flow: column wrap;
-  height: 60vh;
-  align-content: center;
-  justify-content: space-around;
-  /* width: 40em; */
-}
-
-.your-groups-single {
-  flex-grow: 1;
-  align-self: center;
-  flex-basis: auto;
-}
-
 /* Your Orders */
 
 .orders-inner-nav {
@@ -235,6 +269,8 @@ nav a {
 
 .orders-button-new {
   flex-grow: 1;
+  text-align: right;
+
   padding: 15px 25px;
   font-size: 17px;
   font-weight: bold;
@@ -248,7 +284,6 @@ nav a {
   box-shadow: 0 9px rgb(195, 145, 212);
   margin: 10px;
   margin-top: 17px;
-  text-align: right;
 }
 
 .orders-button-new:hover {
