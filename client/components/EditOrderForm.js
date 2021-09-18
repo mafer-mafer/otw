@@ -117,7 +117,12 @@ export class EditOrderForm extends React.Component {
           <br></br>
           <div className="new-order-field">
             <label htmlFor="seller">Seller:</label>&nbsp;&nbsp;
-            <input name="seller" onChange={handleChange} value={seller} />
+            <input
+              name="seller"
+              onChange={handleChange}
+              value={seller}
+              required
+            />
           </div>
           <br></br>
           <div className="new-order-field">
@@ -157,6 +162,7 @@ export class EditOrderForm extends React.Component {
               name="dateOrdered"
               value={dateOrdered}
               onChange={handleChange}
+              required
             />
           </div>
           <br></br>
