@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { setSingleGroup } from "../store/singleGroup";
+import singleGroup, { setSingleGroup } from "../store/singleGroup";
 
 export class GroupView extends React.Component {
   constructor() {
@@ -12,7 +12,10 @@ export class GroupView extends React.Component {
   componentDidMount() {
     try {
       if (this.props.auth.id) {
-        this.props.getGroup(req.params.groupId, this.props.auth.id);
+        this.props.getGroup(
+          this.props.match.params.groupId,
+          this.props.auth.id
+        );
       }
     } catch (error) {
       console.log(error);
@@ -20,9 +23,11 @@ export class GroupView extends React.Component {
   }
 
   render() {
+    console.log(this.props.singleGroup.name);
     return (
       <div className="after-scallop">
-        <h1>Your Incoming {this.props.singleGroup.name} Orders</h1>
+        <h1>Specific Group Incoming {this.props.singleGroup.name} Orders</h1>
+        <h3>Under Construction, Coming Soon :)</h3>
       </div>
     );
   }

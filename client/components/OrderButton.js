@@ -9,7 +9,9 @@ export class OrderButton extends React.Component {
     return (
       <button
         className={classNames(
+          "buttons",
           { "orders-button-new": this.props.purpose === "NewOrder" },
+          { "home-button-new": this.props.purpose === "NewOrderHome" },
           { "single-order-button-edit": this.props.purpose === "EditOrder" },
           {
             "single-order-item-button-edit": this.props.purpose === "EditItem",

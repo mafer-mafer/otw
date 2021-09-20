@@ -34,8 +34,8 @@ export class NewItemForm extends React.Component {
 
     return (
       <div>
-        <h4 className="new-order-title">New Item</h4>
-        <form onSubmit={this.passSubmit}>
+        <h4 id="new-order-title">New Item</h4>
+        <form className="new-order-form" onSubmit={this.passSubmit}>
           <div className="new-order-field">
             <label htmlFor="name">Item Description:</label>&nbsp;&nbsp;
             <input name="name" onChange={handleChange} value={name} required />

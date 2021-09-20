@@ -112,7 +112,7 @@ export class Orders extends React.Component {
                       </div>
                     </div>
                     <Link to={`/orders/${order.id}`}>
-                      <table className="orders-table">
+                      <table className="tables" id="orders-table">
                         <tbody>
                           <tr>
                             <th>Date Ordered</th>

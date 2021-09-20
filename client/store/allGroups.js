@@ -9,10 +9,10 @@ export const _setGroups = (allGroups) => {
   };
 };
 
-export const setGroups = (type) => {
+export const setGroups = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/groups/${type}`);
+      const { data } = await axios.get(`/api/groups/`);
       dispatch(_setGroups(data));
     } catch (err) {
       console.log("Error fetching all groups via thunk");
@@ -24,10 +24,6 @@ export default (state = [], action) => {
   switch (action.type) {
     case SET_GROUPS:
       return action.allGroups;
-    // case DELETE_PRODUCT:
-    //   return state.filter((product) => product.id !== action.product.id);
-    // case CREATE_PRODUCT:
-    //   return [...state, action.product];
     default:
       return state;
   }

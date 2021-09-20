@@ -103,57 +103,25 @@ async function seed() {
     note: "Is coming in lateeee",
   });
 
-  const girlGroups = await Promise.all([
-    Group.create({ name: "2NE1", groupType: "Girl Group" }),
-    Group.create({ name: "3YE", groupType: "Girl Group" }),
-    Group.create({ name: "4Minute", groupType: "Girl Group" }),
-    Group.create({ name: "Aespa", groupType: "Girl Group" }),
-    Group.create({ name: "After School", groupType: "Girl Group" }),
-    Group.create({ name: "Ailee", groupType: "Girl Group" }),
-    Group.create({ name: "AleXa", groupType: "Girl Group" }),
-    Group.create({ name: "Amber", groupType: "Girl Group" }),
-    Group.create({ name: "AOA", groupType: "Girl Group" }),
-    Group.create({ name: "Apink", groupType: "Girl Group" }),
-    Group.create({ name: "April", groupType: "Girl Group" }),
-    Group.create({ name: "Baek A Yeon", groupType: "Girl Group" }),
-    Group.create({ name: "Baek Yerin", groupType: "Girl Group" }),
-    Group.create({ name: "BIBI", groupType: "Girl Group" }),
-    Group.create({ name: "Blackpink", groupType: "Girl Group" }),
-    Group.create({ name: "Blackswan", groupType: "Girl Group" }),
-    Group.create({ name: "BoA", groupType: "Girl Group" }),
-    Group.create({ name: "Bolbbalgan4", groupType: "Girl Group" }),
-    Group.create({ name: "Brave Girls", groupType: "Girl Group" }),
-    Group.create({ name: "Brown Eyed Girls", groupType: "Girl Group" }),
-    Group.create({ name: "Bvndit", groupType: "Girl Group" }),
-    Group.create({ name: "Cherry Bullet", groupType: "Girl Group" }),
-    Group.create({ name: "Chung Ha", groupType: "Girl Group" }),
-    Group.create({ name: "Cignature", groupType: "Girl Group" }),
-    Group.create({ name: "CL", groupType: "Girl Group" }),
-    Group.create({ name: "CLC", groupType: "Girl Group" }),
-    Group.create({ name: "Crayon Pop", groupType: "Girl Group" }),
-    Group.create({ name: "Dal Shabet", groupType: "Girl Group" }),
-    Group.create({ name: "DALsoobin", groupType: "Girl Group" }),
-    Group.create({ name: "DIA", groupType: "Girl Group" }),
-    Group.create({ name: "Dreamcatcher", groupType: "Girl Group" }),
-    Group.create({ name: "DreamNote", groupType: "Girl Group" }),
-    Group.create({ name: "Elkie", groupType: "Girl Group" }),
-  ]);
+  const girlGroups = await Promise.all(
+    GirlGroups.map((group) => {
+      return Group.create({
+        name: group,
+        groupType: "Girl Group",
+      });
+    })
+  );
 
-  const boyGroups = await Promise.all([
-    Group.create({ name: "2PM", groupType: "Boy Group" }),
-    Group.create({ name: "AB6IX", groupType: "Boy Group" }),
-    Group.create({ name: "Astro", groupType: "Boy Group" }),
-    Group.create({ name: "Ateez", groupType: "Boy Group" }),
-    Group.create({ name: "B.A.P.", groupType: "Boy Group" }),
-    Group.create({ name: "Baekhyun", groupType: "Boy Group" }),
-    Group.create({ name: "B.I", groupType: "Boy Group" }),
-    Group.create({ name: "Big Bang", groupType: "Boy Group" }),
-    Group.create({ name: "Block B", groupType: "Boy Group" }),
-    Group.create({ name: "The Boyz", groupType: "Boy Group" }),
-    Group.create({ name: "BtoB", groupType: "Boy Group" }),
-    Group.create({ name: "BTS", groupType: "Boy Group" }),
-    Group.create({ name: "CIX", groupType: "Boy Group" }),
-  ]);
+  const boyGroups = await Promise.all(
+    BoyGroups.map((group) => {
+      return Group.create({
+        name: group,
+        groupType: "Boy Group",
+      });
+    })
+  );
+
+  //console.log("boyGroups are", boyGroups);
 
   await order1.addItem(item1);
   await order2.addItem(item2);
@@ -167,11 +135,11 @@ async function seed() {
 
   await users[1].addOrder(order3);
 
-  await users[0].addGroups([girlGroups[0], girlGroups[3], boyGroups[4]]);
-  await users[1].addGroups([girlGroups[5], girlGroups[6], boyGroups[3]]);
-  await users[2].addGroups([girlGroups[1], girlGroups[4], boyGroups[2]]);
+  await users[0].addGroups([girlGroups[0], girlGroups[3]]);
+  await users[1].addGroups([girlGroups[5], girlGroups[6], boyGroups[21]]);
+  await users[2].addGroups([girlGroups[1], girlGroups[4], boyGroups[30]]);
 
-  await item1.setGroup(boyGroups[1]);
+  await item1.setGroup(boyGroups[30]);
   await item2.setGroup(girlGroups[8]);
   await item3.setGroup(girlGroups[2]);
   await item4.setGroup(girlGroups[1]);
@@ -335,7 +303,7 @@ const BoyGroups = [
   "Cravity",
   "DAWN",
   "DEAN",
-  "Enhyper",
+  "Enhypen",
   "Exo",
   "G-Dragon",
   "Got7",

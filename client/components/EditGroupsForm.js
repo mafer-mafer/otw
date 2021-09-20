@@ -5,59 +5,108 @@ export class EditGroupsForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      faveGroups: this.props.groups || [],
+      selected: "(G)I-dle",
     };
     this.handleChange = this.handleChange.bind(this);
-    this.passSubmit = this.passSubmit.bind(this);
+    this.sortGroups = this.sortGroups.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+    this.addFavorite = this.addFavorite.bind(this);
   }
 
   handleChange(e) {
-    // this.setState({
-    //   faveGroups: [...this.state.faveGroups]
-    // });
+    this.setState({ selected: e.target.value });
   }
 
-  passSubmit(e) {
-    // e.preventDefault();
-    // this.props.handleSubmit("Item", { ...this.state }, this.props.item.id);
-    // this.props.closeModal();
+  addFavorite() {
+    console.log(this.state.selected, this.props.userId);
+    this.props.addFaveGroup(this.state.selected, this.props.userId);
+  }
+
+  handleRemove(groupId) {
+    this.props.removeFaveGroup(groupId, this.props.userId);
+  }
+
+  sortGroups(groups) {
+    groups.sort(function (a, b) {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+    return groups;
   }
 
   render() {
     console.log(this.state);
     const { handleChange } = this;
-    const { name, type, preOrder, damage, groupName } = this.state;
+    const { groupName } = this.state;
 
     return (
-      <div>
-        <h4 className="new-order-title">Edit Item</h4>
-        <form onSubmit={this.passSubmit}>
-          <div className="new-order-field">
-            <label htmlFor="groupName">Group:</label>&nbsp;&nbsp;
-            <select
-              name="groupName"
-              onChange={handleChange}
-              value={groupName}
-              required
-            >
-              {allGroups.map((group, idx) => {
-                return (
-                  <option value={group} key={idx}>
-                    {group}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <br></br>
+      <div className="edit-groups-form-main">
+        <h4 id="groups-edit-title">Edit Favorite Groups</h4>
+        {this.props.allGroups ? (
+          <div className="groups-add-container">
+            <div>
+              <label htmlFor="groupName" id="groups-edit-allgroups-label">
+                Choose Group
+              </label>
+              &nbsp;&nbsp;
+              <select
+                name="groupName"
+                id="groups-edit-allgroups"
+                onChange={handleChange}
+                value={groupName}
+                required
+              >
+                {this.sortGroups(this.props.allGroups).map((group, idx) => {
+                  return (
+                    <option value={group.name} key={idx}>
+                      {group.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
 
-          <br></br>
-          <div>
-            <p>
-              <button type="submit">Submit</button>
-            </p>
+            <button
+              className="buttons"
+              id="groups-button-add"
+              onClick={this.addFavorite}
+            >
+              +Add Group!
+            </button>
           </div>
-        </form>
+        ) : (
+          <h3>Error loading sorry!</h3>
+        )}
+
+        <br></br>
+        <label id="groups-edit-allgroups-label">Current Favorite Groups</label>
+        {this.props.faveGroups ? (
+          <div className="edit-groups-faves-container">
+            {this.props.faveGroups.map((group, idx) => {
+              return (
+                <table
+                  className="tables"
+                  id="edit-groups-fave"
+                  key={idx}
+                  onClick={() => this.handleRemove(group.id)}
+                >
+                  <tbody>
+                    <tr>
+                      <td>{group.name}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              );
+            })}
+          </div>
+        ) : (
+          <h3>Error loading sorry!</h3>
+        )}
       </div>
     );
   }

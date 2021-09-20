@@ -1,88 +1,184 @@
 import React from "react";
 import { connect } from "react-redux";
+import FormContainer from "./FormContainer";
+import { addNewOrder } from "../store/singleOrder";
+import { Link } from "react-router-dom";
 
-export const Home = (props) => {
-  const { username } = props;
+export class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter: "orderDate",
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-  return (
-    <div className="home-main-container">
-      <table className="home-quadrant-table">
-        <tbody>
-          <tr>
-            <th>
-              <table id="home-table-left">
-                <tbody>
-                  <tr>
-                    <th>Welcome back, {username} :)</th>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>Hope you have been well~</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>New Order?</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
-                </tbody>
-              </table>
-            </th>
-            <th>
-              <img img src={"/homelineright.png"} />
-            </th>
-          </tr>
-          <tr>
-            <th>
-              <img img src={"/homelineleft.png"} />
-            </th>
-            <th>
-              <table id="home-table-right">
-                <tbody>
-                  <tr>
-                    <th>Soon To Arrive:</th>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>Orders Here</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>&nbsp;</td>
-                  </tr>
-                </tbody>
-              </table>
-            </th>
-          </tr>
-        </tbody>
-      </table>
-      <br></br>
-    </div>
-  );
-};
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  handleSubmit(state) {
+    this.props.createOrder(state, this.props.auth.id);
+  }
+
+  render() {
+    const { username, isLoggedIn } = this.props;
+    return (
+      <div className="home-main-container">
+        <table className="home-quadrant-table">
+          <tbody>
+            <tr>
+              <th>
+                <table className="tables" id="home-table-left">
+                  {isLoggedIn ? (
+                    <tbody>
+                      <tr>
+                        <th>Welcome Back, {username} :)</th>
+                      </tr>
+                      <tr>
+                        <td>Hope you're having a great day~</td>
+                      </tr>
+                      <tr>
+                        <td>♥♥</td>
+                      </tr>
+                      <tr>
+                        <td>Have a new order to log?</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <FormContainer
+                            userId={this.props.auth.id}
+                            handleSubmit={this.handleSubmit}
+                            purpose={"NewOrderHome"}
+                            buttonText="+New Order"
+                            order={false}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                      </tr>
+                    </tbody>
+                  ) : (
+                    <tbody>
+                      <tr>
+                        <th>Welcome Collector~</th>
+                      </tr>
+                      <tr>
+                        <td>♥♥</td>
+                      </tr>
+                      <tr>
+                        <td>Tired of forgetting your trades and purchases?</td>
+                      </tr>
+                      <tr>
+                        <td>Can't remember whose Group Order you joined?</td>
+                      </tr>
+                      <tr>
+                        <td id="home-left-bold">
+                          On The Way is the App for You!
+                        </td>
+                      </tr>
+                    </tbody>
+                  )}
+                </table>
+              </th>
+              <th>
+                <img img src={"/homelineright.png"} />
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <img img src={"/homelineleft.png"} />
+              </th>
+              <th>
+                <table className="tables" id="home-table-right">
+                  {isLoggedIn ? (
+                    <tbody>
+                      <tr>
+                        <th>Wanna View Your Orders?</th>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td>♥♥♥</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <Link to={`/orders`}>
+                            <button className="buttons" id="home-button-orders">
+                              +Go To Orders
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                      </tr>
+                    </tbody>
+                  ) : (
+                    <tbody>
+                      <tr>
+                        <th id="home-right-header">
+                          Log In or Sign Up To Start!
+                        </th>
+                      </tr>
+                      <tr>
+                        <td>♥</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <Link to={`/login`}>
+                            <button className="buttons" id="home-button-orders">
+                              +Log In
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <Link to={`/signup`}>
+                            <button className="buttons" id="home-button-orders">
+                              +Sign Up
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                      </tr>
+                    </tbody>
+                  )}
+                </table>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <br></br>
+      </div>
+    );
+  }
+}
 
 const mapState = (state) => {
   return {
+    auth: state.auth,
+    isLoggedIn: !!state.auth.id,
     username: state.auth.username,
   };
 };
 
-export default connect(mapState)(Home);
+const mapDispatchToProps = (dispatch, { history }) => {
+  return {
+    createOrder: (newOrderData, user) =>
+      dispatch(addNewOrder(newOrderData, user, history)),
+  };
+};
+
+export default connect(mapState, mapDispatchToProps)(Home);

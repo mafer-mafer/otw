@@ -18,7 +18,10 @@ export const NewOrderModal = ({
   purpose,
   order,
   item,
-  groups,
+  allGroups,
+  faveGroups,
+  removeFaveGroup,
+  addFaveGroup,
 }) => {
   return ReactDOM.createPortal(
     <FocusTrap>
@@ -47,7 +50,7 @@ export const NewOrderModal = ({
             </svg>
           </button>
           <div className="modal-body">
-            {purpose === "NewOrder" ? (
+            {purpose === "NewOrder" || purpose === "NewOrderHome" ? (
               <NewOrderForm handleSubmit={handleSubmit} userId={userId} />
             ) : purpose === "EditOrder" ? (
               <EditOrderForm
@@ -69,9 +72,12 @@ export const NewOrderModal = ({
               />
             ) : purpose === "EditGroups" ? (
               <EditGroupsForm
-                handleSubmit={handleSubmit}
                 closeModal={closeModal}
-                groups={groups}
+                allGroups={allGroups}
+                faveGroups={faveGroups}
+                removeFaveGroup={removeFaveGroup}
+                userId={userId}
+                addFaveGroup={addFaveGroup}
               />
             ) : null}
           </div>

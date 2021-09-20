@@ -56,7 +56,7 @@ export class EditOrderForm extends React.Component {
 
     return (
       <div>
-        <h4 className="new-order-title">Edit Order</h4>
+        <h4 id="new-order-title">Edit Order</h4>
         <form onSubmit={this.passSubmit}>
           <div className="new-order-field">
             <label htmlFor="type">Order Type:</label>&nbsp;&nbsp;

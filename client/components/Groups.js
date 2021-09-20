@@ -1,28 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { setFaveGroups } from "../store/faveGroups";
 import FormContainer from "./FormContainer";
+import {
+  addFaveGroup,
+  removeFaveGroup,
+  setFaveGroups,
+} from "../store/faveGroups";
+import { setGroups } from "../store/allGroups";
 
 export class Groups extends React.Component {
   constructor() {
     super();
-
     this.state = {};
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.doneEditing = this.doneEditing.bind(this);
   }
 
   componentDidMount() {
     try {
       if (this.props.auth.id) {
         this.props.getFaveGroups(this.props.auth.id);
+        this.props.loadGroups();
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  handleSubmit() {}
+  doneEditing() {
+    window.location.reload();
+  }
 
   render() {
     return (
@@ -36,7 +43,11 @@ export class Groups extends React.Component {
               handleSubmit={this.handleSubmit}
               purpose="EditGroups"
               buttonText="+Edit"
-              groups={this.props.groups}
+              faveGroups={this.props.faveGroups}
+              allGroups={this.props.allGroups}
+              doneEditing={this.doneEditing}
+              removeFaveGroup={this.props.removeFavorite}
+              addFaveGroup={this.props.addFavorite}
             />
           </div>
         </div>
@@ -55,7 +66,7 @@ export class Groups extends React.Component {
                     </div>
                     <div>
                       <Link to={`/group/${group.id}`}>
-                        <table>
+                        <table className="tables" id="groups-single-table">
                           <tbody>
                             <tr>
                               <th>&nbsp;</th>
@@ -87,12 +98,16 @@ const mapStateToProps = (state) => {
     auth: state.auth,
     isLoggedIn: !!state.auth.id,
     faveGroups: state.faveGroups,
+    allGroups: state.allGroups,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getFaveGroups: (id) => dispatch(setFaveGroups(id)),
+    loadGroups: () => dispatch(setGroups()),
+    addFavorite: (groupName, user) => dispatch(addFaveGroup(groupName, user)),
+    removeFavorite: (group, user) => dispatch(removeFaveGroup(group, user)),
   };
 };
 

@@ -28,6 +28,7 @@ export class FormContainer extends Component {
     this.setState({ isShown: false });
     this.OrderButton.focus();
     this.toggleScrollLock();
+    this.props.doneEditing();
   }
 
   toggleScrollLock() {
@@ -38,11 +39,13 @@ export class FormContainer extends Component {
     if (event.keyCode === 27) {
       this.closeModal();
     }
+    this.props.doneEditing();
   }
 
   onClickOutside(event) {
     if (this.modal && this.modal.contains(event.target)) return;
     this.closeModal();
+    this.props.doneEditing();
   }
 
   render() {
@@ -67,7 +70,10 @@ export class FormContainer extends Component {
               purpose={this.props.purpose}
               order={this.props.order}
               item={this.props.item}
-              groups={this.props.groups}
+              allGroups={this.props.allGroups}
+              faveGroups={this.props.faveGroups}
+              removeFaveGroup={this.props.removeFaveGroup}
+              addFaveGroup={this.props.addFaveGroup}
             />
           ) : null}
         </div>
