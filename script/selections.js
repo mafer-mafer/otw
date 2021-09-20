@@ -52,7 +52,7 @@ export const orderStatus = [
   "Other",
 ];
 
-export const typeShipping = ["Stamped", "Tracked", "EMS", "DHL", "Boat"];
+export const typeShipping = ["TBD", "Stamped", "Tracked", "EMS", "DHL", "Boat"];
 
 export const countries = [
   "Afghanistan",

@@ -21,6 +21,7 @@ export class Home extends React.Component {
   }
 
   handleSubmit(state) {
+    console.log(state);
     this.props.createOrder(state, this.props.auth.id);
   }
 
@@ -86,12 +87,12 @@ export class Home extends React.Component {
                 </table>
               </th>
               <th>
-                <img img src={"/homelineright.png"} />
+                <img src="/homelineright.png" />
               </th>
             </tr>
             <tr>
               <th>
-                <img img src={"/homelineleft.png"} />
+                <img src="/homelineleft.png" />
               </th>
               <th>
                 <table className="tables" id="home-table-right">

@@ -12,15 +12,15 @@ export class EditOrderForm extends React.Component {
     super(props);
     this.state = {
       seller: this.props.order.seller || "",
-      platform: this.props.order.platform || "Twitter",
-      status: this.props.order.status || "Order Placed",
-      type: this.props.order.type || "Purchase",
+      platform: this.props.order.platform || sellerPlatform[0],
+      status: this.props.order.status || orderStatus[0],
+      type: this.props.order.type || orderType[0],
       dateOrdered: this.props.order.dateOrdered || "",
-      sellerLocation: this.props.order.sellerLocation || "Unknown",
-      shippingType: this.props.order.shippingType || "Stamped",
+      sellerLocation: this.props.order.sellerLocation || countries[0],
+      shippingType: this.props.order.shippingType || typeShipping[0],
       trackingNumber: this.props.order.trackingNumber || "",
       items: this.props.order.items || [],
-      dateShipped: this.props.order.dateShipped || "",
+      dateShipped: this.props.order.dateShipped || null,
       note: this.props.order.note || "",
     };
     this.handleChange = this.handleChange.bind(this);

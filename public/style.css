@@ -160,6 +160,43 @@ nav a {
   transform: translateY(4px);
 }
 
+/* All Forms */
+
+form label {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 9px;
+}
+
+form select {
+  font-size: 13px;
+}
+
+form button {
+  flex: 1 1 auto;
+  padding: 15px 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: -5px 5px #ff35dc;
+  margin: 10px;
+  margin-top: 17px;
+  width: auto;
+  text-shadow: -1px 1px black;
+  border: 3px dotted #000000;
+  background-color: #694aff;
+}
+
+form button:active {
+  box-shadow: -1 5px #ff35dc;
+  transform: translateY(4px);
+  background-color: #5f44e9;
+}
+
 /* Home */
 
 .home-main-container {
@@ -559,16 +596,6 @@ Your Groups */
 }
 
 /* New Order */
-
-#groups-edit-allgroups-label {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-#groups-edit-allgroups {
-  font-size: 15px;
-}
 
 /* Single Order */
 

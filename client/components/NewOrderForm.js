@@ -12,14 +12,14 @@ export class NewOrderForm extends React.Component {
     super(props);
     this.state = {
       seller: "",
-      platform: "Twitter",
-      status: "Order Placed",
-      type: "Purchase",
+      platform: sellerPlatform[0],
+      status: orderStatus[0],
+      type: orderType[0],
       dateOrdered: "",
-      sellerLocation: "Unknown",
-      shippingType: "Stamped",
+      sellerLocation: countries[0],
+      shippingType: typeShipping[0],
       trackingNumber: "",
-      dateShipped: "",
+      dateShipped: null,
       note: "",
     };
     this.handleChange = this.handleChange.bind(this);
