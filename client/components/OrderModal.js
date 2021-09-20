@@ -5,6 +5,7 @@ import NewOrderForm from "./NewOrderForm";
 import EditOrderForm from "./EditOrderForm";
 import EditItemForm from "./EditItemForm";
 import NewItemForm from "./NewItemForm";
+import EditGroupsForm from "./EditGroupsForm";
 
 export const NewOrderModal = ({
   onClickOutside,
@@ -17,6 +18,7 @@ export const NewOrderModal = ({
   purpose,
   order,
   item,
+  groups,
 }) => {
   return ReactDOM.createPortal(
     <FocusTrap>
@@ -64,6 +66,12 @@ export const NewOrderModal = ({
               <NewItemForm
                 handleSubmit={handleSubmit}
                 closeModal={closeModal}
+              />
+            ) : purpose === "EditGroups" ? (
+              <EditGroupsForm
+                handleSubmit={handleSubmit}
+                closeModal={closeModal}
+                groups={groups}
               />
             ) : null}
           </div>

@@ -67,6 +67,7 @@ export class FormContainer extends Component {
               purpose={this.props.purpose}
               order={this.props.order}
               item={this.props.item}
+              groups={this.props.groups}
             />
           ) : null}
         </div>

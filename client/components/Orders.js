@@ -2,15 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { setOrders } from "../store/orders";
 import { Link } from "react-router-dom";
-import history from "../history";
 import FormContainer from "./FormContainer";
 import { addNewOrder } from "../store/singleOrder";
 
 export class Orders extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      filter: "orderDate",
+    };
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.sortOrders = this.sortOrders.bind(this);
   }
 
   componentDidMount() {
@@ -19,48 +22,113 @@ export class Orders extends React.Component {
     }
   }
 
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+
   handleSubmit(state) {
     this.props.createOrder(state, this.props.auth.id);
   }
 
+  sortOrders(orders) {
+    if (this.state.filter === "orderType") {
+      sorter("type", true);
+    } else if (this.state.filter === "orderStatus") {
+      sorter("status", true);
+    } else if (this.state.filter === "orderDate") {
+      sorter("dateOrdered", false);
+    } else if (this.state.filter === "seller") {
+      sorter("seller", true);
+    }
+
+    function sorter(val, ascending) {
+      if (ascending) {
+        orders.sort(function (a, b) {
+          if (a[val] < b[val]) {
+            return -1;
+          }
+          if (a[val] > b[val]) {
+            return 1;
+          }
+          return 0;
+        });
+      } else {
+        orders.sort(function (a, b) {
+          if (a[val] > b[val]) {
+            return -1;
+          }
+          if (a[val] < b[val]) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+    }
+
+    return orders;
+  }
+
   render() {
+    this.sortOrders(this.props.orders);
     return (
-      <div className="after-scallop">
+      <div className="orders-main-container">
         <div className="orders-inner-nav">
-          <h3 className="orders-title">❥Your Incoming Orders:</h3>
-          <FormContainer
-            userId={this.props.auth.id}
-            handleSubmit={this.handleSubmit}
-            purpose={"NewOrder"}
-            buttonText="+New Order"
-            order={false}
-          />
+          <div id="orders-nav-side"></div>
+          <h3 className="orders-title">Your Incoming Orders</h3>
+          <div id="orders-nav-side">
+            <FormContainer
+              userId={this.props.auth.id}
+              handleSubmit={this.handleSubmit}
+              purpose={"NewOrder"}
+              buttonText="+New Order"
+              order={false}
+            />
+          </div>
         </div>
-        <div>
+        <div className="orders-body">
+          <div className="orders-filter">
+            <label htmlFor="filter">Filter By:</label>
+            <select name="filter" onChange={this.handleChange}>
+              <option value="orderDate">Date Ordered</option>
+              <option value="orderType">Order Type</option>
+              <option value="orderStatus">Order Status</option>
+              <option value="seller">Seller</option>
+            </select>
+          </div>
           {this.props.orders.length ? (
-            <div>
-              {this.props.orders.map((order) => {
+            <div className="orders-all">
+              {this.props.orders.map((order, idx) => {
                 return (
-                  <div key={order.id}>
+                  <div key={order.id} className="orders-single-container">
+                    <div className="orders-hearts">
+                      <div>
+                        <span id="orders-heart-1">♥</span>
+                        <br></br>
+                        <span id="orders-heart-2">♥</span>
+                        <br></br>
+                        <span id="orders-heart-3">♥</span>
+                      </div>
+                    </div>
                     <Link to={`/orders/${order.id}`}>
                       <table className="orders-table">
                         <tbody>
                           <tr>
-                            <th id="orders-table-date">Date Ordered</th>
+                            <th>Date Ordered</th>
                             <th>Seller</th>
                             <th>Type</th>
-                            <th id="orders-table-status">Status</th>
+                            <th>Status</th>
                           </tr>
                           <tr>
-                            <td id="orders-table-date">{order.dateOrdered}</td>
+                            <td>{order.dateOrdered}</td>
                             <td>{order.seller}</td>
                             <td>{order.type}</td>
-                            <td id="orders-table-status">{order.status}</td>
+                            <td>{order.status}</td>
                           </tr>
                           <tr></tr>
                         </tbody>
                       </table>
-                      <br></br>
                     </Link>
                   </div>
                 );

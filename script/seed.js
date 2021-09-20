@@ -81,6 +81,28 @@ async function seed() {
     note: "Is coming in lateeee",
   });
 
+  const order4 = await Order.create({
+    seller: "@sarah",
+    platform: "eBay",
+    type: "Group Order",
+    status: "Waiting for Shipment",
+    dateOrdered: new Date(20, 1, 20),
+    sellerLocation: "Algeria",
+    shippingType: "Tracked",
+    note: "Is coming in lateeee",
+  });
+
+  const order5 = await Order.create({
+    seller: "@james",
+    platform: "eBay",
+    type: "Trade",
+    status: "Waiting for Shipment",
+    dateOrdered: new Date(20, 1, 20),
+    sellerLocation: "Algeria",
+    shippingType: "Tracked",
+    note: "Is coming in lateeee",
+  });
+
   const girlGroups = await Promise.all([
     Group.create({ name: "2NE1", groupType: "Girl Group" }),
     Group.create({ name: "3YE", groupType: "Girl Group" }),
@@ -140,6 +162,9 @@ async function seed() {
 
   await users[0].addOrder(order1);
   await users[0].addOrder(order2);
+  await users[0].addOrder(order4);
+  await users[0].addOrder(order5);
+
   await users[1].addOrder(order3);
 
   await users[0].addGroups([girlGroups[0], girlGroups[3], boyGroups[4]]);

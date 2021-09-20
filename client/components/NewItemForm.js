@@ -1,4 +1,5 @@
 import React from "react";
+import { allGroups, itemType } from "../../script/selections";
 
 export class NewItemForm extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export class NewItemForm extends React.Component {
 
     return (
       <div>
-        <h4 className="new-order-title">New Order</h4>
+        <h4 className="new-order-title">New Item</h4>
         <form onSubmit={this.passSubmit}>
           <div className="new-order-field">
             <label htmlFor="name">Item Description:</label>&nbsp;&nbsp;
@@ -42,22 +43,32 @@ export class NewItemForm extends React.Component {
           <br></br>
           <div className="new-order-field">
             <label htmlFor="groupName">Group:</label>&nbsp;&nbsp;
-            <input
+            <select
               name="groupName"
               onChange={handleChange}
               value={groupName}
               required
-            />
+            >
+              {allGroups.map((group, idx) => {
+                return (
+                  <option value={group} key={idx}>
+                    {group}
+                  </option>
+                );
+              })}
+            </select>
           </div>
           <br></br>
           <div className="new-order-field">
             <label htmlFor="type">Type:</label>&nbsp;&nbsp;
             <select name="type" onChange={handleChange} value={type} required>
-              <option value="Photocard">Photocard</option>
-              <option value="Album">Album</option>
-              <option value="Lightstick">Lightstick</option>
-              <option value="Concert">Concert</option>
-              <option value="Misc.">Misc.</option>
+              {itemType.map((type, idx) => {
+                return (
+                  <option value={type} key={idx}>
+                    {type}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <br></br>

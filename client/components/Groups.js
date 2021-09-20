@@ -2,12 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { setFaveGroups } from "../store/faveGroups";
+import FormContainer from "./FormContainer";
 
 export class Groups extends React.Component {
   constructor() {
     super();
 
     this.state = {};
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -20,24 +22,51 @@ export class Groups extends React.Component {
     }
   }
 
+  handleSubmit() {}
+
   render() {
     return (
-      <div className="after-scallop">
+      <div className="groups-main-container">
         <div className="groups-inner-nav">
-          <h3 className="groups-title">❥Groups I Collect</h3>
-          {/* <Link to="/editgroups"> */}
-          <button className="groups-button-edit">+Edit</button>
-          {/* </Link> */}
+          <div id="groups-nav-side"></div>
+          <h3 className="groups-title">Groups I Collect</h3>
+          <div id="groups-nav-side">
+            <FormContainer
+              userId={this.props.auth.id}
+              handleSubmit={this.handleSubmit}
+              purpose="EditGroups"
+              buttonText="+Edit"
+              groups={this.props.groups}
+            />
+          </div>
         </div>
-        <div>
+        <div className="groups-all">
           {this.props.isLoggedIn && this.props.faveGroups.length ? (
-            <div className="groups-container">
+            <div className="groups-body-container">
               {this.props.faveGroups.map((group) => {
                 return (
-                  <div key={group.id}>
-                    <Link to={`/group/${group.id}`}>
-                      <button className="groups-single">{group.name}</button>
-                    </Link>
+                  <div key={group.id} className="groups-single-container">
+                    <div className="groups-hearts">
+                      <div>
+                        <span id="group-heart-pink">♥</span>
+                        <br></br>
+                        <span id="group-heart-mint">♥</span>
+                      </div>
+                    </div>
+                    <div>
+                      <Link to={`/group/${group.id}`}>
+                        <table>
+                          <tbody>
+                            <tr>
+                              <th>&nbsp;</th>
+                            </tr>
+                            <tr>
+                              <td>{group.name}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </Link>
+                    </div>
                   </div>
                 );
               })}
