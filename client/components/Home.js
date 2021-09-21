@@ -101,10 +101,13 @@ export class Home extends React.Component {
                         <th>Updates</th>
                       </tr>
                       <tr>
-                        <td>&nbsp;</td>
+                        <td>-USPS Tracking Coming Soon!</td>
                       </tr>
                       <tr>
                         <td>♥♥♥</td>
+                      </tr>
+                      <tr>
+                        <td>Join the Discord for Updates + Feedback!</td>
                       </tr>
                       <tr>
                         <td>
@@ -114,9 +117,6 @@ export class Home extends React.Component {
                             </button>
                           </Link>
                         </td>
-                      </tr>
-                      <tr>
-                        <td>&nbsp;</td>
                       </tr>
                       <tr>
                         <td>&nbsp;</td>
