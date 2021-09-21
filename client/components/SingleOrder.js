@@ -53,86 +53,114 @@ export class SingleOrder extends React.Component {
     return (
       <div className="single-order-main-container">
         <div className="single-order-left">
-          <h3 id="single-order-title">Your Order</h3>
-          {this.props.order ? (
-            <div className="single-container">
-              <table className="tables" id="single-order-table">
-                <tbody>
-                  <tr>
-                    <th>Date Ordered</th>
-                    <th>Seller</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                  </tr>
-                  <tr>
-                    <td>{order.dateOrdered}</td>
-                    <td>{order.seller}</td>
-                    <td>{order.type}</td>
-                    <td>{order.status}</td>
-                  </tr>
-                  <tr>
-                    <th>Platform</th>
-                    <th>Seller Location</th>
-                    <th>Shipping Type</th>
-                    <th>Tracking</th>
-                  </tr>
-                  <tr>
-                    <td>{order.platform}</td>
-                    <td>{order.sellerLocation}</td>
-                    <td>{order.shippingType}</td>
-                    <td>
-                      {order.shippingType === "Stamped"
-                        ? "NA"
-                        : order.trackingNumber}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th colSpan="4">Notes</th>
-                  </tr>
-                  <tr>
-                    {order.note ? (
-                      <td colSpan="4">{order.note}</td>
-                    ) : (
-                      <td colSpan="4">&nbsp;</td>
-                    )}
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <FormContainer
-                  userId={this.props.auth.id}
-                  handleSubmit={this.handleEdit}
-                  purpose={"EditOrder"}
-                  buttonText={"+Edit Order"}
-                  order={this.props.order}
-                />
-                <button
-                  className="buttons"
-                  id="single-order-button-del"
-                  onClick={() => this.handleDelete("Order")}
-                >
-                  -Delete Order
-                </button>
-              </div>
+          {/* <div className="single-order-hearts">
+            <div>
+              <span id="orders-heart-1">♥</span>
+              <br></br>
+              <span id="orders-heart-2">♥</span>
+              <br></br>
+              <span id="orders-heart-3">♥</span>
+              <br></br>
+              <br></br>
+              <br></br>
             </div>
-          ) : (
-            <h3>Something went wrong w this order :0!</h3>
-          )}
+          </div> */}
+          <div className="single-order-left-order">
+            <h3 id="single-order-title">Your Order</h3>
+            {this.props.order ? (
+              <div className="single-order-left-order-container">
+                <table className="tables" id="single-order-table">
+                  <tbody>
+                    <tr>
+                      <th>Date Ordered</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                    </tr>
+                    <tr>
+                      <td>{order.dateOrdered}</td>
+                      <td>{order.type}</td>
+                      <td>{order.status}</td>
+                    </tr>
+                    <tr>
+                      <th>Seller</th>
+                      <th>Platform</th>
+                      <th>Location</th>
+                    </tr>
+                    <tr>
+                      <td>{order.seller}</td>
+                      <td>{order.platform}</td>
+                      <td>{order.sellerLocation}</td>
+                    </tr>
+                    <tr>
+                      <th>Mailing Company</th>
+                      <th>Shipping Type</th>
+                      <th>Tracking</th>
+                    </tr>
+                    <tr>
+                      <td>Coming Soon</td>
+                      <td>{order.shippingType}</td>
+                      <td>
+                        {order.shippingType === "Stamped"
+                          ? "NA"
+                          : order.trackingNumber}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th colSpan="3">Notes</th>
+                    </tr>
+                    <tr>
+                      {order.note ? (
+                        <td colSpan="3">{order.note}</td>
+                      ) : (
+                        <td colSpan="3">&nbsp;</td>
+                      )}
+                    </tr>
+                  </tbody>
+                </table>
+                <div id="single-order-buttons-container">
+                  <FormContainer
+                    userId={this.props.auth.id}
+                    handleSubmit={this.handleEdit}
+                    purpose={"EditOrder"}
+                    buttonText={"+Edit Order"}
+                    order={this.props.order}
+                  />
+                  <div id="form-container-div">
+                    <button
+                      className="buttons"
+                      id="single-order-button-del"
+                      onClick={() => this.handleDelete("Order")}
+                    >
+                      -Delete Order
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <h3>Loading!~~~</h3>
+            )}
+          </div>
         </div>
+        {/* <img id="single-order-img" src="/orderline.png" /> */}
         {this.props.order ? (
           <div className="single-order-right">
-            <h2 id="single-order-items-title">Items</h2>
-            <FormContainer
-              handleSubmit={this.handleSubmit}
-              purpose={"NewItem"}
-              buttonText={"+New Item"}
-            />
-            <div className="single-order-items">
+            <div className="single-order-right-nav">
+              <div className="single-right-nav-side"></div>
+              <h2 id="single-order-items-title">Order Items</h2>
+              <div className="single-right-nav-side">
+                <FormContainer
+                  handleSubmit={this.handleSubmit}
+                  purpose={"NewItem"}
+                  buttonText={"+New Item"}
+                />
+              </div>
+            </div>
+            <div className="single-order-items-container">
               {this.props.order.items && this.props.order.items.length ? (
                 order.items.map((item) => {
                   return (
-                    <div key={item.id}>
-                      <table className="tables" id="single-order-item">
+                    <div key={item.id} className="single-order-item-container">
+                      <table className="tables" id="single-order-item-table">
                         <tbody>
                           <tr>
                             <th>Group</th>
@@ -154,21 +182,25 @@ export class SingleOrder extends React.Component {
                           </tr>
                         </tbody>
                       </table>
-                      <FormContainer
-                        userId={this.props.auth.id}
-                        handleSubmit={this.handleEdit}
-                        purpose={"EditItem"}
-                        buttonText={"+Edit Item"}
-                        order={this.props.order}
-                        item={item}
-                      />
-                      <button
-                        className="buttons"
-                        id="single-order-item-del"
-                        onClick={() => this.handleDelete("Item", item.id)}
-                      >
-                        -Delete Item
-                      </button>
+                      <div className="single-order-item-buttons-container">
+                        <FormContainer
+                          userId={this.props.auth.id}
+                          handleSubmit={this.handleEdit}
+                          purpose={"EditItem"}
+                          buttonText={"+Edit"}
+                          order={this.props.order}
+                          item={item}
+                        />
+                        <div id="form-container-div">
+                          <button
+                            className="buttons"
+                            id="single-order-item-del"
+                            onClick={() => this.handleDelete("Item", item.id)}
+                          >
+                            -Delete
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   );
                 })
@@ -178,7 +210,7 @@ export class SingleOrder extends React.Component {
             </div>
           </div>
         ) : (
-          <h3>oops!</h3>
+          <h3>Loading!~~~</h3>
         )}
       </div>
     );

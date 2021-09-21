@@ -9,7 +9,7 @@ body {
   font-family: sans-serif;
   background: #f9f9f9;
   text-align: center;
-  background-size: 40px 40px;
+  background-size: 30px 30px;
   background-image: linear-gradient(to right, grey 1px, transparent 1px),
     linear-gradient(to bottom, grey 1px, transparent 1px);
 }
@@ -34,16 +34,16 @@ nav a {
 
 .inner-body-container {
   position: absolute;
-  width: 82%;
-  height: 90%;
+  width: 81%;
+  height: 88%;
   background-color: #fdebfc;
   border-color: black;
-  border-width: 4px;
+  border-width: 3px;
   border-style: solid;
   margin-top: 2.2%;
   margin-bottom: 5%;
-  margin-left: 8.2%;
-  margin-right: 5%;
+  margin-left: 9.2%;
+  margin-right: 4%;
   border-radius: 35px;
   overflow: hidden;
   display: flex;
@@ -54,9 +54,7 @@ nav a {
 /* Navigation */
 
 .header {
-  /* flex: 3 3 3; */
   position: relative;
-  /* background: #ff35dc; */
   background: rgb(255, 53, 220);
   background: linear-gradient(
     90deg,
@@ -66,8 +64,9 @@ nav a {
   padding: 10px;
   padding-right: 20px;
   padding-bottom: 0px;
+  padding-top: 3px;
   border-bottom-color: black;
-  border-bottom-width: 4px;
+  border-bottom-width: 3px;
   border-bottom-style: solid;
   display: flex;
   width: 99%;
@@ -81,7 +80,7 @@ nav a {
   margin: 3px;
   align-self: flex-start;
   color: white;
-  flex: 6, 3, 6;
+  /* flex: 6, 3, 6; */
   text-shadow: -2px 2px black;
 }
 
@@ -93,7 +92,7 @@ nav a {
   font-size: 20px;
   margin: 3px;
   align-self: flex-end;
-  flex: 4 1 4;
+  /* flex: 4 1 4; */
   text-shadow: -2px 2px black;
 }
 
@@ -114,8 +113,8 @@ nav a {
 
 .buttons {
   flex: 1 1 auto;
-  padding: 15px 25px;
-  font-size: 17px;
+  padding: 12px 21px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
@@ -127,7 +126,7 @@ nav a {
   margin-top: 17px;
   width: auto;
   text-shadow: -1px 1px black;
-  border: 3px dotted #000000;
+  border: 2px dotted #000000;
 }
 
 .buttons:active {
@@ -139,12 +138,12 @@ nav a {
 
 .tables {
   table-layout: fixed;
-  border: 3px solid #000000;
+  border: 2px solid #000000;
   border-radius: 35px;
   border-spacing: 0;
   margin: auto;
   overflow: hidden;
-  box-shadow: -9px 9px #ff35dc;
+  box-shadow: -7px 7px #ff35dc;
 }
 
 .tables th {
@@ -156,26 +155,26 @@ nav a {
 }
 
 .tables:active {
-  box-shadow: -2 6px #ff35dc;
+  box-shadow: -1 4px #ff35dc;
   transform: translateY(4px);
 }
 
 /* All Forms */
 
 form label {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
-  margin-bottom: 9px;
+  margin-bottom: 7px;
 }
 
 form select {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 form button {
   flex: 1 1 auto;
-  padding: 15px 25px;
-  font-size: 17px;
+  padding: 10px 18px;
+  font-size: 13px;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
@@ -187,7 +186,7 @@ form button {
   margin-top: 17px;
   width: auto;
   text-shadow: -1px 1px black;
-  border: 3px dotted #000000;
+  border: 2px dotted #000000;
   background-color: #694aff;
 }
 
@@ -205,14 +204,16 @@ form button:active {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
-  width: 80%;
-  height: 100%;
+  width: 75%;
+  height: 75%;
   align-self: center;
 }
 
 .home-quadrant-table {
-  width: 80%;
+  width: 85%;
+  height: auto;
   margin: auto;
+  margin-top: 15px;
 }
 
 .home-quadrant-table img {
@@ -270,14 +271,10 @@ form button:active {
   background-color: #ffbb00;
 }
 
-#home-emoji {
-  font-size: 20px;
-}
-
 #home-left-bold {
   padding: 35px;
   font-weight: bold;
-  font-size: 23px;
+  font-size: 20px;
   text-shadow: -1px 1px rgb(255, 255, 255);
 }
 
@@ -306,21 +303,21 @@ Your Groups */
   display: flex;
   flex-direction: column;
   align-content: flex-start;
-  width: 80%;
-  height: 100%;
+  width: 75%;
+  height: auto;
   align-self: center;
 }
 
 .groups-inner-nav {
   display: flex;
   margin-bottom: 20px;
-  overflow: auto;
+  overflow: hidden;
   justify-content: space-between;
 }
 
 .groups-title {
   flex-grow: 1;
-  font-size: 35px;
+  font-size: 30px;
   text-decoration-line: underline;
 }
 
@@ -347,7 +344,9 @@ Your Groups */
   margin: 0px;
   display: flex;
   justify-content: center;
+  overflow: auto;
 }
+
 .groups-body-container {
   display: flex;
   flex-flow: row wrap;
@@ -387,9 +386,10 @@ Your Groups */
 }
 
 #groups-single-table {
-  width: 90%;
+  width: 80%;
   background-color: #fca519;
   font-weight: bold;
+  font-size: 14px;
 }
 
 #groups-single-table th {
@@ -502,21 +502,21 @@ Your Groups */
   display: flex;
   flex-direction: column;
   align-content: flex-start;
-  width: 95%;
-  height: 100%;
+  width: 75%;
+  height: auto;
   align-self: center;
 }
 
 .orders-inner-nav {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   overflow: auto;
   justify-content: space-between;
 }
 
 .orders-title {
   flex-grow: 1;
-  font-size: 35px;
+  font-size: 30px;
   text-decoration-line: underline;
 }
 
@@ -527,13 +527,15 @@ Your Groups */
 
 .orders-button-new {
   flex: 1 1 1;
-  color: #fff;
-  background-color: #694aff;
+  color: black;
+  background-color: #ffbb00;
   width: auto;
+  text-shadow: 1px 1px white;
+  font-size: 17px;
 }
 
 .orders-button-new:hover {
-  background-color: #5f44e9;
+  background-color: #fca519;
 }
 
 .orders-body {
@@ -543,7 +545,7 @@ Your Groups */
 }
 
 .orders-filter {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .orders-all {
@@ -553,13 +555,14 @@ Your Groups */
   flex-flow: row wrap;
   justify-content: center;
   width: 100%;
-  height: 80%;
+  height: auto;
+  gap: 10px;
 }
 
 .orders-single-container {
   display: flex;
   flex-direction: row;
-  width: 60%;
+  width: 80%;
   margin-bottom: 15px;
 }
 
@@ -592,6 +595,7 @@ Your Groups */
 #orders-table {
   width: 90%;
   background-color: #c97dfc;
+  font-size: 14px;
 }
 
 #orders-table tbody:hover td,
@@ -616,54 +620,85 @@ Your Groups */
   position: relative;
   display: flex;
   flex-direction: row;
-  align-content: center;
+  justify-content: space-around;
+  align-content: space-around;
   width: 95%;
   height: 100%;
-  align-self: center;
+  overflow: hidden;
 }
 
 .single-order-left {
   width: 40%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-bottom: 20px;
   overflow: auto;
   justify-content: center;
+  margin: auto;
 }
 
 #single-order-title {
-  font-size: 35px;
+  font-size: 30px;
   text-decoration-line: underline;
+  margin-bottom: 15px;
+}
+
+#single-order-buttons-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: space-evenly;
+  width: 90%;
+}
+
+.single-order-left-order-container {
+  width: 100%;
+}
+
+.single-order-hearts {
+  align-self: center;
+  flex-basis: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column wrap;
+  align-content: center;
+}
+
+.single-order-left-order {
+  align-self: center;
+  flex-basis: auto;
 }
 
 .single-order-button-edit {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   color: #fff;
-  background-color: #694aff;
-  margin-top: 17px;
-  width: 30%;
+  background-color: #319bff;
+  font-size: 13px;
 }
 
 .single-order-button-edit:hover {
-  background-color: #5f44e9;
+  background-color: #1c82e2;
 }
 
 #single-order-button-del {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   color: #fff;
   background-color: #694aff;
-  margin-top: 17px;
-  width: 30%;
+  font-size: 12px;
 }
 
 #single-order-button-del:hover {
-  background-color: #5f44e9;
+  background-color: rgb(138, 118, 118);
+  text-decoration-line: line-through;
+  box-shadow: -9px 9px black;
 }
 
 #single-order-table {
-  width: 95%;
   background-color: #c97dfc;
-  margin-bottom: 20px;
+  font-size: 13px;
+  table-layout: fixed;
 }
 
 #single-order-table th {
@@ -676,67 +711,120 @@ Your Groups */
   background-color: #eac5f5;
 }
 
+#single-order-img {
+  width: 10%;
+  height: 10%;
+  margin: auto;
+}
+
 .single-order-right {
-  width: 60%;
+  width: 70%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-  overflow: auto;
   justify-content: center;
+  margin: 0px;
 }
 
 #single-order-items-title {
-  font-size: 30px;
+  font-size: 25px;
   text-decoration-line: underline;
-  margin-bottom: 8px;
-  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
+.single-order-right-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.single-right-nav-side {
+  flex: 1 1 auto;
+  width: 20%;
+}
 .single-order-item-button-new {
   flex-grow: 1;
-  background-color: #694aff;
+  background-color: #ffbb00;
   margin-bottom: 20px;
+  color: #000000;
+  text-shadow: -1px 1px white;
+  padding: 8px 16px;
+  font-size: 15px;
 }
 
 .single-order-item-button-new:hover {
-  background-color: #5f44e9;
+  background-color: #fca519;
 }
 
-#single-order-item {
+.single-order-items-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+  overflow: auto;
+}
+
+.single-order-item-container {
+  width: 43%;
+  margin: 10px;
+}
+
+#single-order-item-table {
   background-color: #64d8bd;
-  width: 47%;
+  width: 100%;
+  font-size: 14px;
 }
 
-#single-order-item th {
+#single-order-item-table th {
   background-color: #64d8bd;
 }
 
-#single-order-item td {
+#single-order-item-table td {
   background-color: #68eccd;
 }
 
+.single-order-item-buttons-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  width: 80%;
+}
+
 .single-order-item-button-edit {
-  width: 20%;
-  background-color: #694aff;
+  flex-grow: 1;
+  background-color: #319bff;
+  padding: 8px 16px;
+  width: 95%;
+  font-size: 12px;
 }
 
 .single-order-item-button-edit:hover {
-  background-color: #5f44e9;
+  background-color: #1c82e2;
 }
 
 #single-order-item-del {
-  flex: 1 1 auto;
-  color: #fff;
+  flex-grow: 1;
   background-color: #694aff;
-  margin-top: 17px;
-  width: 20%;
+  padding: 8px 16px;
+  width: 90%;
+  font-size: 12px;
 }
 
 #single-order-item-del:hover {
-  background-color: #5f44e9;
+  background-color: rgb(138, 118, 118);
+  text-decoration-line: line-through;
+  box-shadow: -9px 9px black;
 }
 
 /* MODALS */
+
+#form-container-div {
+  width: 100%;
+}
 
 .type-radio {
   align-content: center;
@@ -744,9 +832,9 @@ Your Groups */
 }
 
 #new-order-title {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   text-decoration-line: underline;
-  font-size: 30px;
+  font-size: 23px;
   margin-top: 5px;
 }
 

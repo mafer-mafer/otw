@@ -104,11 +104,10 @@ export class Orders extends React.Component {
                   <div key={order.id} className="orders-single-container">
                     <div className="orders-hearts">
                       <div>
+                        <br></br>
                         <span id="orders-heart-1">♥</span>
                         <br></br>
                         <span id="orders-heart-2">♥</span>
-                        <br></br>
-                        <span id="orders-heart-3">♥</span>
                       </div>
                     </div>
                     <Link to={`/orders/${order.id}`}>
