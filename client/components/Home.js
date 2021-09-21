@@ -78,7 +78,7 @@ export class Home extends React.Component {
                       </tr>
                       <tr>
                         <td id="home-left-bold">
-                          On The Way is the App for You!
+                          K-On The Way is the App for You!
                         </td>
                       </tr>
                     </tbody>
