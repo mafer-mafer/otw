@@ -83,9 +83,17 @@ export class Groups extends React.Component {
               })}
             </div>
           ) : this.props.isLoggedIn ? (
-            <h3>Please Log In To Access Your Favorite Groups</h3>
+            <div>
+              <br></br>
+              <br></br>
+              <h2>Add some fave groups with the +Edit Button!</h2>
+            </div>
           ) : (
-            <h3>Add some fave groups!</h3>
+            <div>
+              <br></br>
+              <br></br>
+              <h2>Please Log In To Access Your Favorite Groups</h2>
+            </div>
           )}
         </div>
       </div>

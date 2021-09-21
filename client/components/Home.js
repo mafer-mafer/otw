@@ -55,7 +55,6 @@ export class Home extends React.Component {
                             handleSubmit={this.handleSubmit}
                             purpose={"NewOrderHome"}
                             buttonText="+New Order"
-                            order={false}
                           />
                         </td>
                       </tr>
@@ -135,20 +134,18 @@ export class Home extends React.Component {
                       </tr>
                       <tr>
                         <td>
-                          <Link to={`/login`}>
-                            <button className="buttons" id="home-button-orders">
-                              +Log In
-                            </button>
-                          </Link>
+                          <FormContainer
+                            purpose={"LogIn"}
+                            buttonText="+Log In"
+                          />
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <Link to={`/signup`}>
-                            <button className="buttons" id="home-button-orders">
-                              +Sign Up
-                            </button>
-                          </Link>
+                          <FormContainer
+                            purpose={"SignUp"}
+                            buttonText="+Sign Up"
+                          />
                         </td>
                       </tr>
                       <tr>

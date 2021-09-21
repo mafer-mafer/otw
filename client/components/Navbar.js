@@ -22,8 +22,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         </div>
       ) : (
         <h3>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          {/* <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link> */}
           <span id="nav-heart">♥</span>
         </h3>
       )}

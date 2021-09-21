@@ -4,7 +4,6 @@ const Group = require("./models/Group");
 const Order = require("./models/Order");
 const Item = require("./models/Item");
 
-//double check these later
 User.belongsToMany(Group, { through: "FavoriteGroups" });
 Group.belongsToMany(User, { through: "FavoriteGroups" });
 

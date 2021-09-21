@@ -1,16 +1,13 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Login, Signup } from "./components/AuthForm";
+// import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import { me } from "./store";
 import Orders from "./components/Orders";
 import Groups from "./components/Groups";
-import EditGroups from "./components/EditGroups";
 import GroupView from "./components/GroupView";
 import SingleOrder from "./components/SingleOrder";
-import EditOrder from "./components/EditOrder";
-import NewOrder from "./components/NewOrder";
 
 class Routes extends Component {
   componentDidMount() {
@@ -33,8 +30,6 @@ class Routes extends Component {
           </Switch>
         ) : (
           <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
             <Route path="/home" component={Home} />
             <Route path="/" component={Home} />
             <Redirect to="/home" />

@@ -17,7 +17,9 @@ export class OrderButton extends React.Component {
             "single-order-item-button-edit": this.props.purpose === "EditItem",
           },
           { "single-order-item-button-new": this.props.purpose === "NewItem" },
-          { "groups-button-edit": this.props.purpose === "EditGroups" }
+          { "groups-button-edit": this.props.purpose === "EditGroups" },
+          { "home-button-orders": this.props.purpose === "LogIn" },
+          { "home-button-orders": this.props.purpose === "SignUp" }
         )}
         onClick={this.props.showModal}
         ref={this.props.buttonRef}

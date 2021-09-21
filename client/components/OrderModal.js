@@ -6,6 +6,7 @@ import EditOrderForm from "./EditOrderForm";
 import EditItemForm from "./EditItemForm";
 import NewItemForm from "./NewItemForm";
 import EditGroupsForm from "./EditGroupsForm";
+import { LogIn, SignUp } from "./AuthForm";
 
 export const NewOrderModal = ({
   onClickOutside,
@@ -79,6 +80,10 @@ export const NewOrderModal = ({
                 userId={userId}
                 addFaveGroup={addFaveGroup}
               />
+            ) : purpose === "LogIn" ? (
+              <LogIn purpose={purpose} />
+            ) : purpose === "SignUp" ? (
+              <SignUp purpose={purpose} />
             ) : null}
           </div>
         </div>
