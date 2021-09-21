@@ -98,7 +98,7 @@ export class Home extends React.Component {
                   {isLoggedIn ? (
                     <tbody>
                       <tr>
-                        <th>Wanna View Your Orders?</th>
+                        <th>Updates</th>
                       </tr>
                       <tr>
                         <td>&nbsp;</td>

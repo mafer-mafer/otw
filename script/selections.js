@@ -14,9 +14,15 @@ export const sellerPlatform = [
 
 export const itemType = [
   "Photocard",
+  "Postcard",
+  "4x6",
+  "Printed Photo",
+  "A4",
   "Album",
   "Lightstick",
   "Concert",
+  "Season's Greetings",
+  "Fanclub",
   "Misc.",
 ];
 

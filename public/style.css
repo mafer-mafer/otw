@@ -80,19 +80,17 @@ nav a {
   margin: 3px;
   align-self: flex-start;
   color: white;
-  /* flex: 6, 3, 6; */
   text-shadow: -2px 2px black;
+  margin-left: 15px;
 }
 
 .header h3 {
   color: white;
   right: 0;
   font-family: "PT Sans Narrow", sans-serif;
-  line-height: 20px;
   font-size: 20px;
   margin: 3px;
   align-self: flex-end;
-  /* flex: 4 1 4; */
   text-shadow: -2px 2px black;
 }
 
@@ -272,7 +270,7 @@ form button:active {
 }
 
 #home-left-bold {
-  padding: 35px;
+  padding: 25px;
   font-weight: bold;
   font-size: 20px;
   text-shadow: -1px 1px rgb(255, 255, 255);

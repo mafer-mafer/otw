@@ -9,7 +9,7 @@ export class EditItemForm extends React.Component {
       type: this.props.item.type || "Photocard",
       preOrder: this.props.item.preOrder || "false",
       damage: this.props.item.damage || "",
-      groupName: this.props.item.groupName || "",
+      groupName: this.props.item.groupName || "2NE1",
     };
     this.handleChange = this.handleChange.bind(this);
     this.passSubmit = this.passSubmit.bind(this);
