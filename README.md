@@ -10,10 +10,11 @@ K-On The Way! is website for ever forgetful Kpop collectors to keep track of the
 
 ## To Start
 
-Run `npm install`\
+Run:
+`npm install`\
 `createdb otw`\
-Run `npm run seed`\
-Run `npm start`
+`npm run seed`\
+`npm start`
 
 ## Previews
 
