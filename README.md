@@ -14,7 +14,7 @@ Run:\
 `npm install`\
 `createdb otw`\
 `npm run seed`\
-`npm start`\
+`npm start`
 
 ## Previews
 
