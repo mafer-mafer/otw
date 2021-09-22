@@ -1,11 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../store";
+import { countries } from "../../script/selections";
 
 export class AuthForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: "",
+      password: "",
+      email: "",
+      birthday: "",
+      location: "",
+    };
     this.passSubmit = this.passSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    if (
+      e.target.name === "current-password" ||
+      e.target.name === "new-password"
+    ) {
+      this.setState({
+        password: e.target.value,
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
+    }
   }
 
   passSubmit(e) {
@@ -13,20 +37,19 @@ export class AuthForm extends React.Component {
     const purpose = this.props.purpose;
     if (purpose === "LogIn") {
       this.props.goAuth(
-        e.target.username.value,
-        e.target["current-password"].value,
+        {
+          username: this.state.username,
+          password: this.state.password,
+        },
         "login"
       );
     } else if (purpose === "SignUp") {
-      this.props.goAuth(
-        e.target.username.value,
-        e.target["new-password"].value,
-        "signup"
-      );
+      this.props.goAuth({ ...this.state }, "signup");
     }
   }
 
   render() {
+    const { handleChange } = this;
     const { error, purpose } = this.props;
     return (
       <div>
@@ -34,11 +57,25 @@ export class AuthForm extends React.Component {
           <h4 id="new-order-title">
             {purpose === "LogIn" ? "Log In" : "Sign Up"}
           </h4>
+          {purpose === "SignUp" ? (
+            <div>
+              <label htmlFor="email">Email:</label>&nbsp;&nbsp;
+              <input
+                name="email"
+                onChange={handleChange}
+                value={this.state.email}
+                required
+              />
+            </div>
+          ) : null}
           <div>
-            <label htmlFor="username">
-              <small>Username</small>
-            </label>
-            <input name="username" type="text" />
+            <label htmlFor="username">Username:</label>&nbsp;&nbsp;
+            <input
+              name="username"
+              onChange={handleChange}
+              value={this.state.username}
+              required
+            />
           </div>
           <br></br>
           <div>
@@ -47,13 +84,49 @@ export class AuthForm extends React.Component {
                 purpose === "LogIn" ? "current-password" : "new-password"
               }
             >
-              <small>Password</small>
+              Password:
             </label>
+            &nbsp;&nbsp;
             <input
               name={purpose === "LogIn" ? "current-password" : "new-password"}
-              type={purpose === "LogIn" ? "current-password" : "new-password"}
+              type="password"
+              autoComplete={
+                purpose === "LogIn" ? "current-password" : "new-password"
+              }
+              //type={purpose === "LogIn" ? "current-password" : "new-password"}
+              value={this.state.password}
+              onChange={handleChange}
+              required
             />
           </div>
+          {purpose === "SignUp" ? (
+            <div>
+              <label htmlFor="birthday">Birthday:</label>&nbsp;&nbsp;
+              <input
+                type="date"
+                id="birthday"
+                name="birthday"
+                value={this.state.birthday}
+                onChange={handleChange}
+              />
+            </div>
+          ) : null}
+          <br></br>
+          {purpose === "SignUp" ? (
+            <div>
+              <label htmlFor="location">Country:</label>&nbsp;&nbsp;
+              <select name="location" onChange={handleChange}>
+                {countries.map((country, idx) => {
+                  return (
+                    <option
+                      value={`${country}`}
+                      key={idx}
+                    >{`${country}`}</option>
+                  );
+                })}
+              </select>
+            </div>
+          ) : null}
           <div>
             <button type="submit">
               {purpose === "LogIn" ? "Log In" : "Sign Up"}

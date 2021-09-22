@@ -9,11 +9,14 @@ export class Orders extends React.Component {
   constructor() {
     super();
     this.state = {
-      filter: "orderDate",
+      filterType: "orderDate",
+      active: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sortOrders = this.sortOrders.bind(this);
+    this.sorter = this.sorter.bind(this);
+    this.toggleView = this.toggleView.bind(this);
   }
 
   componentDidMount() {
@@ -32,50 +35,72 @@ export class Orders extends React.Component {
     this.props.createOrder(state, this.props.auth.id);
   }
 
+  toggleView() {
+    this.setState({ active: !this.state.active });
+  }
+
   sortOrders(orders) {
-    if (this.state.filter === "orderType") {
-      sorter("type", true);
-    } else if (this.state.filter === "orderStatus") {
-      sorter("status", true);
-    } else if (this.state.filter === "orderDate") {
-      sorter("dateOrdered", false);
-    } else if (this.state.filter === "seller") {
-      sorter("seller", true);
-    }
+    if (orders.length) {
+      const orderList = this.state.active
+        ? orders.filter((order) => {
+            return order.status !== "Arrived";
+          })
+        : orders.filter((order) => {
+            console.log("false");
+            return order.status === "Arrived";
+          });
 
-    function sorter(val, ascending) {
-      if (ascending) {
-        orders.sort(function (a, b) {
-          if (a[val] < b[val]) {
-            return -1;
-          }
-          if (a[val] > b[val]) {
-            return 1;
-          }
-          return 0;
-        });
-      } else {
-        orders.sort(function (a, b) {
-          if (a[val] > b[val]) {
-            return -1;
-          }
-          if (a[val] < b[val]) {
-            return 1;
-          }
-          return 0;
-        });
+      if (this.state.filterType === "orderType") {
+        return this.sorter(orderList, "type", true);
+      } else if (this.state.filterType === "orderStatus") {
+        return this.sorter(orderList, "status", true);
+      } else if (this.state.filterType === "orderDate") {
+        return this.sorter(orderList, "dateOrdered", false);
+      } else if (this.state.filterType === "seller") {
+        return this.sorter(orderList, "seller", true);
       }
+      return orderList;
     }
+  }
 
+  sorter(orders, val, ascending) {
+    if (ascending) {
+      orders.sort(function (a, b) {
+        if (a[val] < b[val]) {
+          return -1;
+        }
+        if (a[val] > b[val]) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      orders.sort(function (a, b) {
+        if (a[val] > b[val]) {
+          return -1;
+        }
+        if (a[val] < b[val]) {
+          return 1;
+        }
+        return 0;
+      });
+    }
     return orders;
   }
 
   render() {
-    this.sortOrders(this.props.orders);
     return (
       <div className="orders-main-container">
         <div className="orders-inner-nav">
-          <div id="orders-nav-side"></div>
+          <div id="orders-nav-side">
+            <button
+              className="buttons"
+              id="orders-view-type"
+              onClick={this.toggleView}
+            >
+              {this.state.active ? "View Past Orders" : "View Active Orders"}
+            </button>
+          </div>
           <h3 className="orders-title">Your Incoming Orders</h3>
           <div id="orders-nav-side">
             <FormContainer
@@ -89,17 +114,19 @@ export class Orders extends React.Component {
         </div>
         <div className="orders-body">
           <div className="orders-filter">
-            <label htmlFor="filter">Filter By:</label>
-            <select name="filter" onChange={this.handleChange}>
+            <label htmlFor="filterType">Filter By:</label>
+            <select name="filterType" onChange={this.handleChange}>
               <option value="orderDate">Date Ordered</option>
               <option value="orderType">Order Type</option>
-              <option value="orderStatus">Order Status</option>
+              {this.state.active ? (
+                <option value="orderStatus">Order Status</option>
+              ) : null}
               <option value="seller">Seller</option>
             </select>
           </div>
           {this.props.orders.length ? (
             <div className="orders-all">
-              {this.props.orders.map((order, idx) => {
+              {this.sortOrders(this.props.orders).map((order, idx) => {
                 return (
                   <div key={order.id} className="orders-single-container">
                     <div className="orders-hearts">

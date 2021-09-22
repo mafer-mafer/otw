@@ -513,6 +513,20 @@ Your Groups */
   justify-content: space-between;
 }
 
+#orders-view-type {
+  flex: 1 1 1;
+  color: black;
+  background-color: #64d8bd;
+  margin: auto;
+  margin-top: 16px;
+  font-size: 17px;
+  text-shadow: -1px 1px white;
+}
+
+#orders-view-type:hover {
+  background-color: #68eccd;
+}
+
 .orders-title {
   flex-grow: 1;
   font-size: 30px;

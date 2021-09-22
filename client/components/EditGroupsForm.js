@@ -1,5 +1,4 @@
 import React from "react";
-import { allGroups } from "../../script/selections";
 
 export class EditGroupsForm extends React.Component {
   constructor(props) {
@@ -40,7 +39,6 @@ export class EditGroupsForm extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const { handleChange } = this;
     const { groupName } = this.state;
 

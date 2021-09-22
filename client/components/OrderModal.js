@@ -65,11 +65,15 @@ export const NewOrderModal = ({
                 handleSubmit={handleSubmit}
                 item={item}
                 closeModal={closeModal}
+                allGroups={allGroups}
+                faveGroups={faveGroups}
               />
             ) : purpose === "NewItem" ? (
               <NewItemForm
                 handleSubmit={handleSubmit}
                 closeModal={closeModal}
+                allGroups={allGroups}
+                faveGroups={faveGroups}
               />
             ) : purpose === "EditGroups" ? (
               <EditGroupsForm

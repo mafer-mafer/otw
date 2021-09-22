@@ -5,6 +5,8 @@ import { removeOrder } from "../store/orders";
 import FormContainer from "./FormContainer";
 import history from "../history";
 import { removeItem, editItem, addItem } from "../store/items";
+import { setGroups } from "../store/allGroups";
+import { setFaveGroups } from "../store/faveGroups";
 
 export class SingleOrder extends React.Component {
   constructor() {
@@ -17,11 +19,14 @@ export class SingleOrder extends React.Component {
   componentDidMount() {
     if (this.props.auth.id) {
       this.props.getOrder(this.props.match.params.orderId);
+      this.props.getFaveGroups(this.props.auth.id);
+      this.props.loadGroups();
     }
   }
 
   handleSubmit(state) {
     this.props.newItem(state, this.props.order.id);
+    window.location.reload();
     window.location.reload();
   }
 
@@ -141,7 +146,6 @@ export class SingleOrder extends React.Component {
             )}
           </div>
         </div>
-        {/* <img id="single-order-img" src="/orderline.png" /> */}
         {this.props.order ? (
           <div className="single-order-right">
             <div className="single-order-right-nav">
@@ -152,6 +156,8 @@ export class SingleOrder extends React.Component {
                   handleSubmit={this.handleSubmit}
                   purpose={"NewItem"}
                   buttonText={"+New Item"}
+                  faveGroups={this.props.faveGroups}
+                  allGroups={this.props.allGroups}
                 />
               </div>
             </div>
@@ -190,6 +196,8 @@ export class SingleOrder extends React.Component {
                           buttonText={"+Edit"}
                           order={this.props.order}
                           item={item}
+                          faveGroups={this.props.faveGroups}
+                          allGroups={this.props.allGroups}
                         />
                         <div id="form-container-div">
                           <button
@@ -223,6 +231,8 @@ const mapStateToProps = (state) => {
     isLoggedIn: !!state.auth.id,
     order: state.singleOrder,
     items: state.items,
+    faveGroups: state.faveGroups,
+    allGroups: state.allGroups,
   };
 };
 
@@ -234,6 +244,8 @@ const mapDispatchToProps = (dispatch, { history }) => {
     editItem: (itemId, item) => dispatch(editItem(itemId, item)),
     deleteItem: (itemId) => dispatch(removeItem(itemId)),
     newItem: (item, orderId) => dispatch(addItem(item, orderId)),
+    getFaveGroups: (id) => dispatch(setFaveGroups(id)),
+    loadGroups: () => dispatch(setGroups()),
   };
 };
 

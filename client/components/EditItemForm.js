@@ -1,18 +1,32 @@
 import React from "react";
-import { allGroups, itemType } from "../../script/selections";
+import { itemType } from "../../script/selections";
 
 export class EditItemForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: this.props.item.name || "",
-      type: this.props.item.type || "Photocard",
+      type: this.props.item.type || itemType[0],
       preOrder: this.props.item.preOrder || "false",
       damage: this.props.item.damage || "",
-      groupName: this.props.item.groupName || "2NE1",
+      groupName: this.props.item.groupName || "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.passSubmit = this.passSubmit.bind(this);
+    this.sortGroups = this.sortGroups.bind(this);
+  }
+
+  sortGroups(groups) {
+    groups.sort(function (a, b) {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+    return groups;
   }
 
   handleChange(e) {
@@ -49,13 +63,24 @@ export class EditItemForm extends React.Component {
               value={groupName}
               required
             >
-              {allGroups.map((group, idx) => {
+              <option disabled>Favorite Groups</option>
+              {this.props.faveGroups.map((group, idx) => {
                 return (
-                  <option value={group} key={idx}>
-                    {group}
+                  <option value={group.name} key={idx}>
+                    {group.name}
                   </option>
                 );
               })}
+              <option disabled>All Groups</option>
+              {this.sortGroups(this.props.allGroups, this.props.faveGroups).map(
+                (group, idx) => {
+                  return (
+                    <option value={group.name} key={idx}>
+                      {group.name}
+                    </option>
+                  );
+                }
+              )}
             </select>
           </div>
           <br></br>
