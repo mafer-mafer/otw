@@ -11,9 +11,9 @@ K-On The Way! is website for ever forgetful Kpop collectors to keep track of the
 ## To Start
 
 Run:\
-`npm install\
-createdb otw\
-npm run seed\
+`npm install
+createdb otw
+npm run seed
 npm start`
 
 ## Previews
