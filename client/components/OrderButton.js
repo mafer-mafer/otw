@@ -6,25 +6,31 @@ export class OrderButton extends React.Component {
     super(props);
   }
   render() {
+    const { purpose, showModal, buttonRef, buttonText } = this.props;
     return (
       <button
         className={classNames(
           "buttons",
-          { "orders-button-new": this.props.purpose === "NewOrder" },
-          { "home-button-new": this.props.purpose === "NewOrderHome" },
-          { "single-order-button-edit": this.props.purpose === "EditOrder" },
+          { "orders-button-new": purpose === "NewOrder" },
+          { "home-button-new": purpose === "NewOrderHome" },
           {
-            "single-order-item-button-edit": this.props.purpose === "EditItem",
+            "single-order-button-edit": purpose === "EditOrder",
           },
-          { "single-order-item-button-new": this.props.purpose === "NewItem" },
-          { "groups-button-edit": this.props.purpose === "EditGroups" },
-          { "home-button-orders": this.props.purpose === "LogIn" },
-          { "home-button-orders": this.props.purpose === "SignUp" }
+          {
+            "single-order-item-button-edit": purpose === "EditItem",
+          },
+          {
+            "single-order-item-button-new": purpose === "NewItem",
+          },
+          { "groups-button-edit": purpose === "EditGroups" },
+          { "home-button-auth": purpose === "LogIn" },
+          { "home-button-auth": purpose === "SignUp" },
+          { "home-button-comm": purpose === "Community" }
         )}
-        onClick={this.props.showModal}
-        ref={this.props.buttonRef}
+        onClick={showModal}
+        ref={buttonRef}
       >
-        {this.props.buttonText}
+        {buttonText}
       </button>
     );
   }

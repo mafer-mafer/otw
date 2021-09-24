@@ -18,11 +18,14 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <div>
             <h3>
               <Link to="/groups">Groups</Link>
-              <Link to="/orders">Orders</Link>{" "}
+              <Link to="/orders">Orders</Link>
+              <Link to="/profile">Profile</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
-              <span id="nav-heart">♥&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <Link to="/about">
+                <span id="nav-heart">♥&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              </Link>
             </h3>
           </div>
         ) : (

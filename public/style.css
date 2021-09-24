@@ -32,6 +32,14 @@ nav a {
   text-align: center;
 }
 
+ul {
+  list-style-type: "\1f495";
+}
+
+ul li {
+  text-align: left;
+}
+
 .inner-body-container {
   position: absolute;
   width: 81%;
@@ -233,7 +241,7 @@ form button:active {
   background-color: #5f44e9;
 }
 
-#home-button-orders {
+.home-button-comm {
   flex: 1 1 1;
   background-color: #694aff;
   width: auto;
@@ -241,11 +249,30 @@ form button:active {
   margin: 0px;
 }
 
-#home-button-orders:hover {
+.home-button-comm:hover {
   background-color: #5f44e9;
 }
 
-.home-button-orders {
+#home-comm-list {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+#home-discord-button {
+  flex: 1 1 1;
+  background-color: #694aff;
+  width: auto;
+  padding: 15px 25px;
+  margin: 0px;
+  margin-top: 15px;
+}
+
+#home-discord-button:hover {
+  background-color: #5f44e9;
+}
+
+.home-button-auth {
   flex: 1 1 1;
   background-color: #694aff;
   width: auto;
@@ -253,7 +280,7 @@ form button:active {
   margin: 0px;
 }
 
-.home-button-orders:hover {
+.home-button-auth:hover {
   background-color: #5f44e9;
 }
 
@@ -291,6 +318,10 @@ form button:active {
 
 #home-table-right td {
   background-color: #68eccd;
+}
+
+#home-discord-subtitle {
+  margin-bottom: 5px;
 }
 
 /* 

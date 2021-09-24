@@ -21,7 +21,6 @@ export class Home extends React.Component {
   }
 
   handleSubmit(state) {
-    console.log(state);
     this.props.createOrder(state, this.props.auth.id);
   }
 
@@ -98,7 +97,7 @@ export class Home extends React.Component {
                   {isLoggedIn ? (
                     <tbody>
                       <tr>
-                        <th>Updates</th>
+                        <th>Updates:</th>
                       </tr>
                       <tr>
                         <td>-USPS Tracking Coming Soon!</td>
@@ -111,11 +110,10 @@ export class Home extends React.Component {
                       </tr>
                       <tr>
                         <td>
-                          <Link to={`/orders`}>
-                            <button className="buttons" id="home-button-orders">
-                              +Go To Orders
-                            </button>
-                          </Link>
+                          <FormContainer
+                            purpose="Community"
+                            buttonText="+Learn More!"
+                          />
                         </td>
                       </tr>
                       <tr>

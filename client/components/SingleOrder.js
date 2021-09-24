@@ -7,6 +7,7 @@ import history from "../history";
 import { removeItem, editItem, addItem } from "../store/items";
 import { setGroups } from "../store/allGroups";
 import { setFaveGroups } from "../store/faveGroups";
+import { setTracking } from "../store/tracking";
 
 export class SingleOrder extends React.Component {
   constructor() {
@@ -14,6 +15,7 @@ export class SingleOrder extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.trackOrder = this.trackOrder.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +53,11 @@ export class SingleOrder extends React.Component {
       this.props.editItem(id, { ...state });
       window.location.reload();
     }
+  }
+
+  trackOrder() {
+    this.props.getTracking(this.props.order.trackingNumber);
+    console.log(this.props.tracking);
   }
 
   render() {
@@ -139,6 +146,13 @@ export class SingleOrder extends React.Component {
                       -Delete Order
                     </button>
                   </div>
+                  {/* <button
+                    className="buttons"
+                    id="single-order-button-del"
+                    onClick={this.trackOrder}
+                  >
+                    Track Order
+                  </button> */}
                 </div>
               </div>
             ) : (
@@ -233,6 +247,7 @@ const mapStateToProps = (state) => {
     items: state.items,
     faveGroups: state.faveGroups,
     allGroups: state.allGroups,
+    tracking: state.tracking,
   };
 };
 
@@ -246,6 +261,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
     newItem: (item, orderId) => dispatch(addItem(item, orderId)),
     getFaveGroups: (id) => dispatch(setFaveGroups(id)),
     loadGroups: () => dispatch(setGroups()),
+    getTracking: (trackingNumber) => dispatch(setTracking(trackingNumber)),
   };
 };
 

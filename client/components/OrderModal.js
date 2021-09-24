@@ -7,6 +7,7 @@ import EditItemForm from "./EditItemForm";
 import NewItemForm from "./NewItemForm";
 import EditGroupsForm from "./EditGroupsForm";
 import { LogIn, SignUp } from "./AuthForm";
+import Community from "./Community";
 
 export const NewOrderModal = ({
   onClickOutside,
@@ -88,6 +89,8 @@ export const NewOrderModal = ({
               <LogIn purpose={purpose} />
             ) : purpose === "SignUp" ? (
               <SignUp purpose={purpose} />
+            ) : purpose === "Community" ? (
+              <Community />
             ) : null}
           </div>
         </div>

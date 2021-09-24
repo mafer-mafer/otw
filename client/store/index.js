@@ -9,6 +9,7 @@ import orders from "./orders";
 import singleOrder from "./singleOrder";
 import singleGroup from "./singleGroup";
 import items from "./items";
+import tracking from "./tracking";
 
 const reducer = combineReducers({
   auth,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   singleOrder,
   singleGroup,
   items,
+  tracking,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

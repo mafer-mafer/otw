@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-// import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import { me } from "./store";
 import Orders from "./components/Orders";
 import Groups from "./components/Groups";
 import GroupView from "./components/GroupView";
 import SingleOrder from "./components/SingleOrder";
+import Profile from "./components/Profile";
+import AboutMe from "./components/AboutMe";
 
 class Routes extends Component {
   componentDidMount() {
@@ -26,6 +27,8 @@ class Routes extends Component {
             <Route path="/groups" component={Groups} />
             <Route path="/group/:groupId" component={GroupView} />
             <Route path="/home" component={Home} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/about" component={AboutMe} />
             <Route path="/" component={Home} />
           </Switch>
         ) : (
