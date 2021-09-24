@@ -107,6 +107,11 @@ ul li {
   font-size: 30px;
   font-weight: bold;
 }
+/* 
+#nav-smaller {
+  font-size: 16px;
+  margin: 1px;
+} */
 
 /* After Header */
 
@@ -324,8 +329,7 @@ form button:active {
   margin-bottom: 5px;
 }
 
-/* 
-Your Groups */
+/* Your Groups */
 
 .groups-main-container {
   margin: auto;
@@ -862,6 +866,45 @@ Your Groups */
   background-color: rgb(138, 118, 118);
   text-decoration-line: line-through;
   box-shadow: -9px 9px black;
+}
+
+/* About Me */
+
+#about-title {
+  flex-grow: 1;
+  font-size: 25px;
+  text-decoration-line: underline;
+}
+
+.about-text-container {
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.about-text-container a {
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.about-text-container p {
+  font-weight: normal;
+}
+
+#about-first {
+  font-weight: bold;
+}
+
+#about-ul {
+  list-style-type: "\2728";
+}
+
+#about-ul-container {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  font-size: 18px;
 }
 
 /* MODALS */
