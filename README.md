@@ -1,6 +1,6 @@
 ## K-On The Way!
 
-K-On The Way! is website for ever forgetful Kpop collectors to keep track of their incoming purchases, trades, and group order slots. It includes OAuth for login and signup, React/Redux components for the front end, Express RESTful routes to the back end, PostgreSQL for the database, and Heroku for deployment.\
+K-On The Way! is website for ever forgetful Kpop collectors to keep track of their incoming purchases, trades, and group order slots. It includes JWT for login and signup, React/Redux components for the front end, Express RESTful routes to the back end, PostgreSQL for the database, and Heroku for deployment.\
 \
 **Live**: <a href= "https://kontheway.herokuapp.com/"> https://kontheway.herokuapp.com/</a> \
 \
