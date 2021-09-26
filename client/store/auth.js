@@ -28,6 +28,41 @@ export const authenticate = (userData, method) => async (dispatch) => {
   }
 };
 
+export const editProfile = (edited) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem(TOKEN);
+    const res = await axios.put(`/auth/editme`, {
+      content: {
+        edited,
+        token,
+      },
+    });
+    window.localStorage.removeItem(TOKEN);
+    window.localStorage.setItem(TOKEN, res.data.token);
+    dispatch(me());
+  } catch (authError) {
+    return dispatch(setAuth({ error: authError }));
+  }
+};
+
+export const editPassword = (currentData, newPW) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem(TOKEN);
+    const res = await axios.put(`/auth/editpw`, {
+      content: {
+        currentData,
+        newPW,
+        token,
+      },
+    });
+    window.localStorage.removeItem(TOKEN);
+    window.localStorage.setItem(TOKEN, res.data.token);
+    dispatch(me());
+  } catch (authError) {
+    return dispatch(setAuth({ error: authError }));
+  }
+};
+
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
   history.push("/");

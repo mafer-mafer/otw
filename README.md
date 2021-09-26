@@ -4,8 +4,6 @@ K-On The Way! is website for ever forgetful Kpop collectors to keep track of the
 \
 **Live**: <a href= "https://kontheway.herokuapp.com/"> https://kontheway.herokuapp.com/</a> \
 \
-**Discord**: Message me for the link :) \
-\
 **Authors**: <a href= "https://www.linkedin.com/in/mafermafer/">María F. Hernández</a>
 
 ## To Start
