@@ -30,16 +30,13 @@ router.put("/editme", async (req, res, next) => {
     const userToChange = await User.findByToken(req.body.content.token);
     await userToChange.update(req.body.content.edited);
     res.send({ token: await userToChange.generateToken() });
-  } catch (err) {
-    if (err.name === "SequelizeUniqueConstraintError") {
-      res.status(401).send("User or Email already exists");
-    } else if (
-      err.message === "Validation error: Validation isEmail on email failed"
-    ) {
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      res.status(401).send("Username or Email already exists");
+    } else if (error.name === "SequelizeValidationErro") {
       res.status(500).send("Invalid Email");
     } else {
-      console.log("message is", err.message);
-      next(err);
+      next(error);
     }
   }
 });
@@ -55,8 +52,12 @@ router.put("/editpw", async (req, res, next) => {
       res.send({ token: await userToChange.generateToken() });
     }
   } catch (err) {
-    // next(err);
-    res.status(401).send("Incorrect password");
+    console.log(err.message);
+    if (err.message === "Incorrect username/password") {
+      res.status(401).send("Incorrect password");
+    } else {
+      next(err);
+    }
   }
 });
 

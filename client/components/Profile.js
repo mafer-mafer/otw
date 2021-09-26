@@ -7,25 +7,30 @@ export class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: false,
-      editPassword: false,
+      editingProfile: false,
+      editingPassword: false,
       username: this.props.auth.username || "",
       email: this.props.auth.email || "",
       birthday: this.props.auth.birthday || undefined,
       location: this.props.auth.location || "",
       currentPW: "",
       newPW: "",
+      error: "",
     };
     this.toggleState = this.toggleState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.showError = this.showError.bind(this);
   }
 
   toggleState(type) {
     if (type === "prof") {
-      this.setState({ editing: !this.state.editing });
+      this.setState({ editingProfile: !this.state.editingProfile, error: "" });
     } else if (type === "pw") {
-      this.setState({ editPassword: !this.state.editPassword });
+      this.setState({
+        editingPassword: !this.state.editingPassword,
+        error: "",
+      });
     }
   }
 
@@ -37,31 +42,58 @@ export class Profile extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.editing) {
-      this.props.changeProfile({
-        username: this.state.username,
-        email: this.state.email,
-        birthday: this.state.birthday,
-        location: this.state.location,
-      });
-      this.setState({ editing: false });
+    if (this.state.editingProfile) {
+      this.props.changeProfile(
+        {
+          username: this.state.username,
+          email: this.state.email,
+          birthday: this.state.birthday,
+          location: this.state.location,
+        },
+        this.showError
+      );
+      this.setState({ editingProfile: false });
     }
-    if (this.state.editPassword) {
+    if (this.state.editingPassword) {
       this.props.changePW(
         {
           username: this.props.auth.username,
           password: this.state.currentPW,
         },
-        this.state.newPW
+        this.state.newPW,
+        this.showError
       );
-      alert("Password Has Been Changed");
-      this.setState({ editPassword: false });
+      this.setState({ editingPassword: false });
+      // FIND WAY TO HAVE POP UP ONLY IF IT DID CHANGE
+      // if (!this.state.error.length) {
+      //   alert("Password Has Been Changed");
+      // }
     }
   }
 
+  showError(error) {
+    this.setState({
+      error,
+      username: this.props.auth.username || "",
+      email: this.props.auth.email || "",
+      birthday: this.props.auth.birthday || undefined,
+      location: this.props.auth.location || "",
+      currentPW: "",
+      newPW: "",
+    });
+  }
+
   render() {
-    const { username, email, location, birthday, editing } = this.state;
-    const error = this.props.error;
+    console.log("state is", this.state);
+    const {
+      username,
+      email,
+      location,
+      birthday,
+      editingProfile,
+      editingPassword,
+      error,
+    } = this.state;
     return (
       <div className="profile-main-container">
         <h3 className="groups-title">Profile Settings</h3>
@@ -69,12 +101,11 @@ export class Profile extends React.Component {
         <div className="profile-info-container">
           <div className="profile-info-inner">
             <form onSubmit={this.handleSubmit}>
-              {!this.state.editPassword ? (
+              {!editingPassword ? (
                 <div>
-                  {" "}
                   <div className="new-order-field">
                     ○ <label htmlFor="username">Username:</label>&nbsp;&nbsp;
-                    {editing ? (
+                    {editingProfile ? (
                       <input
                         name="username"
                         value={username}
@@ -87,7 +118,7 @@ export class Profile extends React.Component {
                   <br></br>
                   <div className="new-order-field">
                     ○ <label htmlFor="email">Email:</label>&nbsp;&nbsp;
-                    {editing ? (
+                    {editingProfile ? (
                       <input
                         name="email"
                         value={email}
@@ -100,7 +131,7 @@ export class Profile extends React.Component {
                   <br></br>
                   <div className="new-order-field">
                     ○ <label htmlFor="location">Location:</label>&nbsp;&nbsp;
-                    {editing ? (
+                    {editingProfile ? (
                       <select
                         name="location"
                         value={location}
@@ -123,7 +154,7 @@ export class Profile extends React.Component {
                   <br></br>
                   <div className="new-order-field">
                     ○ <label htmlFor="birthday">Birthday:</label>&nbsp;&nbsp;
-                    {editing ? (
+                    {editingProfile ? (
                       <input
                         type="date"
                         id="birthday"
@@ -136,9 +167,9 @@ export class Profile extends React.Component {
                     )}
                   </div>
                   <br></br>
-                  {error ? <div> {error.response.data} </div> : null}
+                  {error.length ? <div> {error} </div> : null}
                   <br></br>
-                  {editing ? (
+                  {editingProfile ? (
                     <div>
                       <button
                         type="reset"
@@ -178,7 +209,7 @@ export class Profile extends React.Component {
                     />
                   </div>
                   <br></br>
-                  {error ? <div> {error.response.data} </div> : null}
+                  {error.length ? <div> {error} </div> : null}
                   <button onClick={() => this.toggleState("pw")}>Cancel</button>
                   <button className="yellow" type="submit">
                     Submit
@@ -188,7 +219,7 @@ export class Profile extends React.Component {
             </form>
           </div>
           <br></br>
-          {!this.state.editing && !this.state.editPassword ? (
+          {!editingProfile && !editingPassword ? (
             <div className="profile-buttons-container">
               <button
                 className="buttons mint"
@@ -214,16 +245,15 @@ export class Profile extends React.Component {
 
 const mapState = (state) => {
   return {
-    error: state.auth.error,
     auth: state.auth,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    changeProfile: (edited) => dispatch(editProfile(edited)),
-    changePW: (currentData, newPW) =>
-      dispatch(editPassword(currentData, newPW)),
+    changeProfile: (edited, func) => dispatch(editProfile(edited, func)),
+    changePW: (currentData, newPW, func) =>
+      dispatch(editPassword(currentData, newPW, func)),
   };
 };
 

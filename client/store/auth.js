@@ -28,7 +28,7 @@ export const authenticate = (userData, method) => async (dispatch) => {
   }
 };
 
-export const editProfile = (edited) => async (dispatch) => {
+export const editProfile = (edited, func) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
     const res = await axios.put(`/auth/editme`, {
@@ -40,12 +40,19 @@ export const editProfile = (edited) => async (dispatch) => {
     window.localStorage.removeItem(TOKEN);
     window.localStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
-  } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
+  } catch (error) {
+    if (
+      error.response.data ===
+      "Validation error: Validation isEmail on email failed"
+    ) {
+      func("Invalid Email");
+    } else {
+      func(error.response.data);
+    }
   }
 };
 
-export const editPassword = (currentData, newPW) => async (dispatch) => {
+export const editPassword = (currentData, newPW, func) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
     const res = await axios.put(`/auth/editpw`, {
@@ -58,8 +65,8 @@ export const editPassword = (currentData, newPW) => async (dispatch) => {
     window.localStorage.removeItem(TOKEN);
     window.localStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
-  } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
+  } catch (error) {
+    func(error.response.data);
   }
 };
 
