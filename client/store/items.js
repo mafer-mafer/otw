@@ -38,14 +38,13 @@ export const addItem = (item, orderId) => {
     try {
       const { data: created } = await axios.post(
         `/api/items/new/${orderId}`,
-        item,
-        {
-          headers: {
-            authorization: window.localStorage.getItem("token"),
-          },
-        }
+        item
+        // {
+        //   headers: {
+        //     authorization: window.localStorage.getItem("token"),
+        //   },
+        // }
       );
-      //console.log(data);
       dispatch(_addItem(created));
     } catch (error) {
       console.log("Error adding new item via thunk");
@@ -56,11 +55,15 @@ export const addItem = (item, orderId) => {
 export const editItem = (itemId, item) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/items/${itemId}`, item, {
-        headers: {
-          authorization: window.localStorage.getItem("token"),
-        },
-      });
+      const { data } = await axios.put(
+        `/api/items/${itemId}`,
+        item
+        // {
+        //   headers: {
+        //     authorization: window.localStorage.getItem("token"),
+        //   },
+        // }
+      );
       console.log(data);
       dispatch(_editItem(data));
     } catch (error) {
@@ -72,11 +75,14 @@ export const editItem = (itemId, item) => {
 export const removeItem = (itemId) => {
   return async (dispatch) => {
     try {
-      const { data: item } = await axios.delete(`/api/items/${itemId}`, {
-        headers: {
-          authorization: window.localStorage.getItem("token"),
-        },
-      });
+      const { data: item } = await axios.delete(
+        `/api/items/${itemId}`
+        // {
+        //   headers: {
+        //     authorization: window.localStorage.getItem("token"),
+        //   },
+        // }
+      );
       dispatch(_removeItem(item));
     } catch (error) {
       console.log("Error deleting Item via thunk");

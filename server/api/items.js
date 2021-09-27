@@ -7,7 +7,7 @@ const {
 } = require("../db");
 
 const {
-  models: { Item },
+  models: { Item, Group },
 } = require("../db");
 
 module.exports = router;
@@ -17,6 +17,13 @@ router.post("/new/:orderId", async (req, res, next) => {
     const newItem = await Item.create(req.body);
     const theOrder = await Order.findByPk(req.params.orderId);
     await theOrder.addItem(newItem);
+
+    const theGroup = await Group.findOne({
+      where: {
+        name: req.body.groupName,
+      },
+    });
+    await theGroup.addItem(newItem);
     res.json(newItem);
   } catch (err) {
     next(err);
