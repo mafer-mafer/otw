@@ -1,16 +1,31 @@
 const router = require("express").Router();
 const {
-  models: { Order },
-} = require("../db");
-const {
-  models: { User },
-} = require("../db");
-
-const {
-  models: { Item, Group },
+  models: { Order, Item, User, Group },
 } = require("../db");
 
 module.exports = router;
+
+router.get("/:userId/:groupId", async (req, res, next) => {
+  try {
+    const orderItems = await Order.findAll({
+      attributes: ["id", "status", "dateOrdered"],
+      where: {
+        userId: req.params.userId,
+      },
+      include: [
+        {
+          model: Item,
+          where: {
+            groupId: req.params.groupId,
+          },
+        },
+      ],
+    });
+    res.send(orderItems);
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.post("/new/:orderId", async (req, res, next) => {
   try {

@@ -10,6 +10,7 @@ import singleOrder from "./singleOrder";
 import singleGroup from "./singleGroup";
 import items from "./items";
 import tracking from "./tracking";
+import singleGroupItems from "./singleGroup";
 
 const reducer = combineReducers({
   auth,
@@ -17,7 +18,7 @@ const reducer = combineReducers({
   allGroups,
   orders,
   singleOrder,
-  singleGroup,
+  singleGroupItems,
   items,
   tracking,
 });

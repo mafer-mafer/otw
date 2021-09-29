@@ -555,6 +555,52 @@ form button:active {
   background-color: #5f44e9;
 }
 
+/* Single Group */
+
+.group-items-container {
+  display: flex;
+  width: 70%;
+  margin: auto;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+#group-title {
+  font-size: 30px;
+  text-decoration-line: underline;
+  margin-bottom: 30px;
+  flex-grow: 1;
+}
+
+#group-view-type-button {
+  flex: 1 1 1;
+  background-color: #319bff;
+  margin: auto;
+  margin-top: 16px;
+  font-size: 17px;
+}
+
+#group-item-table {
+  width: 90%;
+  background-color: #64d8bd;
+  flex: 1 1 auto;
+  font-size: 14px;
+  margin: auto;
+}
+
+#group-item-table th {
+  background-color: #64d8bd;
+}
+
+#group-item-table td {
+  background-color: #68eccd;
+}
+
+#group-item-table tbody:hover td,
+#group-item-table tbody:hover th {
+  background-color: #64d8bd;
+}
+
 /* Your Orders */
 
 .orders-main-container {
