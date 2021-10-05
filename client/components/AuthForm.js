@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../store";
 import { countries } from "../../script/selections";
+import axios from "axios";
 
 export class AuthForm extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ export class AuthForm extends React.Component {
     };
     this.passSubmit = this.passSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.recoverPassword = this.recoverPassword.bind(this);
   }
 
   handleChange(e) {
@@ -46,6 +48,21 @@ export class AuthForm extends React.Component {
     } else if (purpose === "SignUp") {
       this.props.goAuth({ ...this.state }, "signup");
     }
+  }
+
+  recoverPassword() {
+    const recoveryEmail = async () => {
+      try {
+        let data = await axios.post(`/api/mail/send`, {
+          subject: "recover pw",
+          message: "hello mafer",
+        });
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    return recoveryEmail();
   }
 
   render() {
@@ -93,7 +110,6 @@ export class AuthForm extends React.Component {
               autoComplete={
                 purpose === "LogIn" ? "current-password" : "new-password"
               }
-              //type={purpose === "LogIn" ? "current-password" : "new-password"}
               value={this.state.password}
               onChange={handleChange}
               required
@@ -132,6 +148,11 @@ export class AuthForm extends React.Component {
               {purpose === "LogIn" ? "Log In" : "Sign Up"}
             </button>
           </div>
+          {purpose === "LogIn" ? (
+            <button className="yellow" onClick={this.recoverPassword}>
+              Forgot Password?
+            </button>
+          ) : null}
           {error && error.response && <div> {error.response.data} </div>}
         </form>
       </div>

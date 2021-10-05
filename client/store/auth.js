@@ -23,8 +23,24 @@ export const authenticate = (userData, method) => async (dispatch) => {
     const res = await axios.post(`/auth/${method}`, userData);
     window.localStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
+    if (method === "signup") {
+      signUpEmail();
+    }
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
+  }
+};
+
+const signUpEmail = async () => {
+  try {
+    let data = await axios.post(`/api/mail/send`, {
+      subject: "Welcome to K-On The Way!",
+      message: "hello mafer",
+      email: "",
+    });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
   }
 };
 

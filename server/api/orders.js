@@ -1,12 +1,7 @@
 const router = require("express").Router();
 const {
-  models: { Order },
+  models: { Order, User, Item },
 } = require("../db");
-const {
-  models: { User },
-} = require("../db");
-
-const Item = require("../db/models/Item");
 module.exports = router;
 
 router.get("/:userId", async (req, res, next) => {
