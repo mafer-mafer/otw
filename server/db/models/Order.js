@@ -41,6 +41,12 @@ const Order = db.define("order", {
   note: {
     type: Sequelize.STRING,
   },
+  hasShipped: {
+    type: Sequelize.BOOLEAN,
+  },
+  mailingCompany: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = Order;

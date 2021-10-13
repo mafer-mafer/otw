@@ -11,7 +11,7 @@ export class AuthForm extends React.Component {
       username: "",
       password: "",
       email: "",
-      birthday: "",
+      birthday: null,
       location: "",
     };
     this.passSubmit = this.passSubmit.bind(this);
@@ -85,6 +85,7 @@ export class AuthForm extends React.Component {
               />
             </div>
           ) : null}
+          <br></br>
           <div>
             <label htmlFor="username">Username:</label>&nbsp;&nbsp;
             <input
@@ -115,6 +116,7 @@ export class AuthForm extends React.Component {
               required
             />
           </div>
+          <br></br>
           {purpose === "SignUp" ? (
             <div>
               <label htmlFor="birthday">Birthday:</label>&nbsp;&nbsp;
@@ -148,11 +150,11 @@ export class AuthForm extends React.Component {
               {purpose === "LogIn" ? "Log In" : "Sign Up"}
             </button>
           </div>
-          {purpose === "LogIn" ? (
+          {/* {purpose === "LogIn" ? (
             <button className="yellow" onClick={this.recoverPassword}>
               Forgot Password?
             </button>
-          ) : null}
+          ) : null} */}
           {error && error.response && <div> {error.response.data} </div>}
         </form>
       </div>

@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import FormContainer from "./FormContainer";
 import { addNewOrder } from "../store/singleOrder";
-import { Link } from "react-router-dom";
 
 export class Home extends React.Component {
   constructor(props) {

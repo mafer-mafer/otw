@@ -1,5 +1,7 @@
 import axios from "axios";
 import history from "../history";
+import { welcomeEmail } from "../emails/welcome";
+import { userChange } from "../emails/userOrPwChange";
 
 const TOKEN = "token";
 const SET_AUTH = "SET_AUTH";
@@ -24,23 +26,10 @@ export const authenticate = (userData, method) => async (dispatch) => {
     window.localStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
     if (method === "signup") {
-      signUpEmail();
+      welcomeEmail(userData.username, userData.email);
     }
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
-  }
-};
-
-const signUpEmail = async () => {
-  try {
-    let data = await axios.post(`/api/mail/send`, {
-      subject: "Welcome to K-On The Way!",
-      message: "hello mafer",
-      email: "",
-    });
-    console.log(data);
-  } catch (error) {
-    console.log(error);
   }
 };
 
@@ -56,6 +45,7 @@ export const editProfile = (edited, func) => async (dispatch) => {
     window.localStorage.removeItem(TOKEN);
     window.localStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
+    userChange(edited.username, edited.email);
   } catch (error) {
     if (
       error.response.data ===

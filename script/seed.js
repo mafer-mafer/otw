@@ -115,7 +115,7 @@ async function seed() {
     GirlGroups.map((group) => {
       return Group.create({
         name: group,
-        groupType: "Girl Group",
+        groupType: "g",
       });
     })
   );
@@ -124,12 +124,10 @@ async function seed() {
     BoyGroups.map((group) => {
       return Group.create({
         name: group,
-        groupType: "Boy Group",
+        groupType: "b",
       });
     })
   );
-
-  //console.log("boyGroups are", boyGroups);
 
   await order1.addItem(item1);
   await order2.addItem(item2);
@@ -153,12 +151,6 @@ async function seed() {
   await item4.setGroup(girlGroups[1]);
 
   console.log(`seeded successfully`);
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
-  };
 }
 
 /*

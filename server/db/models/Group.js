@@ -8,7 +8,7 @@ const Group = db.define("group", {
     allowNull: false,
   },
   groupType: {
-    type: Sequelize.ENUM("Boy Group", "Girl Group"),
+    type: Sequelize.ENUM("b", "g"),
     allowNull: false,
   },
 });

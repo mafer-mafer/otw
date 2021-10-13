@@ -2,6 +2,8 @@ const { db } = require("./db");
 const PORT = process.env.PORT || 8080;
 const app = require("./app");
 const seed = require("../script/seed");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const init = async () => {
   try {

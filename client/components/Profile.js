@@ -59,6 +59,7 @@ export class Profile extends React.Component {
         {
           username: this.props.auth.username,
           password: this.state.currentPW,
+          email: this.props.auth.email,
         },
         this.state.newPW,
         this.showError

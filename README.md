@@ -12,6 +12,7 @@ Run:\
 `npm install`\
 `createdb otw`\
 `npm run seed`\
+add a file to the `server` folder that exports an object `SECRETS` with a `MAIL_KEY` and `MAIL_SECRET` key with the email and password you send notifications from \
 `npm start`
 
 ## Previews

@@ -85,7 +85,7 @@ export class SingleOrder extends React.Component {
                   <tbody>
                     <tr>
                       <th>Date Ordered</th>
-                      <th>Type</th>
+                      <th>Order Type</th>
                       <th>Status</th>
                     </tr>
                     <tr>
@@ -193,7 +193,7 @@ export class SingleOrder extends React.Component {
                           <tr>
                             <th>Type</th>
                             <th>Pre-Order</th>
-                            <th>Damage</th>
+                            <th>Damage?</th>
                           </tr>
                           <tr>
                             <td>{item.type}</td>
