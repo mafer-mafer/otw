@@ -49,8 +49,8 @@ add a file to the `server` folder that exports an object `SECRETS` with a `MAIL_
   <li>Axios</li>
   <li>Sequelize</li>
   <li>PostgreSQL</li>
+  <li>Nodemailer</li>
   <li>Bcrypt</li>
-  <li>OAuth</li>
   <li>Webpack</li>
   <li>Heroku</li>
 </ul>

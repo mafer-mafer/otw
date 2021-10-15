@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const nodeMailer = require("nodemailer");
-const SECRETS = require("../secrets.js");
+//const SECRETS = require("../secrets.js");
 
 module.exports = router;
 
@@ -10,8 +10,8 @@ router.post("/send", function (req, res) {
     port: 465,
     secure: true,
     auth: {
-      user: process.env.MAIL_KEY || SECRETS.MAIL_KEY,
-      pass: process.env.MAIL_SECRET || SECRETS.MAIL_SECRET,
+      user: process.env.MAIL_KEY, //|| SECRETS.MAIL_KEY,
+      pass: process.env.MAIL_SECRET, //|| SECRETS.MAIL_SECRET,
     },
   });
   let mailOptions = {
