@@ -6,10 +6,6 @@ const Item = db.define("item", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  groupName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
   type: {
     type: Sequelize.STRING,
     allowNull: false,

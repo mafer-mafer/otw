@@ -8,7 +8,7 @@ import { removeItem, editItem, addItem } from "../store/items";
 import { setGroups } from "../store/allGroups";
 import { setFaveGroups } from "../store/faveGroups";
 import { setTracking } from "../store/tracking";
-import { findGroupName } from "../store/groupName";
+import { findAllGroupNames } from "../store/groupName";
 
 export class SingleOrder extends React.Component {
   constructor() {
@@ -17,7 +17,6 @@ export class SingleOrder extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.trackOrder = this.trackOrder.bind(this);
-    // this.findName = this.findName.bind(this);
   }
 
   componentDidMount() {
@@ -27,10 +26,6 @@ export class SingleOrder extends React.Component {
       this.props.loadGroups();
     }
   }
-
-  // findName(id) {
-  //   return findGroupName(id);
-  // }
 
   handleSubmit(state) {
     this.props.newItem(state, this.props.order.id);
@@ -68,6 +63,9 @@ export class SingleOrder extends React.Component {
 
   render() {
     let order = this.props.order;
+    if (this.props.items.length && !this.props.groupName.length) {
+      this.props.getName(this.props.items);
+    }
     return (
       <div className="single-order-main-container">
         <div className="single-order-left">
@@ -183,7 +181,7 @@ export class SingleOrder extends React.Component {
             </div>
             <div className="single-order-items-container">
               {this.props.order.items && this.props.order.items.length ? (
-                order.items.map((item) => {
+                order.items.map((item, idx) => {
                   return (
                     <div key={item.id} className="single-order-item-container">
                       <table className="tables" id="single-order-item-table">
@@ -193,7 +191,7 @@ export class SingleOrder extends React.Component {
                             <th colSpan="2">Item Description</th>
                           </tr>
                           <tr>
-                            <td>{item.groupName}</td>
+                            <td>{this.props.groupName[idx]}</td>
                             <td colSpan="2">{item.name}</td>
                           </tr>
                           <tr>
@@ -254,6 +252,7 @@ const mapStateToProps = (state) => {
     faveGroups: state.faveGroups,
     allGroups: state.allGroups,
     tracking: state.tracking,
+    groupName: state.groupName,
   };
 };
 
@@ -268,7 +267,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
     getFaveGroups: (id) => dispatch(setFaveGroups(id)),
     loadGroups: () => dispatch(setGroups()),
     getTracking: (trackingNumber) => dispatch(setTracking(trackingNumber)),
-    getName: (id) => dispatch(findGroupName(id)),
+    getName: (items) => dispatch(findAllGroupNames(items)),
   };
 };
 

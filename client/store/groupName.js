@@ -21,6 +21,23 @@ export const findGroupName = (groupId) => {
   };
 };
 
+export const findAllGroupNames = (items) => {
+  return async (dispatch) => {
+    try {
+      let allNames = [];
+      for (let i = 0; i < items.length; i++) {
+        const { data } = await axios.get(
+          `/api/groups/name/${items[i].groupId}`
+        );
+        allNames.push(data);
+      }
+      dispatch(_setGroupName(allNames));
+    } catch (error) {
+      console.log("Error fetching groups items via thunk");
+    }
+  };
+};
+
 export default (state = [], action) => {
   switch (action.type) {
     case SET_GROUP_NAME:

@@ -9,7 +9,7 @@ export class NewItemForm extends React.Component {
       type: itemType[0],
       preOrder: "false",
       damage: "",
-      groupName: this.props.faveGroups[0].name || "",
+      groupId: this.props.faveGroups[0].id || "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.passSubmit = this.passSubmit.bind(this);
@@ -42,9 +42,8 @@ export class NewItemForm extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const { handleChange } = this;
-    const { name, type, preOrder, damage, groupName } = this.state;
+    const { name, type, preOrder, damage, groupId } = this.state;
 
     return (
       <div>
@@ -56,17 +55,17 @@ export class NewItemForm extends React.Component {
           </div>
           <br></br>
           <div className="new-order-field">
-            <label htmlFor="groupName">Group:</label>&nbsp;&nbsp;
+            <label htmlFor="groupId">Group:</label>&nbsp;&nbsp;
             <select
-              name="groupName"
+              name="groupId"
               onChange={handleChange}
-              value={groupName}
+              value={groupId}
               required
             >
               <option disabled>Favorite Groups</option>
               {this.props.faveGroups.map((group, idx) => {
                 return (
-                  <option value={group.name} key={idx}>
+                  <option value={group.id} key={idx}>
                     {group.name}
                   </option>
                 );
@@ -75,7 +74,7 @@ export class NewItemForm extends React.Component {
               {this.sortGroups(this.props.allGroups, this.props.faveGroups).map(
                 (group, idx) => {
                   return (
-                    <option value={group.name} key={idx}>
+                    <option value={group.id} key={idx}>
                       {group.name}
                     </option>
                   );
