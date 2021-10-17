@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../store";
 import { countries } from "../../script/selections";
-import axios from "axios";
+import { resetPassword } from "../store/auth";
 
 export class AuthForm extends React.Component {
   constructor(props) {
@@ -13,10 +13,12 @@ export class AuthForm extends React.Component {
       email: "",
       birthday: null,
       location: "",
+      passwordRecovery: false,
     };
     this.passSubmit = this.passSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.recoverPassword = this.recoverPassword.bind(this);
+    this.toggleRecovery = this.toggleRecovery.bind(this);
   }
 
   handleChange(e) {
@@ -35,34 +37,26 @@ export class AuthForm extends React.Component {
   }
 
   passSubmit(e) {
+    const { username, password, email, birthday, location } = this.state;
     e.preventDefault();
     const purpose = this.props.purpose;
     if (purpose === "LogIn") {
-      this.props.goAuth(
-        {
-          username: this.state.username,
-          password: this.state.password,
-        },
-        "login"
-      );
+      this.props.goAuth({ username, password }, "login");
     } else if (purpose === "SignUp") {
-      this.props.goAuth({ ...this.state }, "signup");
+      this.props.goAuth(
+        { username, password, email, birthday, location },
+        "signup"
+      );
     }
   }
 
-  recoverPassword() {
-    const recoveryEmail = async () => {
-      try {
-        let data = await axios.post(`/api/mail/send`, {
-          subject: "recover pw",
-          message: "hello mafer",
-        });
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    return recoveryEmail();
+  toggleRecovery() {
+    this.setState({ passwordRecovery: !this.state.passwordRecovery });
+  }
+
+  recoverPassword(e) {
+    e.preventDefault();
+    this.props.resetPW(this.state.email); //add func for showing error after!
   }
 
   render() {
@@ -70,93 +64,116 @@ export class AuthForm extends React.Component {
     const { error, purpose } = this.props;
     return (
       <div>
-        <form onSubmit={this.passSubmit}>
-          <h4 id="new-order-title">
-            {purpose === "LogIn" ? "Log In" : "Sign Up"}
-          </h4>
-          {purpose === "SignUp" ? (
+        {!this.state.passwordRecovery ? (
+          <form onSubmit={this.passSubmit}>
+            <h4 id="new-order-title">
+              {purpose === "LogIn" ? "Log In" : "Sign Up"}
+            </h4>
+            {purpose === "SignUp" ? (
+              <div>
+                <label htmlFor="email">Email:</label>&nbsp;&nbsp;
+                <input
+                  name="email"
+                  onChange={handleChange}
+                  value={this.state.email}
+                  required
+                />
+              </div>
+            ) : null}
+            <br></br>
             <div>
-              <label htmlFor="email">Email:</label>&nbsp;&nbsp;
+              <label htmlFor="username">Username:</label>&nbsp;&nbsp;
               <input
-                name="email"
+                name="username"
                 onChange={handleChange}
-                value={this.state.email}
+                value={this.state.username}
                 required
               />
             </div>
-          ) : null}
-          <br></br>
-          <div>
-            <label htmlFor="username">Username:</label>&nbsp;&nbsp;
-            <input
-              name="username"
-              onChange={handleChange}
-              value={this.state.username}
-              required
-            />
-          </div>
-          <br></br>
-          <div>
-            <label
-              htmlFor={
-                purpose === "LogIn" ? "current-password" : "new-password"
-              }
-            >
-              Password:
-            </label>
-            &nbsp;&nbsp;
-            <input
-              name={purpose === "LogIn" ? "current-password" : "new-password"}
-              type="password"
-              autoComplete={
-                purpose === "LogIn" ? "current-password" : "new-password"
-              }
-              value={this.state.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <br></br>
-          {purpose === "SignUp" ? (
             <div>
-              <label htmlFor="birthday">Birthday:</label>&nbsp;&nbsp;
+              <br></br>
+              <label
+                htmlFor={
+                  purpose === "LogIn" ? "current-password" : "new-password"
+                }
+              >
+                Password:
+              </label>
+              &nbsp;&nbsp;
               <input
-                type="date"
-                id="birthday"
-                name="birthday"
-                value={this.state.birthday}
+                name={purpose === "LogIn" ? "current-password" : "new-password"}
+                type="password"
+                autoComplete={
+                  purpose === "LogIn" ? "current-password" : "new-password"
+                }
+                value={this.state.password}
                 onChange={handleChange}
+                required
               />
             </div>
-          ) : null}
-          <br></br>
-          {purpose === "SignUp" ? (
+            {purpose === "SignUp" ? (
+              <div>
+                <br></br>
+                <label htmlFor="birthday">Birthday:</label>&nbsp;&nbsp;
+                <input
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  value={this.state.birthday}
+                  onChange={handleChange}
+                />
+              </div>
+            ) : null}
+            <br></br>
+            {purpose === "SignUp" ? (
+              <div>
+                <label htmlFor="location">Country:</label>&nbsp;&nbsp;
+                <select name="location" onChange={handleChange}>
+                  {countries.map((country, idx) => {
+                    return (
+                      <option
+                        value={`${country}`}
+                        key={idx}
+                      >{`${country}`}</option>
+                    );
+                  })}
+                </select>
+              </div>
+            ) : null}
             <div>
-              <label htmlFor="location">Country:</label>&nbsp;&nbsp;
-              <select name="location" onChange={handleChange}>
-                {countries.map((country, idx) => {
-                  return (
-                    <option
-                      value={`${country}`}
-                      key={idx}
-                    >{`${country}`}</option>
-                  );
-                })}
-              </select>
+              <button type="submit">
+                {purpose === "LogIn" ? "Log In" : "Sign Up"}
+              </button>
             </div>
-          ) : null}
-          <div>
-            <button type="submit">
-              {purpose === "LogIn" ? "Log In" : "Sign Up"}
-            </button>
-          </div>
-          {/* {purpose === "LogIn" ? (
-            <button className="yellow" onClick={this.recoverPassword}>
-              Forgot Password?
-            </button>
-          ) : null} */}
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>
+            {purpose === "LogIn" ? (
+              <button className="yellow" onClick={this.toggleRecovery}>
+                Forgot Password?
+              </button>
+            ) : null}
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+        ) : null
+        // <form onSubmit={this.recoverPassword}>
+        //   <h4 id="new-order-title">Recover Password</h4>
+        //   <div>
+        //     <label htmlFor="email">Email:</label>&nbsp;&nbsp;
+        //     <input
+        //       name="email"
+        //       onChange={handleChange}
+        //       value={this.state.email}
+        //       required
+        //     />
+        //   </div>
+        //   <br></br>
+        //   <div>
+        //     <button type="submit">Send Email for Password Recovery</button>
+        //   </div>
+        //   <button className="yellow" onClick={this.toggleRecovery}>
+        //     Cancel
+        //   </button>
+        //   {error && error.response && <div> {error.response.data} </div>}
+        // </form>
+        }
       </div>
     );
   }
@@ -178,6 +195,7 @@ const mapDispatch = (dispatch) => {
   return {
     goAuth: (username, password, formName) =>
       dispatch(authenticate(username, password, formName)),
+    resetPW: (email, func) => dispatch(resetPassword(email, func)),
   };
 };
 

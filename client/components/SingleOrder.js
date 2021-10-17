@@ -8,6 +8,7 @@ import { removeItem, editItem, addItem } from "../store/items";
 import { setGroups } from "../store/allGroups";
 import { setFaveGroups } from "../store/faveGroups";
 import { setTracking } from "../store/tracking";
+import { findGroupName } from "../store/groupName";
 
 export class SingleOrder extends React.Component {
   constructor() {
@@ -16,6 +17,7 @@ export class SingleOrder extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.trackOrder = this.trackOrder.bind(this);
+    // this.findName = this.findName.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +27,10 @@ export class SingleOrder extends React.Component {
       this.props.loadGroups();
     }
   }
+
+  // findName(id) {
+  //   return findGroupName(id);
+  // }
 
   handleSubmit(state) {
     this.props.newItem(state, this.props.order.id);
@@ -262,6 +268,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
     getFaveGroups: (id) => dispatch(setFaveGroups(id)),
     loadGroups: () => dispatch(setGroups()),
     getTracking: (trackingNumber) => dispatch(setTracking(trackingNumber)),
+    getName: (id) => dispatch(findGroupName(id)),
   };
 };
 

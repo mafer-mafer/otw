@@ -4,6 +4,7 @@ import { setSingleGroupItems } from "../store/singleGroup";
 import { Link } from "react-router-dom";
 import FormContainer from "./FormContainer";
 import { addNewOrder } from "../store/singleOrder";
+import { findGroupName } from "../store/groupName";
 
 export class GroupView extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export class GroupView extends React.Component {
 
   componentDidMount() {
     try {
+      this.props.getName(this.props.match.params.groupId);
       if (this.props.auth.id) {
         this.props.getGroup(
           this.props.match.params.groupId,
@@ -55,36 +57,31 @@ export class GroupView extends React.Component {
     const theOrders = this.props.theOrders;
     return (
       <div>
+        <div className="orders-inner-nav">
+          <div id="orders-nav-side">
+            <button
+              className="buttons"
+              id="group-view-type-button"
+              onClick={this.toggleView}
+            >
+              {this.state.active ? "View Past Orders" : "View Active Orders"}
+            </button>
+          </div>
+          <h3 id="group-title">
+            Incoming{" "}
+            {this.props.groupName.length ? this.props.groupName[0] : null} Items
+          </h3>
+          <div id="orders-nav-side">
+            <FormContainer
+              userId={this.props.auth.id}
+              handleSubmit={this.handleSubmit}
+              purpose={"NewOrder"}
+              buttonText="+New Order"
+            />
+          </div>
+        </div>
         {theOrders.length ? (
           <div>
-            <div className="orders-inner-nav">
-              <div id="orders-nav-side">
-                <button
-                  className="buttons"
-                  id="group-view-type-button"
-                  onClick={this.toggleView}
-                >
-                  {this.state.active
-                    ? "View Past Orders"
-                    : "View Active Orders"}
-                </button>
-              </div>
-              <h3 id="group-title">
-                Incoming{" "}
-                {theOrders.length
-                  ? theOrders[0].items[0].groupName + " "
-                  : null}
-                Items
-              </h3>
-              <div id="orders-nav-side">
-                <FormContainer
-                  userId={this.props.auth.id}
-                  handleSubmit={this.handleSubmit}
-                  purpose={"NewOrder"}
-                  buttonText="+New Order"
-                />
-              </div>
-            </div>
             {this.activeFilter(theOrders).map((order) => {
               return order.items.map((item) => {
                 return (
@@ -135,6 +132,7 @@ const mapStateToProps = (state) => {
     auth: state.auth,
     isLoggedIn: !!state.auth.id,
     theOrders: state.singleGroupItems,
+    groupName: state.groupName,
   };
 };
 
@@ -144,6 +142,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
       dispatch(setSingleGroupItems(groupId, userId)),
     createOrder: (newOrderData, user) =>
       dispatch(addNewOrder(newOrderData, user, history)),
+    getName: (id) => dispatch(findGroupName(id)),
   };
 };
 

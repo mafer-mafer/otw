@@ -11,6 +11,7 @@ import singleGroup from "./singleGroup";
 import items from "./items";
 import tracking from "./tracking";
 import singleGroupItems from "./singleGroup";
+import groupName from "./groupName";
 
 const reducer = combineReducers({
   auth,
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   singleGroupItems,
   items,
   tracking,
+  groupName,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

@@ -13,7 +13,6 @@ export const setSingleGroupItems = (groupId, userId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/items/${userId}/${groupId}`);
-      console.log("data is", data);
       dispatch(_setSingleGroup(data));
     } catch (error) {
       console.log("Error fetching groups items via thunk");

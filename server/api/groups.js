@@ -63,7 +63,7 @@ router.get("/:id", async (req, res, next) => {
 router.get("/name/:id", async (req, res, next) => {
   try {
     const group = await Group.findByPk(req.params.id);
-    res.json(group);
+    res.json(group.name);
   } catch (err) {
     next(err);
   }

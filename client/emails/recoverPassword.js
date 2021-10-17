@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+import axios from "axios";
+export const resetPasswordEmail = async (username, email, link) => {
+  try {
+    let data = await axios.post(`/api/mail/send`, {
+      email: email,
+      subject: "Reset Password - K-On The Way!",
+      text: "Link for resetting your password.",
+      html: `<!DOCTYPE html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width" />
@@ -124,7 +131,7 @@
         visibility: hidden;
         width: 0;
       "
-      >Your K-On The Way! application has been accepted!</span
+      >Reset Password - K-On The Way!</span
     >
     <table
       role="presentation"
@@ -253,7 +260,7 @@
                             margin-bottom: 15px;
                           "
                         >
-                          Hi Kpop Collector,
+                          Hi ${username},
                         </p>
                         <p
                           style="
@@ -323,7 +330,7 @@
                                         bgcolor="#3498db"
                                       >
                                         <a
-                                          href=""
+                                          href="${link}"
                                           target="_blank"
                                           style="
                                             border-radius: 15px;
@@ -519,3 +526,10 @@
     </table>
   </body>
 </html>
+`,
+    });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -29,6 +29,9 @@ const User = db.define("user", {
   location: {
     type: Sequelize.STRING,
   },
+  emailValidated: {
+    type: Sequelize.BOOLEAN,
+  },
 });
 
 module.exports = User;

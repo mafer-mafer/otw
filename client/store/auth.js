@@ -76,6 +76,18 @@ export const editPassword = (currentData, newPW, func) => async (dispatch) => {
   }
 };
 
+export const resetPassword = (email, func) => async (dispatch) => {
+  try {
+    window.localStorage.removeItem(TOKEN);
+    const { data } = await axios.get(`/api/users/${email}`);
+
+    //let link
+    //resetPasswordEmail(data.username, email, link);
+  } catch (error) {
+    func(error.response.data);
+  }
+};
+
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
   history.push("/");
