@@ -36,7 +36,7 @@ export class Groups extends React.Component {
       <div className="groups-main-container">
         <div className="groups-inner-nav">
           <div id="groups-nav-side"></div>
-          <h3 className="groups-title">Groups I Collect</h3>
+          <h3 className="title">Groups I Collect</h3>
           <div id="groups-nav-side">
             <FormContainer
               userId={this.props.auth.id}
@@ -114,7 +114,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getFaveGroups: (id) => dispatch(setFaveGroups(id)),
     loadGroups: () => dispatch(setGroups()),
-    addFavorite: (groupName, user) => dispatch(addFaveGroup(groupName, user)),
+    addFavorite: (groupId, user) => dispatch(addFaveGroup(groupId, user)),
     removeFavorite: (group, user) => dispatch(removeFaveGroup(group, user)),
   };
 };

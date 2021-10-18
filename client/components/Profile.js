@@ -85,7 +85,6 @@ export class Profile extends React.Component {
   }
 
   render() {
-    console.log("state is", this.state);
     const {
       username,
       email,
@@ -97,7 +96,7 @@ export class Profile extends React.Component {
     } = this.state;
     return (
       <div className="profile-main-container">
-        <h3 className="groups-title">Profile Settings</h3>
+        <h3 className="title">Profile Settings</h3>
         <h3>♥♥♥</h3>
         <div className="profile-info-container">
           <div className="profile-info-inner">

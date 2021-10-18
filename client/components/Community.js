@@ -4,7 +4,7 @@ export class Community extends React.Component {
   render() {
     return (
       <div>
-        <h3 id="new-order-title">Community</h3>
+        <h3 className="form-title">Community</h3>
         <h4 id="home-discord-subtitle">✨Join our Discord Community!✨</h4>
         <div id="home-comm-list">
           <ul>
@@ -17,9 +17,7 @@ export class Community extends React.Component {
           </ul>
         </div>
         <a href="https://discord.gg/VFVypKebxy" target="_blank">
-          <button className="buttons" id="home-discord-button">
-            Join Here!
-          </button>
+          <button className="buttons purple">Join Here!</button>
         </a>
       </div>
     );

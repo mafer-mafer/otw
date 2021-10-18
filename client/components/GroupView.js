@@ -59,15 +59,11 @@ export class GroupView extends React.Component {
       <div>
         <div className="orders-inner-nav">
           <div id="orders-nav-side">
-            <button
-              className="buttons"
-              id="group-view-type-button"
-              onClick={this.toggleView}
-            >
+            <button className="buttons blue" onClick={this.toggleView}>
               {this.state.active ? "View Past Orders" : "View Active Orders"}
             </button>
           </div>
-          <h3 id="group-title">
+          <h3 className="title">
             Incoming{" "}
             {this.props.groupName.length ? this.props.groupName[0] : null} Items
           </h3>

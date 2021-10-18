@@ -93,15 +93,11 @@ export class Orders extends React.Component {
       <div className="orders-main-container">
         <div className="orders-inner-nav">
           <div id="orders-nav-side">
-            <button
-              className="buttons"
-              id="orders-view-type"
-              onClick={this.toggleView}
-            >
+            <button className="buttons mint" onClick={this.toggleView}>
               {this.state.active ? "View Past Orders" : "View Active Orders"}
             </button>
           </div>
-          <h3 className="orders-title">Your Incoming Orders</h3>
+          <h3 className="title">Your Incoming Orders</h3>
           <div id="orders-nav-side">
             <FormContainer
               userId={this.props.auth.id}

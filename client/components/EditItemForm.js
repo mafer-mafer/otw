@@ -47,7 +47,7 @@ export class EditItemForm extends React.Component {
 
     return (
       <div>
-        <h4 id="new-order-title">Edit Item</h4>
+        <h4 className="form-title">Edit Item</h4>
         <form onSubmit={this.passSubmit}>
           <div className="new-order-field">
             <label htmlFor="name">Item Description:</label>&nbsp;&nbsp;

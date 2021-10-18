@@ -69,14 +69,10 @@ router.get("/name/:id", async (req, res, next) => {
   }
 });
 
-router.put("/:groupName/:userId", async (req, res, next) => {
+router.put("/:groupId/:userId", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);
-    const group = await Group.findOne({
-      where: {
-        name: req.params.groupName,
-      },
-    });
+    const group = await Group.findByPk(req.params.groupId);
     await user.addGroup(group);
     res.send(group);
   } catch (err) {

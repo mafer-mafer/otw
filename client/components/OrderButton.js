@@ -11,21 +11,21 @@ export class OrderButton extends React.Component {
       <button
         className={classNames(
           "buttons",
-          { "orders-button-new": purpose === "NewOrder" },
-          { "home-button-new": purpose === "NewOrderHome" },
+          { yellow: purpose === "NewOrder" },
+          { purple: purpose === "NewOrderHome" },
           {
-            "single-order-button-edit": purpose === "EditOrder",
+            "blue edit-order-button": purpose === "EditOrder",
           },
           {
-            "single-order-item-button-edit": purpose === "EditItem",
+            "blue single-order-item-button-edit": purpose === "EditItem",
           },
           {
-            "single-order-item-button-new": purpose === "NewItem",
+            "yellow single-order-item-button-new": purpose === "NewItem",
           },
-          { "groups-button-edit": purpose === "EditGroups" },
-          { "home-button-auth": purpose === "LogIn" },
-          { "home-button-auth": purpose === "SignUp" },
-          { "home-button-comm": purpose === "Community" }
+          { purple: purpose === "EditGroups" },
+          { "purple home-button-auth": purpose === "LogIn" },
+          { "purple home-button-auth": purpose === "SignUp" },
+          { purple: purpose === "Community" }
         )}
         onClick={showModal}
         ref={buttonRef}

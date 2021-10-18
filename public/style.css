@@ -111,6 +111,14 @@ ul li {
   background-color: #5f44e9;
 }
 
+.blue {
+  background-color: #319bff;
+}
+
+.blue:hover {
+  background-color: #238ff5;
+}
+
 /* All Tables */
 
 .tables {
@@ -167,10 +175,21 @@ form button {
   background-color: #694aff;
 }
 
+form button:hover {
+  background-color: #5f44e9;
+}
+
 form button:active {
   box-shadow: -1 5px #ff35dc;
   transform: translateY(4px);
   background-color: #5f44e9;
+}
+
+.form-title {
+  margin-bottom: 50px;
+  text-decoration-line: underline;
+  font-size: 30px;
+  margin-top: 5px;
 }
 
 /* Navigation */
@@ -221,11 +240,6 @@ form button:active {
   font-size: 30px;
   font-weight: bold;
 }
-/* unsure if keeping
-#nav-smaller {
-  font-size: 16px;
-  margin: 1px;
-} */
 
 /* After Header */
 
@@ -233,6 +247,12 @@ form button:active {
   flex: 9 8 auto;
   overflow: scroll;
   height: 100%;
+}
+
+.title {
+  flex-grow: 1;
+  font-size: 30px;
+  text-decoration-line: underline;
 }
 
 /* Home */
@@ -261,59 +281,16 @@ form button:active {
   display: block;
 }
 
-.home-button-new {
-  flex: 1 1 1;
-  background-color: #694aff;
-  width: auto;
-  padding: 15px 25px;
-  margin: 0px;
-}
-
-.home-button-new:hover {
-  background-color: #5f44e9;
-}
-
-.home-button-comm {
-  flex: 1 1 1;
-  background-color: #694aff;
-  width: auto;
-  padding: 15px 25px;
-  margin: 0px;
-}
-
-.home-button-comm:hover {
-  background-color: #5f44e9;
-}
-
 #home-comm-list {
   margin: auto;
   display: flex;
   justify-content: center;
 }
 
-#home-discord-button {
-  flex: 1 1 1;
-  background-color: #694aff;
-  width: auto;
-  padding: 15px 25px;
-  margin: 0px;
-  margin-top: 15px;
-}
-
-#home-discord-button:hover {
-  background-color: #5f44e9;
-}
-
 .home-button-auth {
   flex: 1 1 1;
-  background-color: #694aff;
-  width: auto;
   padding: 15px 25px;
   margin: 0px;
-}
-
-.home-button-auth:hover {
-  background-color: #5f44e9;
 }
 
 #home-table-left {
@@ -374,25 +351,6 @@ form button:active {
   margin-bottom: 20px;
   overflow: hidden;
   justify-content: space-between;
-}
-
-.groups-title {
-  flex-grow: 1;
-  font-size: 30px;
-  text-decoration-line: underline;
-}
-
-.groups-button-edit {
-  flex: 1 1 auto;
-  color: #fff;
-  background-color: #694aff;
-  margin: 10px;
-  margin-top: 17px;
-  width: auto;
-}
-
-.groups-button-edit:hover {
-  background-color: #5f44e9;
 }
 
 #groups-nav-side {
@@ -488,13 +446,6 @@ form button:active {
   margin: 20px;
 }
 
-#groups-edit-title {
-  margin-bottom: 50px;
-  text-decoration-line: underline;
-  font-size: 30px;
-  margin-top: 5px;
-}
-
 .edit-groups-faves-container {
   display: flex;
   flex-flow: row wrap;
@@ -565,21 +516,6 @@ form button:active {
   margin-bottom: 25px;
 }
 
-#group-title {
-  font-size: 30px;
-  text-decoration-line: underline;
-  margin-bottom: 30px;
-  flex-grow: 1;
-}
-
-#group-view-type-button {
-  flex: 1 1 1;
-  background-color: #319bff;
-  margin: auto;
-  margin-top: 16px;
-  font-size: 17px;
-}
-
 #group-item-table {
   width: 90%;
   background-color: #64d8bd;
@@ -621,42 +557,9 @@ form button:active {
   justify-content: space-between;
 }
 
-#orders-view-type {
-  flex: 1 1 1;
-  color: black;
-  background-color: #64d8bd;
-  margin: auto;
-  margin-top: 16px;
-  font-size: 17px;
-  text-shadow: -1px 1px white;
-}
-
-#orders-view-type:hover {
-  background-color: #68eccd;
-}
-
-.orders-title {
-  flex-grow: 1;
-  font-size: 30px;
-  text-decoration-line: underline;
-}
-
 #orders-nav-side {
   flex: 1 1 auto;
   width: 10%;
-}
-
-.orders-button-new {
-  flex: 1 1 1;
-  color: black;
-  background-color: #ffbb00;
-  width: auto;
-  text-shadow: 1px 1px white;
-  font-size: 17px;
-}
-
-.orders-button-new:hover {
-  background-color: #fca519;
 }
 
 .orders-body {
@@ -732,8 +635,6 @@ form button:active {
   background-color: #eac5f5;
 }
 
-/* New Order */
-
 /* Single Order */
 
 .single-order-main-container {
@@ -776,6 +677,7 @@ form button:active {
 
 .single-order-left-order-container {
   width: 100%;
+  margin-left: 8px;
 }
 
 .single-order-hearts {
@@ -792,25 +694,15 @@ form button:active {
   flex-basis: auto;
 }
 
-.single-order-button-edit {
-  flex: 0 0 auto;
-  color: #fff;
-  background-color: #319bff;
-  font-size: 13px;
-}
-
-.single-order-button-edit:hover {
-  background-color: #1c82e2;
-}
-
-#single-order-button-del {
-  flex: 0 0 auto;
-  color: #fff;
-  background-color: #694aff;
+.edit-order-button {
   font-size: 12px;
 }
 
-#single-order-button-del:hover {
+#single-order-del {
+  font-size: 12px;
+}
+
+#single-order-del:hover {
   background-color: rgb(138, 118, 118);
   text-decoration-line: line-through;
   box-shadow: -9px 9px black;
@@ -864,16 +756,8 @@ form button:active {
 }
 .single-order-item-button-new {
   flex-grow: 1;
-  background-color: #ffbb00;
   margin-bottom: 20px;
-  color: #000000;
-  text-shadow: -1px 1px white;
   padding: 8px 16px;
-  font-size: 15px;
-}
-
-.single-order-item-button-new:hover {
-  background-color: #fca519;
 }
 
 .single-order-items-container {
@@ -917,19 +801,13 @@ form button:active {
 
 .single-order-item-button-edit {
   flex-grow: 1;
-  background-color: #319bff;
   padding: 8px 16px;
   width: 95%;
   font-size: 12px;
 }
 
-.single-order-item-button-edit:hover {
-  background-color: #1c82e2;
-}
-
 #single-order-item-del {
   flex-grow: 1;
-  background-color: #694aff;
   padding: 8px 16px;
   width: 90%;
   font-size: 12px;
@@ -1034,13 +912,6 @@ form button:active {
 .type-radio {
   align-content: center;
   text-align: center;
-}
-
-#new-order-title {
-  margin-bottom: 30px;
-  text-decoration-line: underline;
-  font-size: 23px;
-  margin-top: 5px;
 }
 
 .new-order-field {

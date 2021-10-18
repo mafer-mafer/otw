@@ -41,10 +41,10 @@ export const setFaveGroups = (id) => {
   };
 };
 
-export const addFaveGroup = (groupName, user) => {
+export const addFaveGroup = (groupId, user) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/groups/${groupName}/${user}`, {
+      const { data } = await axios.put(`/api/groups/${groupId}/${user}`, {
         headers: {
           authorization: window.localStorage.getItem("token"),
         },

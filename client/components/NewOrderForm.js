@@ -44,7 +44,7 @@ export class NewOrderForm extends React.Component {
 
     return (
       <div>
-        <h4 id="new-order-title">Add New Order</h4>
+        <h4 className="form-title">Add New Order</h4>
         <form onSubmit={this.passSubmit}>
           <div className="new-order-field">
             <label htmlFor="type">Order Type:</label>&nbsp;&nbsp;

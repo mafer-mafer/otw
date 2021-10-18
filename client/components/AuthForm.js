@@ -64,115 +64,118 @@ export class AuthForm extends React.Component {
     const { error, purpose } = this.props;
     return (
       <div>
-        {!this.state.passwordRecovery ? (
-          <form onSubmit={this.passSubmit}>
-            <h4 id="new-order-title">
-              {purpose === "LogIn" ? "Log In" : "Sign Up"}
-            </h4>
-            {purpose === "SignUp" ? (
+        {
+          !this.state.passwordRecovery ? (
+            <form onSubmit={this.passSubmit}>
+              <h4 className="form-title">
+                {purpose === "LogIn" ? "Log In" : "Sign Up"}
+              </h4>
+              {purpose === "SignUp" ? (
+                <div>
+                  <label htmlFor="email">Email:</label>&nbsp;&nbsp;
+                  <input
+                    name="email"
+                    onChange={handleChange}
+                    value={this.state.email}
+                    required
+                  />
+                </div>
+              ) : null}
+              <br></br>
               <div>
-                <label htmlFor="email">Email:</label>&nbsp;&nbsp;
+                <label htmlFor="username">Username:</label>&nbsp;&nbsp;
                 <input
-                  name="email"
+                  name="username"
                   onChange={handleChange}
-                  value={this.state.email}
+                  value={this.state.username}
                   required
                 />
               </div>
-            ) : null}
-            <br></br>
-            <div>
-              <label htmlFor="username">Username:</label>&nbsp;&nbsp;
-              <input
-                name="username"
-                onChange={handleChange}
-                value={this.state.username}
-                required
-              />
-            </div>
-            <div>
-              <br></br>
-              <label
-                htmlFor={
-                  purpose === "LogIn" ? "current-password" : "new-password"
-                }
-              >
-                Password:
-              </label>
-              &nbsp;&nbsp;
-              <input
-                name={purpose === "LogIn" ? "current-password" : "new-password"}
-                type="password"
-                autoComplete={
-                  purpose === "LogIn" ? "current-password" : "new-password"
-                }
-                value={this.state.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            {purpose === "SignUp" ? (
               <div>
                 <br></br>
-                <label htmlFor="birthday">Birthday:</label>&nbsp;&nbsp;
+                <label
+                  htmlFor={
+                    purpose === "LogIn" ? "current-password" : "new-password"
+                  }
+                >
+                  Password:
+                </label>
+                &nbsp;&nbsp;
                 <input
-                  type="date"
-                  id="birthday"
-                  name="birthday"
-                  value={this.state.birthday}
+                  name={
+                    purpose === "LogIn" ? "current-password" : "new-password"
+                  }
+                  type="password"
+                  autoComplete={
+                    purpose === "LogIn" ? "current-password" : "new-password"
+                  }
+                  value={this.state.password}
                   onChange={handleChange}
+                  required
                 />
               </div>
-            ) : null}
-            <br></br>
-            {purpose === "SignUp" ? (
+              {purpose === "SignUp" ? (
+                <div>
+                  <br></br>
+                  <label htmlFor="birthday">Birthday:</label>&nbsp;&nbsp;
+                  <input
+                    type="date"
+                    id="birthday"
+                    name="birthday"
+                    value={this.state.birthday}
+                    onChange={handleChange}
+                  />
+                </div>
+              ) : null}
+              <br></br>
+              {purpose === "SignUp" ? (
+                <div>
+                  <label htmlFor="location">Country:</label>&nbsp;&nbsp;
+                  <select name="location" onChange={handleChange}>
+                    {countries.map((country, idx) => {
+                      return (
+                        <option
+                          value={`${country}`}
+                          key={idx}
+                        >{`${country}`}</option>
+                      );
+                    })}
+                  </select>
+                </div>
+              ) : null}
               <div>
-                <label htmlFor="location">Country:</label>&nbsp;&nbsp;
-                <select name="location" onChange={handleChange}>
-                  {countries.map((country, idx) => {
-                    return (
-                      <option
-                        value={`${country}`}
-                        key={idx}
-                      >{`${country}`}</option>
-                    );
-                  })}
-                </select>
+                <button type="submit">
+                  {purpose === "LogIn" ? "Log In" : "Sign Up"}
+                </button>
               </div>
-            ) : null}
-            <div>
-              <button type="submit">
-                {purpose === "LogIn" ? "Log In" : "Sign Up"}
-              </button>
-            </div>
-            {purpose === "LogIn" ? (
-              <button className="yellow" onClick={this.toggleRecovery}>
-                Forgot Password?
-              </button>
-            ) : null}
-            {error && error.response && <div> {error.response.data} </div>}
-          </form>
-        ) : null
-        // <form onSubmit={this.recoverPassword}>
-        //   <h4 id="new-order-title">Recover Password</h4>
-        //   <div>
-        //     <label htmlFor="email">Email:</label>&nbsp;&nbsp;
-        //     <input
-        //       name="email"
-        //       onChange={handleChange}
-        //       value={this.state.email}
-        //       required
-        //     />
-        //   </div>
-        //   <br></br>
-        //   <div>
-        //     <button type="submit">Send Email for Password Recovery</button>
-        //   </div>
-        //   <button className="yellow" onClick={this.toggleRecovery}>
-        //     Cancel
-        //   </button>
-        //   {error && error.response && <div> {error.response.data} </div>}
-        // </form>
+              {purpose === "LogIn" ? (
+                <button className="yellow" onClick={this.toggleRecovery}>
+                  Forgot Password?
+                </button>
+              ) : null}
+              {error && error.response && <div> {error.response.data} </div>}
+            </form>
+          ) : null
+          // <form onSubmit={this.recoverPassword}>
+          //   <h4 id="new-order-title">Recover Password</h4>
+          //   <div>
+          //     <label htmlFor="email">Email:</label>&nbsp;&nbsp;
+          //     <input
+          //       name="email"
+          //       onChange={handleChange}
+          //       value={this.state.email}
+          //       required
+          //     />
+          //   </div>
+          //   <br></br>
+          //   <div>
+          //     <button type="submit">Send Email for Password Recovery</button>
+          //   </div>
+          //   <button className="yellow" onClick={this.toggleRecovery}>
+          //     Cancel
+          //   </button>
+          //   {error && error.response && <div> {error.response.data} </div>}
+          // </form>
         }
       </div>
     );

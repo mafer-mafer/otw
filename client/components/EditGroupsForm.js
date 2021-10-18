@@ -4,7 +4,7 @@ export class EditGroupsForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "(G)I-dle",
+      selected: 1,
     };
     this.handleChange = this.handleChange.bind(this);
     this.sortGroups = this.sortGroups.bind(this);
@@ -17,7 +17,6 @@ export class EditGroupsForm extends React.Component {
   }
 
   addFavorite() {
-    console.log(this.state.selected, this.props.userId);
     this.props.addFaveGroup(this.state.selected, this.props.userId);
   }
 
@@ -44,7 +43,7 @@ export class EditGroupsForm extends React.Component {
 
     return (
       <div className="edit-groups-form-main">
-        <h4 id="groups-edit-title">Edit Favorite Groups</h4>
+        <h4 className="form-title">Edit Favorite Groups</h4>
         {this.props.allGroups ? (
           <div className="groups-add-container">
             <div>
@@ -61,7 +60,7 @@ export class EditGroupsForm extends React.Component {
               >
                 {this.sortGroups(this.props.allGroups).map((group, idx) => {
                   return (
-                    <option value={group.name} key={idx}>
+                    <option value={group.id} key={idx}>
                       {group.name}
                     </option>
                   );
@@ -69,11 +68,7 @@ export class EditGroupsForm extends React.Component {
               </select>
             </div>
 
-            <button
-              className="buttons"
-              id="groups-button-add"
-              onClick={this.addFavorite}
-            >
+            <button className="buttons purple" onClick={this.addFavorite}>
               +Add Group!
             </button>
           </div>

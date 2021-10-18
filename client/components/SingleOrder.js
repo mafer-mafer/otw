@@ -143,8 +143,8 @@ export class SingleOrder extends React.Component {
                   />
                   <div id="form-container-div">
                     <button
-                      className="buttons"
-                      id="single-order-button-del"
+                      className="buttons purple"
+                      id="single-order-del"
                       onClick={() => this.handleDelete("Order")}
                     >
                       -Delete Order
@@ -219,7 +219,7 @@ export class SingleOrder extends React.Component {
                         />
                         <div id="form-container-div">
                           <button
-                            className="buttons"
+                            className="buttons purple"
                             id="single-order-item-del"
                             onClick={() => this.handleDelete("Item", item.id)}
                           >
