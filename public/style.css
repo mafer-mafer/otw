@@ -180,7 +180,7 @@ form button:hover {
 }
 
 form button:active {
-  box-shadow: -1 5px #ff35dc;
+  box-shadow: -1px 5px #ff35dc;
   transform: translateY(4px);
   background-color: #5f44e9;
 }
